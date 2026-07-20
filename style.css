@@ -3941,5 +3941,222 @@ input[type="range"],
 .reveal-delay-3 { transition-delay: 0.24s; }
 .reveal-delay-4 { transition-delay: 0.32s; }
 
+/* ─────────────────────────────────────────────────────────────
+   ULTRA-PREMIUM WHY SECTION STYLES
+   ───────────────────────────────────────────────────────────── */
+
+.why-premium-section {
+    padding: 100px 0;
+    background: var(--color-surface);
+    position: relative;
+}
+
+.why-premium-header {
+    max-width: 820px;
+    margin: 0 auto 52px auto;
+    text-align: center;
+}
+
+.why-premium-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+    margin: 0 0 16px 0;
+}
+
+.why-premium-desc {
+    font-size: 1.08rem;
+    color: #64748b;
+    line-height: 1.65;
+    margin: 0;
+}
+
+.why-premium-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    align-items: stretch;
+}
+
+.why-premium-card {
+    background: #ffffff;
+    border-radius: 28px;
+    padding: 36px;
+    border: 1.5px solid rgba(15, 23, 42, 0.06);
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.03);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 440px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.why-premium-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 24px 50px rgba(15, 23, 42, 0.09);
+    border-color: rgba(5, 150, 105, 0.3);
+}
+
+/* Has Background Image Card */
+.why-premium-card.has-bg-image {
+    background: #061e14;
+    color: #ffffff;
+}
+
+.why-card-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.why-premium-card.has-bg-image:hover .why-card-bg {
+    transform: scale(1.08);
+}
+
+.why-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(3, 22, 14, 0.96) 0%, rgba(3, 22, 14, 0.55) 50%, rgba(3, 22, 14, 0.2) 100%);
+}
+
+.why-card-top {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.why-card-icon-box {
+    width: 50px;
+    height: 50px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.why-card-icon-box.glass {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.why-card-icon-box.neon {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-neon-yellow);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.why-glass-badge {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 9999px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.why-card-bottom {
+    position: relative;
+    z-index: 2;
+    margin-top: auto;
+}
+
+.why-premium-card.has-bg-image .why-card-bottom h3 {
+    color: #ffffff;
+}
+
+.why-premium-card.has-bg-image .why-card-bottom p {
+    color: rgba(255, 255, 255, 0.88);
+}
+
+.why-card-bottom h3 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin: 0 0 10px 0;
+    line-height: 1.25;
+}
+
+.why-card-bottom p {
+    font-size: 0.96rem;
+    line-height: 1.6;
+    margin: 0 0 20px 0;
+}
+
+.why-action-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-neon-yellow);
+    cursor: pointer;
+    transition: gap 0.3s ease;
+}
+
+.why-premium-card:hover .why-action-link {
+    gap: 12px;
+}
+
+/* Dark Luxe Card */
+.why-premium-card.dark-luxe {
+    background: linear-gradient(145deg, #0f172a, #042416);
+    color: #ffffff;
+    border: none;
+}
+
+.why-premium-card.dark-luxe h3 {
+    color: #ffffff;
+}
+
+.why-premium-card.dark-luxe p {
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.why-neon-badge {
+    background: rgba(219, 252, 73, 0.15);
+    border: 1px solid rgba(219, 252, 73, 0.3);
+    color: var(--color-neon-yellow);
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 9999px;
+}
+
+.why-luxe-footer {
+    padding-top: 14px;
+    border-top: 1px dashed rgba(255, 255, 255, 0.15);
+}
+
+.why-luxe-metric {
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: var(--color-neon-yellow);
+}
+
+@media (max-width: 1024px) {
+    .why-premium-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+}
+
+
 
 

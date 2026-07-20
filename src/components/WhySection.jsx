@@ -1,65 +1,96 @@
 import React from 'react';
-import { Zap, Shield, ArrowUpRight, Layers, Activity } from 'lucide-react';
+import { Zap, Shield, Compass, ArrowUpRight, CheckCircle2 } from 'lucide-react';
 
 export default function WhySection({ onStartEval }) {
   return (
-    <section id="why" className="about-solarion-section">
-      <div className="container container-about-solarion">
-        {/* Left Column: Interactive Bento Cards */}
-        <div className="about-solarion-left">
-          <div className="bento-card-why reveal-on-scroll reveal-delay-1">
-            <div className="bento-card-header">
-              <div className="bento-icon-box green">
-                <Zap size={22} />
-              </div>
-              <span className="bento-badge-chip">
-                <Layers size={13} style={{ marginRight: 4, display: 'inline-block', verticalAlign: 'middle' }} />
-                SECTEURS D'ACTIVITÉ
-              </span>
-            </div>
-            <div className="bento-card-body">
-              <h4>Évaluation sectorielle</h4>
-              <p>Agriculture, foresterie, transport, industrie et milieu communautaire : une cartographie des dynamiques du territoire.</p>
-            </div>
-            <div className="bento-card-footer">
-              <span className="bento-metric-text">5 secteurs clés évalués</span>
-            </div>
-          </div>
-
-          <div className="bento-card-why accent reveal-on-scroll reveal-delay-2">
-            <div className="bento-card-header">
-              <div className="bento-icon-box dark">
-                <Shield size={22} />
-              </div>
-              <span className="bento-badge-chip dark">
-                <Activity size={13} style={{ marginRight: 4, display: 'inline-block', verticalAlign: 'middle' }} />
-                MESURE D'IMPACT
-              </span>
-            </div>
-            <div className="bento-card-body">
-              <h4>Évaluation d'activités</h4>
-              <p>Formations, projets, concertations et initiatives locales : mesurez les retombées réelles et le niveau d'engagement.</p>
-            </div>
-            <div className="bento-card-footer">
-              <span className="bento-metric-text">Indicateurs environnementaux et sociaux</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Right Column: Editorial Content */}
-        <div className="about-solarion-right reveal-on-scroll reveal-delay-3">
-          <h2 className="about-title-solarion">
+    <section id="why" className="why-premium-section">
+      <div className="container why-premium-container">
+        {/* Editorial Header */}
+        <div className="why-premium-header reveal-on-scroll">
+          <h2 className="why-premium-title">
             Un outil participatif au service de la transition de la <span className="highlight-text-gradient">MRC de L'Érable</span>.
           </h2>
-
-          <p className="about-desc-solarion">
-            Initiée par la CDC de L'Érable, cette plateforme permet d'évaluer, suivre et coordonner les actions socioclimatiques des 24 457 habitants et des organisations d'un territoire à 60 % forestier et 31 % agricole.
+          <p className="why-premium-desc">
+            Initiée par la CDC de L'Érable, cette plateforme accompagne citoyens, entreprises et institutions pour évaluer, suivre et coordonner les actions socioclimatiques à l'échelle du territoire.
           </p>
+        </div>
 
-          <button onClick={onStartEval} className="btn-about-solarion-capsule group">
-            <span>Évaluer mon impact environnemental</span>
-            <ArrowUpRight size={18} className="btn-arrow-motion" />
-          </button>
+        {/* Ultra-Premium Bento Grid (3 Columns) */}
+        <div className="why-premium-grid">
+          {/* Card 1: Évaluation sectorielle */}
+          <div className="why-premium-card has-bg-image reveal-on-scroll reveal-delay-1">
+            <div 
+              className="why-card-bg" 
+              style={{ backgroundImage: `url('/images/earth-globe-on-green-grass-with-autumn-leaves-2026-03-09-07-13-32-utc.jpg')` }} 
+            />
+            <div className="why-card-overlay" />
+
+            <div className="why-card-top">
+              <div className="why-card-icon-box glass">
+                <Zap size={22} />
+              </div>
+              <span className="why-glass-badge">
+                <CheckCircle2 size={13} style={{ marginRight: 4 }} />
+                5 Secteurs Évalués
+              </span>
+            </div>
+
+            <div className="why-card-bottom">
+              <h3>Évaluation sectorielle</h3>
+              <p>Agriculture, foresterie, transport, industrie et milieu communautaire : une cartographie complète des dynamiques du territoire.</p>
+              <div className="why-action-link" onClick={onStartEval}>
+                <span>Découvrir les 5 secteurs</span>
+                <ArrowUpRight size={16} />
+              </div>
+            </div>
+          </div>
+
+          {/* Card 2: Évaluation d'activités (Dark Luxe) */}
+          <div className="why-premium-card dark-luxe reveal-on-scroll reveal-delay-2">
+            <div className="why-card-top">
+              <div className="why-card-icon-box neon">
+                <Shield size={22} />
+              </div>
+              <span className="why-neon-badge">
+                Mesure 360°
+              </span>
+            </div>
+
+            <div className="why-card-bottom">
+              <h3>Évaluation d'activités</h3>
+              <p>Formations, projets, concertations et initiatives locales : mesurez précisément les retombées environnementales et sociales.</p>
+              <div className="why-luxe-footer">
+                <span className="why-luxe-metric">Indicateurs Sociaux &amp; Environnementaux</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 3: Action Territoriale */}
+          <div className="why-premium-card has-bg-image reveal-on-scroll reveal-delay-3">
+            <div 
+              className="why-card-bg" 
+              style={{ backgroundImage: `url('/images/green-globe-with-clouds-and-blue-sky-2026-01-11-08-03-55-utc.jpg')` }} 
+            />
+            <div className="why-card-overlay" />
+
+            <div className="why-card-top">
+              <div className="why-card-icon-box glass">
+                <Compass size={22} />
+              </div>
+              <span className="why-glass-badge">
+                24 457 Habitants
+              </span>
+            </div>
+
+            <div className="why-card-bottom">
+              <h3>Action Territoriale</h3>
+              <p>Une démarche collective pour suivre la réduction des émissions et préserver les écosystèmes forestiers et agricoles.</p>
+              <button onClick={onStartEval} className="bento-white-btn" style={{ marginTop: '12px' }}>
+                <span>Lancer mon évaluation</span>
+                <ArrowUpRight size={16} />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
