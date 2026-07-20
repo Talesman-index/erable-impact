@@ -1,5 +1,5 @@
 import React from 'react';
-import { Zap, Shield, Compass, ArrowUpRight, CheckCircle2 } from 'lucide-react';
+import { Zap, Shield, Compass, ArrowUpRight, CheckCircle2, Activity } from 'lucide-react';
 
 export default function WhySection({ onStartEval }) {
   return (
@@ -15,7 +15,7 @@ export default function WhySection({ onStartEval }) {
           </p>
         </div>
 
-        {/* Ultra-Premium Bento Grid (3 Columns) */}
+        {/* Harmonized Soft Premium Bento Grid (3 Columns) */}
         <div className="why-premium-grid">
           {/* Card 1: Évaluation sectorielle */}
           <div className="why-premium-card has-bg-image reveal-on-scroll reveal-delay-1">
@@ -45,13 +45,14 @@ export default function WhySection({ onStartEval }) {
             </div>
           </div>
 
-          {/* Card 2: Évaluation d'activités (Dark Luxe) */}
-          <div className="why-premium-card dark-luxe reveal-on-scroll reveal-delay-2">
+          {/* Card 2: Évaluation d'activités (Clean Soft Premium White) */}
+          <div className="why-premium-card clean-soft-white reveal-on-scroll reveal-delay-2">
             <div className="why-card-top">
-              <div className="why-card-icon-box neon">
+              <div className="why-card-icon-box soft-emerald">
                 <Shield size={22} />
               </div>
-              <span className="why-neon-badge">
+              <span className="why-soft-badge">
+                <Activity size={13} style={{ marginRight: 4 }} />
                 Mesure 360°
               </span>
             </div>
@@ -59,8 +60,8 @@ export default function WhySection({ onStartEval }) {
             <div className="why-card-bottom">
               <h3>Évaluation d'activités</h3>
               <p>Formations, projets, concertations et initiatives locales : mesurez précisément les retombées environnementales et sociales.</p>
-              <div className="why-luxe-footer">
-                <span className="why-luxe-metric">Indicateurs Sociaux &amp; Environnementaux</span>
+              <div className="why-soft-footer">
+                <span className="why-soft-metric">Indicateurs Sociaux &amp; Environnementaux</span>
               </div>
             </div>
           </div>

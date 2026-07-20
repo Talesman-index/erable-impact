@@ -81,10 +81,10 @@ export default function CategoriesSection({ onStartEval }) {
             <div className="bento-hover-overlay" />
 
             <div className="bento-sector-top">
-              <div className="bento-sector-icon amber">
+              <div className="bento-sector-icon">
                 <Truck size={24} />
               </div>
-              <span className="bento-pill-badge amber">
+              <span className="bento-pill-badge">
                 <Car size={13} style={{ marginRight: 4, display: 'inline-block', verticalAlign: 'middle' }} />
                 Mobilité Rurale
               </span>

@@ -4139,15 +4139,48 @@ input[type="range"],
     border-radius: 9999px;
 }
 
-.why-luxe-footer {
-    padding-top: 14px;
-    border-top: 1px dashed rgba(255, 255, 255, 0.15);
+/* Clean Soft White Card */
+.why-premium-card.clean-soft-white {
+    background: #ffffff;
+    color: #0f172a;
+    border: 1.5px solid rgba(15, 23, 42, 0.08);
 }
 
-.why-luxe-metric {
+.why-premium-card.clean-soft-white h3 {
+    color: #0f172a;
+}
+
+.why-premium-card.clean-soft-white p {
+    color: #64748b;
+}
+
+.why-card-icon-box.soft-emerald {
+    background: #ecfdf5;
+    color: #059669;
+    border: 1px solid #a7f3d0;
+}
+
+.why-soft-badge {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #059669;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 9999px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.why-soft-footer {
+    padding-top: 14px;
+    border-top: 1px dashed #e2e8f0;
+}
+
+.why-soft-metric {
     font-size: 0.84rem;
     font-weight: 700;
-    color: var(--color-neon-yellow);
+    color: #059669;
 }
 
 @media (max-width: 1024px) {
