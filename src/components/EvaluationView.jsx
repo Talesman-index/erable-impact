@@ -38,14 +38,13 @@ export default function EvaluationView({ onBackHome }) {
   const [schoolBusFuelType, setSchoolBusFuelType] = useState('diesel');
   const [cafeteriaType, setCafeteriaType] = useState('interne'); 
   const [annualMealsCount, setAnnualMealsCount] = useState(45000);
-  const [hasGymOrPool, setHasGymOrPool] = useState(true);
 
   // 2. SECTEUR ENVIRONNEMENT & FORESTERIE
   const [envOrgType, setEnvOrgType] = useState('bassin_versant');
   const [volunteerCount, setVolunteerCount] = useState(35);
-  const [volunteerHoursYear, setVolunteerHoursYear] = useState(450);
   const [interventionSurfaceHa, setInterventionSurfaceHa] = useState(250);
-  const [watercourseStabilizedM, setWatercourseStabilizedM] = useState(1200);
+  const [fieldVehiclesCount, setFieldVehiclesCount] = useState(4);
+  const [fieldFuelLiters, setFieldFuelLiters] = useState(2800);
 
   // 3. SECTEUR AGRICULTURE & ÉRABLIÈRE (43% L'Érable)
   const [agriProdTypes, setAgriProdTypes] = useState('laitiere');
@@ -91,6 +90,7 @@ export default function EvaluationView({ onBackHome }) {
   // 10. SECTEUR POLITIQUE & MUNICIPALITÉS
   const [municipalBuildingsCount, setMunicipalBuildingsCount] = useState(8);
   const [publicLightingKwh, setPublicLightingKwh] = useState(45000);
+  const [snowPlowDieselLiters, setSnowPlowDieselLiters] = useState(12500);
 
   // 11. SECTEUR PME & INDUSTRIE
   const [industrialProcessKwh, setIndustrialProcessKwh] = useState(85000);
@@ -118,18 +118,12 @@ export default function EvaluationView({ onBackHome }) {
   const [carType, setCarType] = useState('gasoline');
   const [fleetCount, setFleetCount] = useState(3);
   const [staffTravelCount, setStaffTravelCount] = useState(6);
-  const [teleworkKmSaved, setTeleworkKmSaved] = useState(1400);
 
   // COMMON CONSUMPTION & WASTE FIELDS (STEP 5)
   const [dietType, setDietType] = useState('balanced');
   const [localFoodPct, setLocalFoodPct] = useState(50);
-  const [bioFoodPct, setBioFoodPct] = useState(30);
-  const [foodWastePct, setFoodWastePct] = useState(12);
   const [paperReams, setPaperReams] = useState(22);
   const [wasteCompostKg, setWasteCompostKg] = useState(350);
-  const [wasteRecycleKg, setWasteRecycleKg] = useState(850);
-  const [furnitureReusePct, setFurnitureReusePct] = useState(40);
-  const [landfillWasteKg, setLandfillWasteKg] = useState(600);
 
   // EVENT SPECIFIC FIELDS
   const [eventType, setEventType] = useState('conference');
@@ -150,15 +144,130 @@ export default function EvaluationView({ onBackHome }) {
     localFood: true,
     treePlanting: true,
     solar: false,
-    smartThermostats: true,
-    zeroPaper: false
+    smartThermostats: true
   });
 
   // CONVERSATIONAL MODE STATE
-  const [convStepIndex, setConvStepIndex] = useState(0);
   const [chatInput, setChatInput] = useState('');
   const [chatMessages, setChatMessages] = useState([]);
   const [activeTab, setActiveTab] = useState('breakdown');
+
+  // SMART SECTOR METADATA HELPER
+  const getSectorMeta = () => {
+    switch (sector) {
+      case 'education':
+        return {
+          title: "Éducation & Établissements Scolaires",
+          icon: GraduationCap,
+          energyHint: "Consommation des classes, gymnases, bibliothèques et laboratoires scolaires.",
+          mobilityHint: "Transport par autobus scolaires, déplacements des élèves et professeurs.",
+          wasteHint: "Papier à imprimer, repas servis à la cafétéria et tri sélectif.",
+          specificTitle: "Infrastructure Pédagogique & Parc d'Autobus Scolaires"
+        };
+      case 'agriculture':
+        return {
+          title: "Agriculture, Érablières & Élevage (MRC L'Érable)",
+          icon: Wheat,
+          energyHint: "Électricité pour la traite, la réfrigération du lait et l'évaporateur d'érablière.",
+          mobilityHint: "Machinerie agricole (tracteurs, moissonneuses) et camions de livraison.",
+          wasteHint: "Engrais NPK, gestion des fumiers (lisier/compost) et aliments pour animaux.",
+          specificTitle: "Superficies Cultivées, Entailles & Machinerie Agricole"
+        };
+      case 'sante':
+        return {
+          title: "Santé, Hôpitaux & Services Sociaux",
+          icon: HeartPulse,
+          energyHint: "Énergie des unités de soins 24/7, ventilation médicale et stérilisation.",
+          mobilityHint: "Ambulances, véhicules de soins à domicile et téléconsultations.",
+          wasteHint: "Déchets biomédicaux, stérilisation et approvisionnement médical.",
+          specificTitle: "Capacité Hospitalière, Déchets Biomédicaux & Ambulances"
+        };
+      case 'environnement':
+        return {
+          title: "Environnement, Foresterie & Conservation",
+          icon: Trees,
+          energyHint: "Locaux administratifs, centres d'interprétation et ateliers de terrain.",
+          mobilityHint: "Déplacements d'intervention sur le territoire (4x4, VTT, bateaux, drones).",
+          wasteHint: "Matériaux d'aménagement écologique (bois, pierre, géotextile).",
+          specificTitle: "Superficie de Territoire Géré, Aménagements & Reboisement"
+        };
+      case 'aide_alimentaire':
+        return {
+          title: "Aide Alimentaire & Banques Alimentaires",
+          icon: Utensils,
+          energyHint: "Électricité des installations frigorifiques et chambres froides.",
+          mobilityHint: "Tournées de collecte et de distribution alimentaire dans L'Érable.",
+          wasteHint: "Nourriture sauvée du gaspillage (kg/an) et valorisation des résidus.",
+          specificTitle: "Tournées de Distribution & Nourriture Sauvée du Gaspillage"
+        };
+      case 'restauration':
+        return {
+          title: "Restauration, Gastronomie & Commerces",
+          icon: Utensils,
+          energyHint: "Électricité et gaz/propane pour la cuisson, les frigos et l'extraction.",
+          mobilityHint: "Livraisons des fournisseurs régionaux et transport des commandes.",
+          wasteHint: "Gaspillage alimentaire %, vaisselle réutilisable et circuits courts %.",
+          specificTitle: "Capacité de Couverts, Cuisson & Approvisionnement Local"
+        };
+      case 'art':
+        return {
+          title: "Art, Culture, Scènes & Spectacles",
+          icon: Palette,
+          energyHint: "Éclairage scénique, régie audiovisuelle et chauffage des salles.",
+          mobilityHint: "Tournées des artistes, transport des décors et des spectateurs.",
+          wasteHint: "Réemploi de la scénographie %, affiches et décors réutilisés.",
+          specificTitle: "Fréquentation, Équipements Scéniques & Réemploi des Décors"
+        };
+      case 'politique':
+        return {
+          title: "Politique, Municipalités & Services Publics",
+          icon: Flag,
+          energyHint: "Hôtels de ville, casernes, garages municipaux et éclairage public.",
+          mobilityHint: "Camions de déneigement, véhicules de voirie et patrouilles.",
+          wasteHint: "Gestion des matières résiduelles de la municipalité et parcs.",
+          specificTitle: "Patrimoine Municipal, Éclairage Public & Flotte de Déneigement"
+        };
+      case 'pme':
+        return {
+          title: "PME, Transformation & Industrie",
+          icon: Factory,
+          energyHint: "Procédés industriels, machineries d'usine et serveurs.",
+          mobilityHint: "Transport de fret, camionnage et déplacements des représentants.",
+          wasteHint: "Déchets industriels, emballages de transport et recyclage.",
+          specificTitle: "Procédés Industriels, Fret Logistique & Serveurs"
+        };
+      case 'jeunesse':
+        return {
+          title: "Jeunesse, Camps de Jour & Loisirs",
+          icon: Smile,
+          energyHint: "Locaux de loisirs, chalet de parc, douches et douches des camps.",
+          mobilityHint: "Sorties éducatives, minibus et camps résidentiels.",
+          wasteHint: "Matériel sportif durable, collations locales et compostage.",
+          specificTitle: "Jeunes Accompagnés, Sorties & Équipements de Loisirs"
+        };
+      case 'communautaire':
+        return {
+          title: "Communautaire & OBNL (CDC L'Érable)",
+          icon: Users,
+          energyHint: "Bureaux de l'organisme, chauffage et salles de réunion.",
+          mobilityHint: "Déplacements pour la mission sociale et visites des bénévoles.",
+          wasteHint: "Fournitures de bureau, ateliers zéro déchet et bac brun.",
+          specificTitle: "Bénévoles, Heures de Service & Impact Social Régional"
+        };
+      default:
+        return {
+          title: "Citoyen & Empreinte du Ménage",
+          icon: User,
+          energyHint: "Électricité et chauffage du domicile résidentiel.",
+          mobilityHint: "Déplacements personnels en voiture ou transport en commun.",
+          wasteHint: "Alimentation du ménage, bac vert et bac brun compost.",
+          specificTitle: "Caractéristiques du Logement & Habitudes du Ménage"
+        };
+    }
+  };
+
+  const sectorMeta = getSectorMeta();
+  const SectorIcon = sectorMeta.icon;
 
   // RIGOROUS SCOPE 1-2-3 CALCULATION MODEL
   const calcEventEmissions = () => {
@@ -182,7 +291,9 @@ export default function EvaluationView({ onBackHome }) {
     if (sector === 'agriculture' && profile !== 'citizen') {
       s1 += (agriLivestockCount * 1.2) + (agriFertilizerKg * 0.005) + (agriDieselLiters * 0.0027);
     }
-
+    if (sector === 'politique') {
+      s1 += (snowPlowDieselLiters * 0.0027);
+    }
     if (sector === 'education' && detailLevel !== 'level1') {
       s1 += (schoolBusCount * (schoolBusKmAnnual / Math.max(1, schoolBusCount)) * 0.0009);
     }
@@ -246,7 +357,7 @@ export default function EvaluationView({ onBackHome }) {
         <div className="eval-header-inner">
           <button onClick={onBackHome} className="eval-logo" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
             <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M 12,2 C 11.5,4 11.5,4.5 11,5.5 C 10.5,5 9.5,4 8,3 C 8,4.5 8.5,5.5 8.5,6 C 7.5,5.5 6,5 5,5 C 5.5,6 6,7 7,8 C 5,7.5 3.5,7 2,7 C 3,8 4.5,9.5 5.5,10 C 4.5,10 3.5,10.5 2.5,10.5 C 3.5,11.5 5,12 6,12 C 5,13 4,14 3,15 C 4.5,14.5 5.5,14 6.5,13.5 C 6,14.5 5.5,16 5.5,17 C 6.5,16 7.5,15 8,14 C 8.5,15.5 9,17 9.5,18.5 C 10.5,18 11.5,17.5 12,17.5 L 12,22 L 12.5,22 L 12.5,17.5 C 13,17.5 14,18 15,18.5 C 15.5,17 16,15.5 16.5,14 C 17,15 18,16 19,17 C 19,16 18.5,14.5 18,13.5 C 19,14 20,14.5 21.5,15 C 20.5,14 19.5,13 18.5,12 C 19.5,12 21,11.5 22,10.5 C 21,10.5 20,10 19,10 C 20,9.5 21.5,8 22.5,7 C 21,7 19.5,7.5 17.5,8 C 18.5,7 19,6 19.5,5 C 18.5,5 16.5,4.5 16.5,3 C 15,4 14,5 13.5,5.5 C 13,4.5 13,4 12.5,2 L 12,2 Z"/>
+              <path d="M 12,2 C 11.5,4 11.5,4.5 11,5.5 C 10.5,5 9.5,4 8,3 C 8,4.5 8.5,5.5 8.5,6 C 7.5,5.5 6,5 5,5 C 5.5,6 6,7 7,8 C 5,7.5 3.5,7 2,7 C 3,8 4.5,9.5 5.5,10 C 4.5,10 3.5,10.5 2.5,10.5 C 3.5,11.5 5,12 6,12 C 5,13 4,14 3,15 C 4.5,14.5 5.5,14 6.5,13.5 C 6,14.5 5.5,16 5.5,17 C 6.5,16 7.5,15 8,14 C 8.5,15.5 9,17 9.5,18.5 C 10.5,18 11.5,17.5 12,17.5 L 12,22 L 12.5,22 L 12.5,17.5 C 13,17.5 14,18 15,18.5 C 15.5,17 16,15.5 16.5,14 C 17,15 18,16 19,17 C 19,16 18.5,14.5 18,13.5 C 19,14 20,14.5 21.5,15 C 20.5,14 19.5,13 18.5,12 C 19.5,12 21,11.5 22,10.5 C 21,10.5 20,10 19,10 C 20,9.5 21.5,8 22.5,7 C 21,7 19.5,7.5 16.5,3 C 15,4 14,5 13.5,5.5 C 13,4.5 13,4 12.5,2 L 12,2 Z"/>
             </svg>
             <span>ERABLE <strong>GES</strong></span>
           </button>
@@ -274,7 +385,7 @@ export default function EvaluationView({ onBackHome }) {
 
           <div className="eval-header-actions">
             <span className="eval-user-badge" style={{ background: '#f0fdf4', color: '#059669', border: '1px solid #bbf7d0', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-              {evalTarget === 'event' ? <Ticket size={14} /> : <Building size={14} />}
+              {evalTarget === 'event' ? <Ticket size={14} /> : <SectorIcon size={14} />}
               {evalTarget === 'event' ? 'Événement' : sector.toUpperCase()} • {detailLevel === 'level1' ? 'Rapide' : detailLevel === 'level2' ? 'Détaillé' : 'Expert'}
             </span>
             <button onClick={onBackHome} className="btn-eval-back">
@@ -341,7 +452,7 @@ export default function EvaluationView({ onBackHome }) {
                 <img src="/images/illus_profile.png" alt="Profil" className="illus-step-img" />
               </div>
               <h2 className="step-question">Étape 1/7 : Profil &amp; Secteur d'activité</h2>
-              <p className="step-hint">Sélectionnez le secteur pour adapter l'ensemble des questions du diagnostic.</p>
+              <p className="step-hint">Sélectionnez votre secteur pour adapter l'ensemble des questions du diagnostic.</p>
 
               <div className="form-section-title">1. Type d'acteur</div>
               <div className="profile-choice-grid select-5-columns">
@@ -372,7 +483,6 @@ export default function EvaluationView({ onBackHome }) {
                 })}
               </div>
 
-              {/* 2. Localisation & Territoire */}
               <div className="form-section-title" style={{ marginTop: '24px' }}>2. Localisation &amp; Territoire</div>
               <div className="eval-form-fields" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginTop: '12px' }}>
                 <div className="form-group">
@@ -411,7 +521,6 @@ export default function EvaluationView({ onBackHome }) {
                 </div>
               </div>
 
-              {/* 3. Secteur d'activité */}
               <div className="form-section-title" style={{ marginTop: '24px' }}>3. Secteur d'activité (12 Secteurs Structurés)</div>
               <div className="eval-field" style={{ marginTop: '12px' }}>
                 <div className="select-wrapper">
@@ -446,7 +555,7 @@ export default function EvaluationView({ onBackHome }) {
           {step === 2 && (
             <div className="eval-step active detail-level-step-view">
               <div className="onboarding-header">
-                <h2>Étape 2/7 : Niveau de détail de la collecte ({sector.toUpperCase()})</h2>
+                <h2>Étape 2/7 : Niveau de détail ({sectorMeta.title})</h2>
                 <p>Sélectionnez la profondeur d'analyse souhaitée.</p>
               </div>
 
@@ -507,28 +616,27 @@ export default function EvaluationView({ onBackHome }) {
             </div>
           )}
 
-          {/* STEP 3: ÉNERGIE & BÂTIMENT (SCOPE 1 & 2) */}
+          {/* STEP 3: ÉNERGIE & BÂTIMENT (ADAPTÉ AU SECTEUR) */}
           {step === 3 && (
             <div className="eval-step active">
               <div className="step-hero-illus">
                 <img src="/images/illus_energy.png" alt="Énergie" className="illus-step-img" />
               </div>
-              <h2 className="step-question">Étape 3/7 : Énergie &amp; Infrastructure Immobilière</h2>
-              <p className="step-hint">Consommations électriques, combustible de chauffage et caractéristiques thermiques.</p>
+              <h2 className="step-question">Étape 3/7 : Énergie &amp; Infrastructure ({sectorMeta.title})</h2>
+              <p className="step-hint">{sectorMeta.energyHint}</p>
 
-              {/* Card 1: Périmètre Bâtiment */}
               <div className="form-card-group">
                 <div className="form-card-header">
                   <div className="form-card-title">
                     <div className="form-card-title-icon"><Building size={18} /></div>
-                    <span>1. Bâtiments &amp; Superficies Occupées</span>
+                    <span>1. Bâtiments &amp; Superficies ({sector.toUpperCase()})</span>
                   </div>
                   <span className="form-card-badge">Infrastructure</span>
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
                   <div className="form-group">
-                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Superficie totale chauffée :</label>
+                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Superficie totale occupée :</label>
                     <div className="input-unit-wrap">
                       <input type="number" className="eval-input" value={surfaceM2} onChange={(e) => setSurfaceM2(Number(e.target.value))} />
                       <span className="unit-chip">m²</span>
@@ -554,12 +662,11 @@ export default function EvaluationView({ onBackHome }) {
                 </div>
               </div>
 
-              {/* Card 2: Consommation Énergétique */}
               <div className="form-card-group">
                 <div className="form-card-header">
                   <div className="form-card-title">
                     <div className="form-card-title-icon"><Zap size={18} /></div>
-                    <span>2. Électricité &amp; Source de Chauffage</span>
+                    <span>2. Électricité &amp; Source de Chauffage ({sector.toUpperCase()})</span>
                   </div>
                   <span className="form-card-badge">Scope 1 &amp; Scope 2</span>
                 </div>
@@ -613,37 +720,6 @@ export default function EvaluationView({ onBackHome }) {
                 )}
               </div>
 
-              {/* Card 3: Équipements spécialisés (Level 3) */}
-              {detailLevel === 'level3' && (
-                <div className="form-card-group">
-                  <div className="form-card-header">
-                    <div className="form-card-title">
-                      <div className="form-card-title-icon"><Cpu size={18} /></div>
-                      <span>3. Équipements Spécialisés &amp; Autoproduction</span>
-                    </div>
-                    <span className="form-card-badge" style={{ background: '#eef2ff', color: '#3730a3' }}>Niveau 3 Expert</span>
-                  </div>
-
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                    <div className="form-group">
-                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Serveurs, Cuisines, Labos (kWh) :</label>
-                      <div className="input-unit-wrap">
-                        <input type="number" className="eval-input" value={specializedKwh} onChange={(e) => setSpecializedKwh(Number(e.target.value))} />
-                        <span className="unit-chip">kWh/an</span>
-                      </div>
-                    </div>
-
-                    <div className="form-group">
-                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Solaire / Géothermie sur site :</label>
-                      <div className="input-unit-wrap">
-                        <input type="number" className="eval-input" value={solarOnsiteKwh} onChange={(e) => setSolarOnsiteKwh(Number(e.target.value))} />
-                        <span className="unit-chip">kWh/an</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
               <div className="step-actions" style={{ marginTop: '28px' }}>
                 <button className="btn-eval-back-step" onClick={() => setStep(2)}>
                   <ArrowLeft size={16} /> Retour
@@ -655,20 +731,20 @@ export default function EvaluationView({ onBackHome }) {
             </div>
           )}
 
-          {/* STEP 4: TRANSPORTS & MOBILITÉ (SCOPE 1 & 3) */}
+          {/* STEP 4: TRANSPORTS & MOBILITÉ (ADAPTÉ AU SECTEUR) */}
           {step === 4 && (
             <div className="eval-step active">
               <div className="step-hero-illus">
                 <img src="/images/illus_mobility.png" alt="Mobilité" className="illus-step-img" />
               </div>
-              <h2 className="step-question">Étape 4/7 : Transports, Flottes &amp; Déplacements</h2>
-              <p className="step-hint">Calculateurs de kilomètres parcours, d'autobus et de flotte.</p>
+              <h2 className="step-question">Étape 4/7 : Transports &amp; Logistique ({sectorMeta.title})</h2>
+              <p className="step-hint">{sectorMeta.mobilityHint}</p>
 
               <div className="form-card-group">
                 <div className="form-card-header">
                   <div className="form-card-title">
                     <div className="form-card-title-icon"><Truck size={18} /></div>
-                    <span>1. Flotte de Véhicules &amp; Autobus Scolaires</span>
+                    <span>1. Flottes de Véhicules &amp; Machinerie Spécifique</span>
                   </div>
                   <span className="form-card-badge">Scope 1 Flotte</span>
                 </div>
@@ -682,7 +758,6 @@ export default function EvaluationView({ onBackHome }) {
                         <span className="unit-chip">autobus</span>
                       </div>
                     </div>
-
                     <div className="form-group">
                       <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Kilométrage annuel total autobus :</label>
                       <div className="input-unit-wrap">
@@ -693,17 +768,46 @@ export default function EvaluationView({ onBackHome }) {
                   </div>
                 )}
 
+                {sector === 'agriculture' && (
+                  <div className="form-group" style={{ marginBottom: '16px' }}>
+                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Diesel consommé par les tracteurs &amp; machinerie :</label>
+                    <div className="input-unit-wrap">
+                      <input type="number" className="eval-input" value={agriDieselLiters} onChange={(e) => setAgriDieselLiters(Number(e.target.value))} />
+                      <span className="unit-chip">Litres/an</span>
+                    </div>
+                  </div>
+                )}
+
+                {sector === 'sante' && (
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
+                    <div className="form-group">
+                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Nombre d'ambulances :</label>
+                      <div className="input-unit-wrap">
+                        <input type="number" className="eval-input" value={ambulancesCount} onChange={(e) => setAmbulancesCount(Number(e.target.value))} />
+                        <span className="unit-chip">ambulances</span>
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Kilométrage annuel ambulances :</label>
+                      <div className="input-unit-wrap">
+                        <input type="number" className="eval-input" value={ambulanceKmAnnual} onChange={(e) => setAmbulanceKmAnnual(Number(e.target.value))} />
+                        <span className="unit-chip">km/an</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                   <div className="form-group">
-                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Véhicules d'organisation / de service :</label>
+                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Véhicules de service / d'organisation :</label>
                     <div className="input-unit-wrap">
                       <input type="number" className="eval-input" value={fleetCount} onChange={(e) => setFleetCount(Number(e.target.value))} />
-                      <span className="unit-chip">autos/camions</span>
+                      <span className="unit-chip">véhicules</span>
                     </div>
                   </div>
 
                   <div className="form-group">
-                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Kilométrage auto principale / service :</label>
+                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Kilométrage véhicule principal :</label>
                     <div className="input-unit-wrap">
                       <input type="number" className="eval-input" value={kmCar} onChange={(e) => setKmCar(Number(e.target.value))} />
                       <span className="unit-chip">km/an</span>
@@ -716,7 +820,7 @@ export default function EvaluationView({ onBackHome }) {
                 <div className="form-card-header">
                   <div className="form-card-title">
                     <div className="form-card-title-icon"><Car size={18} /></div>
-                    <span>2. Déplacements Domicile-Travail &amp; Voyages</span>
+                    <span>2. Déplacements Quotidiens &amp; Missions</span>
                   </div>
                   <span className="form-card-badge">Scope 3 Trajets</span>
                 </div>
@@ -731,7 +835,7 @@ export default function EvaluationView({ onBackHome }) {
                   </div>
 
                   <div className="form-group">
-                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Voyages professionnels / d'études par an :</label>
+                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Voyages d'affaires / de mission par an :</label>
                     <div className="input-unit-wrap">
                       <input type="number" className="eval-input" value={staffTravelCount} onChange={(e) => setStaffTravelCount(Number(e.target.value))} />
                       <span className="unit-chip">voyages/an</span>
@@ -751,31 +855,31 @@ export default function EvaluationView({ onBackHome }) {
             </div>
           )}
 
-          {/* STEP 5: CONSOMMATION, ALIMENTATION & DÉCHETS (SCOPE 3) */}
+          {/* STEP 5: CONSOMMATION, ALIMENTATION & DÉCHETS (ADAPTÉ AU SECTEUR) */}
           {step === 5 && (
             <div className="eval-step active">
               <div className="step-hero-illus">
                 <img src="/images/illus_consumption.png" alt="Consommation" className="illus-step-img" />
               </div>
-              <h2 className="step-question">Étape 5/7 : Alimentation, Restauration &amp; Déchets</h2>
-              <p className="step-hint">Impacts de la restauration, du papier et de l'économie circulaire.</p>
+              <h2 className="step-question">Étape 5/7 : Alimentation, Matières &amp; Recyclage ({sectorMeta.title})</h2>
+              <p className="step-hint">{sectorMeta.wasteHint}</p>
 
               <div className="form-card-group">
                 <div className="form-card-header">
                   <div className="form-card-title">
                     <div className="form-card-title-icon"><ShoppingBag size={18} /></div>
-                    <span>1. Service de Restauration &amp; Produits Locaux</span>
+                    <span>1. Restauration &amp; Approvisionnement Régional (L'Érable)</span>
                   </div>
                   <span className="form-card-badge">Scope 3 Alimentation</span>
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
                   <div className="form-group">
-                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Type de restauration :</label>
+                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Type de service repas :</label>
                     <select value={cafeteriaType} onChange={(e) => setCafeteriaType(e.target.value)} className="eval-select">
-                      <option value="interne">Cantine / Cafétéria interne</option>
+                      <option value="interne">Cantine / Cuisine interne</option>
                       <option value="traiteur">Traiteur externe</option>
-                      <option value="aucune">Aucune restauration organisée</option>
+                      <option value="aucune">Aucun service de repas</option>
                     </select>
                   </div>
 
@@ -835,25 +939,25 @@ export default function EvaluationView({ onBackHome }) {
             </div>
           )}
 
-          {/* STEP 6: SPÉCIFICITÉS SECTORIELLES & ACTIONS POSITIVES */}
+          {/* STEP 6: SPÉCIFICITÉS SECTORIELLES & ACTIONS POSITIVES (SUR MESURE PAR SECTEUR) */}
           {step === 6 && (
             <div className="eval-step active">
               <div className="step-hero-illus">
                 <img src="/images/illus_actions.png" alt="Actions" className="illus-step-img" />
               </div>
-              <h2 className="step-question">Étape 6/7 : Spécificités du Secteur {sector.toUpperCase()} &amp; Actions Positives</h2>
-              <p className="step-hint">Derniers ajustements sectoriels et calcul de la séquestration forestière.</p>
+              <h2 className="step-question">Étape 6/7 : {sectorMeta.specificTitle}</h2>
+              <p className="step-hint">Dernières données spécialisées de votre secteur d'activité.</p>
 
-              {/* Dynamic Sector Specific Card */}
+              {/* CARD EXCLUSIVE AU SECTEUR */}
               <div className="form-card-group">
                 {sector === 'education' && (
                   <>
                     <div className="form-card-header">
                       <div className="form-card-title">
                         <div className="form-card-title-icon"><GraduationCap size={18} /></div>
-                        <span>Caractéristiques Pédagogiques &amp; Effectifs Scolaires</span>
+                        <span>Caractéristiques de l’Établissement Scolaire</span>
                       </div>
-                      <span className="form-card-badge">Secteur Éducation</span>
+                      <span className="form-card-badge">Éducation</span>
                     </div>
 
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
@@ -884,41 +988,89 @@ export default function EvaluationView({ onBackHome }) {
                     <div className="form-card-header">
                       <div className="form-card-title">
                         <div className="form-card-title-icon"><Wheat size={18} /></div>
-                        <span>Données Agricoles &amp; Érablières</span>
+                        <span>Données Spécifiques Agricoles &amp; Érablière</span>
                       </div>
                       <span className="form-card-badge">Agriculture L'Érable</span>
                     </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
                       <div className="form-group">
-                        <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Superficie cultivée :</label>
+                        <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Superficie agricole cultivée :</label>
                         <div className="input-unit-wrap">
                           <input type="number" className="eval-input" value={agriHa} onChange={(e) => setAgriHa(Number(e.target.value))} />
                           <span className="unit-chip">ha</span>
                         </div>
                       </div>
                       <div className="form-group">
-                        <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Nombre d'entailles :</label>
+                        <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Nombre d'entailles (Érablières) :</label>
                         <div className="input-unit-wrap">
                           <input type="number" className="eval-input" value={agriTapsCount} onChange={(e) => setAgriTapsCount(Number(e.target.value))} />
                           <span className="unit-chip">entailles</span>
                         </div>
                       </div>
                     </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                      <div className="form-group">
+                        <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Engrais azotés &amp; minéraux :</label>
+                        <div className="input-unit-wrap">
+                          <input type="number" className="eval-input" value={agriFertilizerKg} onChange={(e) => setAgriFertilizerKg(Number(e.target.value))} />
+                          <span className="unit-chip">kg/an</span>
+                        </div>
+                      </div>
+                      <div className="form-group">
+                        <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Gestion des lisiers/fumiers :</label>
+                        <select value={manureType} onChange={(e) => setManureType(e.target.value)} className="eval-select">
+                          <option value="lisier">Fosse à lisier liquide</option>
+                          <option value="solide">Fumier solide</option>
+                          <option value="composte">Compostage agricole</option>
+                        </select>
+                      </div>
+                    </div>
                   </>
                 )}
 
-                {sector !== 'education' && sector !== 'agriculture' && (
+                {sector === 'aide_alimentaire' && (
+                  <>
+                    <div className="form-card-header">
+                      <div className="form-card-title">
+                        <div className="form-card-title-icon"><Utensils size={18} /></div>
+                        <span>Opérations de Sauvetage Alimentaire</span>
+                      </div>
+                      <span className="form-card-badge">Aide Alimentaire</span>
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                      <div className="form-group">
+                        <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Nourriture sauvée du gaspillage :</label>
+                        <div className="input-unit-wrap">
+                          <input type="number" className="eval-input" value={foodSavedKgPerYear} onChange={(e) => setFoodSavedKgPerYear(Number(e.target.value))} />
+                          <span className="unit-chip">kg/an</span>
+                        </div>
+                      </div>
+
+                      <div className="form-group">
+                        <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Nombre d'installations frigorifiques :</label>
+                        <div className="input-unit-wrap">
+                          <input type="number" className="eval-input" value={refrigeratorsCount} onChange={(e) => setRefrigeratorsCount(Number(e.target.value))} />
+                          <span className="unit-chip">frigos/chambres</span>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {sector !== 'education' && sector !== 'agriculture' && sector !== 'aide_alimentaire' && (
                   <>
                     <div className="form-card-header">
                       <div className="form-card-title">
                         <div className="form-card-title-icon"><Building size={18} /></div>
                         <span>Paramètres d'Optimisation du Secteur {sector.toUpperCase()}</span>
                       </div>
-                      <span className="form-card-badge">Secteur Métier</span>
+                      <span className="form-card-badge">Spécificité Métier</span>
                     </div>
                     <p style={{ fontSize: '0.9rem', color: '#64748b', margin: 0 }}>
-                      Toutes les données clés pour {sector} ont été saisies dans les étapes 3, 4 et 5.
+                      Les données spécifiques pour {sectorMeta.title} ont été intégrées dans votre modèle d'analyse.
                     </p>
                   </>
                 )}
@@ -965,9 +1117,9 @@ export default function EvaluationView({ onBackHome }) {
 
               <div className="results-header-text">
                 <h2 className="step-question">
-                  Bilan GES &amp; Plan d'Action Personnalisé ({sector.toUpperCase()})
+                  Bilan GES &amp; Plan d'Action Personnalisé ({sectorMeta.title})
                 </h2>
-                <p className="step-hint">Analyse complète et certifiée selon le cadre de la MRC de L'Érable.</p>
+                <p className="step-hint">Analyse certifiée selon le cadre de la MRC de L'Érable.</p>
               </div>
 
               <div className="results-summary-card" style={{ background: '#0f172a', color: '#ffffff', padding: '28px', borderRadius: '24px', marginBottom: '24px' }}>
