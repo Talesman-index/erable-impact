@@ -91,7 +91,7 @@ export default function RegisterPage({ onBackHome, onGoLogin }) {
                   <Building2 className="login-field-icon" size={18} />
                   <select
                     id="reg-page-orgtype"
-                    className="login-input eval-select"
+                    className="login-input login-select-with-icon"
                     value={orgType}
                     onChange={(e) => setOrgType(e.target.value)}
                   >

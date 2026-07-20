@@ -4,7 +4,8 @@ export default function HeroSection({ onStartEval }) {
   return (
     <section className="hero-section">
       <video autoPlay muted loop playsInline className="hero-video-bg">
-        <source src="/hero_a.mp4" type="video/mp4" />
+        <source src="/hero.mov" type="video/mp4" />
+        <source src="/hero.mov" type="video/quicktime" />
       </video>
 
       <div className="hero-video-overlay" />

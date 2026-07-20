@@ -1,74 +1,361 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   User, Users, Building, GraduationCap, MapPin, 
-  Zap, Truck, ShoppingBag, Leaf, Award, 
-  ArrowLeft, ArrowRight, X, Send, Download, FileText, Info, ChevronRight, ChevronDown
+  Zap, BarChart2, Microscope, MessageSquare, Truck, ShoppingBag, Leaf, Award, 
+  ArrowLeft, ArrowRight, X, Send, Download, FileText, Info, ChevronRight, ChevronDown, CheckCircle2, RefreshCw, HelpCircle, Bot, Sparkles, Lightbulb, Car, Trees, Factory, Wheat, Cpu, ShieldCheck
 } from 'lucide-react';
 
 export default function EvaluationView({ onBackHome }) {
-  const [step, setStep] = useState(0); // 0 = Onboarding / Infos à préparer, 1 = Profil, 2 = Énergie, etc.
+  // Navigation & Configuration State
+  const [step, setStep] = useState(0); 
   const [unitSystem, setUnitSystem] = useState('metric'); // 'metric' | 'imperial'
   const [showDetailedInfo, setShowDetailedInfo] = useState(false);
 
+  // Profile State
   const [profile, setProfile] = useState('citizen'); // 'citizen' | 'organisation' | 'company' | 'institution' | 'municipality'
   const [location, setLocation] = useState('Région de L\'Érable');
   const [postalCode, setPostalCode] = useState('G6L 1A1');
   const [sector, setSector] = useState('agriculture');
   const [orgSize, setOrgSize] = useState('small'); // 'small' | 'medium' | 'large'
-  const [level, setLevel] = useState(1);
+  
+  // Level & Mode State (TogetherSense Framework)
+  const [detailLevel, setDetailLevel] = useState('level1'); // 'level1' (Rapide 5m) | 'level2' (Détaillé 15-30m) | 'level3' (Expert 1h+)
+  const [evalMode, setEvalMode] = useState('form'); // 'conversational' | 'form'
 
-  // Form State
-  const [energyKwh, setEnergyKwh] = useState(15000);
-  const [heatingType, setHeatingType] = useState('hydro');
+  // ==========================================
+  // ENRICHED FORM DATA (ALL 3 LEVELS & SECTORS)
+  // ==========================================
+  
+  // LEVEL 1 FIELDS
+  const [energyBillDollars, setEnergyBillDollars] = useState(2400); 
+  const [heatingType, setHeatingType] = useState('hydro'); // 'hydro' | 'gas' | 'oil' | 'biomass'
   const [kmCar, setKmCar] = useState(12000);
-  const [carType, setCarType] = useState('gasoline');
-  const [dietType, setDietType] = useState('balanced');
+  const [carType, setCarType] = useState('gasoline'); 
+  const [dietType, setDietType] = useState('balanced'); 
+  const [wasteBasicTri, setWasteBasicTri] = useState(true);
+
+  // LEVEL 2 FIELDS (Détaillé)
+  const [surfaceM2, setSurfaceM2] = useState(180);
+  const [buildingCount, setBuildingCount] = useState(1);
+  const [buildDecade, setBuildDecade] = useState('2000s');
+  const [energyKwh, setEnergyKwh] = useState(18000); 
+  const [heatingFuelAmount, setHeatingFuelAmount] = useState(1500); 
+  const [acUnitsCount, setAcUnitsCount] = useState(1);
+  const [greenElectricityPct, setGreenElectricityPct] = useState(20);
+  const [retroFitSavingsKwh, setRetroFitSavingsKwh] = useState(1500);
+
+  const [workDaysWeek, setWorkDaysWeek] = useState(5);
+  const [dailyCommuteKm, setDailyCommuteKm] = useState(24);
+  const [fleetCount, setFleetCount] = useState(2);
+  const [fleetFuelType, setFleetFuelType] = useState('diesel');
+  const [staffTravelCount, setStaffTravelCount] = useState(4);
+  const [staffTravelAvgKm, setStaffTravelAvgKm] = useState(350);
+  const [teleworkKmSaved, setTeleworkKmSaved] = useState(1200);
+
+  const [localFoodPct, setLocalFoodPct] = useState(40);
+  const [bioFoodPct, setBioFoodPct] = useState(25);
+  const [annualMealsCount, setAnnualMealsCount] = useState(12000);
+  const [foodWastePct, setFoodWastePct] = useState(10);
+  const [paperReams, setPaperReams] = useState(14);
+  const [wasteCompostKg, setWasteCompostKg] = useState(150);
+  const [wasteRecycleKg, setWasteRecycleKg] = useState(320);
+
+  // LEVEL 3 FIELDS (Expert ISO/Bilan Carbone)
+  const [specializedKwh, setSpecializedKwh] = useState(6500); // Server rooms, labs, cold storage
+  const [solarOnsiteKwh, setSolarOnsiteKwh] = useState(1200); // Solar/Geothermal production
+  const [freightKm, setFreightKm] = useState(4500); // Fret / marchandises
+  const [freightVehicleType, setFreightVehicleType] = useState('semi');
+  const [equipmentRenewalYears, setEquipmentRenewalYears] = useState(4); // IT renewal cycle
+  const [furnitureReusePct, setFurnitureReusePct] = useState(35);
+  const [landfillWasteKg, setLandfillWasteKg] = useState(450);
+  const [hazardousWasteKg, setHazardousWasteKg] = useState(30);
+  const [beefKgPerYear, setBeefKgPerYear] = useState(200);
+  const [poultryKgPerYear, setPoultryKgPerYear] = useState(300);
+
+  // SECTOR-SPECIFIC FIELDS (Agriculture, Érablières & Éducation)
+  const [agriHa, setAgriHa] = useState(50); // Cultivated surface (ha)
+  const [agriForestHa, setAgriForestHa] = useState(35); // Forest & Maple grove (ha)
+  const [agriLivestockCount, setAgriLivestockCount] = useState(45); // Têtes de bétail
+  const [agriFertilizerKg, setAgriFertilizerKg] = useState(800); // Nitrogen fertilizer
+  const [agriDieselLiters, setAgriDieselLiters] = useState(2500); // Tractor diesel L/yr
+  const [agriTapsCount, setAgriTapsCount] = useState(3000); // Érablière entailles
+
+  const [schoolBusCount, setSchoolBusCount] = useState(6);
+  const [schoolMealsPerDay, setSchoolMealsPerDay] = useState(350);
+
+  // Actions Positives & Séquestration Carbone
+  const [treesPlanted, setTreesPlanted] = useState(20);
   const [actions, setActions] = useState({
-    solar: false,
+    heatPump: true,
     compost: true,
     localFood: true,
-    treePlanting: false,
-    heatPump: true
+    treePlanting: true,
+    solar: false,
+    greenElectricity: true,
+    smartThermostats: true,
+    zeroPaper: false
   });
 
-  // Chat State
+  // CONVERSATIONAL MODE STATE
+  const [convStepIndex, setConvStepIndex] = useState(0);
   const [chatInput, setChatInput] = useState('');
-  const [chatMessages, setChatMessages] = useState([
-    { sender: 'ai', text: 'Bonjour ! Je suis votre conseiller environnemental IA. Posez-moi des questions sur vos facteurs d\'émissions ou les moyennes de la MRC de L\'Érable.' }
-  ]);
+  const [chatMessages, setChatMessages] = useState([]);
   const [activeTab, setActiveTab] = useState('breakdown');
 
-  // Calculations
-  const calcEnergy = () => {
-    let base = (energyKwh * 0.0013) / 1000; // Hydro Quebec rate
-    if (heatingType === 'oil') base += 2.8;
-    if (heatingType === 'gas') base += 1.6;
-    return parseFloat(base.toFixed(1));
+  // Conversational Questions Engine dynamically adapted to Level & Profile
+  const getConversationalQuestions = () => {
+    const questions = [];
+
+    // Q1: Chauffage
+    questions.push({
+      id: 'heating',
+      text: `Bonjour ! Initions l'évaluation pour votre profil [${profile === 'citizen' ? 'Citoyen' : profile}]. Quelle est la source principale de chauffage de vos installations dans la MRC de L'Érable ?`,
+      options: [
+        { label: 'Électricité (Hydro-Québec / Thermopompe)', value: 'hydro' },
+        { label: 'Gaz naturel', value: 'gas' },
+        { label: 'Mazout (Huile)', value: 'oil' },
+        { label: 'Biomasse / Bois local de L\'Érable', value: 'biomass' }
+      ],
+      field: 'heatingType'
+    });
+
+    // Q2: Énergie selon le niveau
+    if (detailLevel === 'level1') {
+      questions.push({
+        id: 'energy_bill',
+        text: "Niveau 1 (Rapide) : Quel est le montant approximatif de votre facture énergétique annuelle globale ($ CAD) ?",
+        options: [
+          { label: 'Moins de 1 500 $', value: 1200 },
+          { label: '1 500 $ à 3 000 $', value: 2400 },
+          { label: '3 000 $ à 6 000 $', value: 4500 },
+          { label: 'Plus de 6 000 $', value: 8000 }
+        ],
+        field: 'energyBillDollars'
+      });
+    } else {
+      questions.push({
+        id: 'surface',
+        text: `Niveau ${detailLevel === 'level2' ? '2 (Détaillé)' : '3 (Expert)'} : Quelle est la superficie totale occupée (en m²) et le nombre de bâtiments ?`,
+        options: [
+          { label: 'Moins de 100 m² (1 bâtiment)', value: 80 },
+          { label: '100 m² à 300 m²', value: 200 },
+          { label: '300 m² à 1000 m²', value: 650 },
+          { label: 'Plus de 1000 m² (Sites multiples)', value: 1800 }
+        ],
+        field: 'surfaceM2'
+      });
+
+      if (detailLevel === 'level3') {
+        questions.push({
+          id: 'specialized_power',
+          text: "Niveau 3 (Expert) : Possédez-vous des équipements à forte intensité énergétique (serveurs informatiques, cuisines commerciales, laboratoires, séchoirs à bois) ?",
+          options: [
+            { label: 'Non ou très faible', value: 1000 },
+            { label: 'Modéré (1-2 serveurs / petite cuisine)', value: 6500 },
+            { label: 'Élevé (Salle de serveurs / procédé industriel)', value: 22000 }
+          ],
+          field: 'specializedKwh'
+        });
+      }
+    }
+
+    // Q3: Transport principal & Flotte
+    questions.push({
+      id: 'car_km',
+      text: "Quel est le kilométrage annuel effectué en véhicule automobile principal ?",
+      options: [
+        { label: 'Moins de 5 000 km', value: 4000 },
+        { label: '5 000 à 15 000 km', value: 10000 },
+        { label: '15 000 à 25 000 km', value: 20000 },
+        { label: 'Plus de 25 000 km', value: 32000 }
+      ],
+      field: 'kmCar'
+    });
+
+    if (detailLevel !== 'level1' && profile !== 'citizen') {
+      questions.push({
+        id: 'fleet',
+        text: "Combien de véhicules (autos de service, autobus scolaires, camionnettes) compose votre flotte ?",
+        options: [
+          { label: '1 à 2 véhicules', value: 2 },
+          { label: '3 à 8 véhicules', value: 5 },
+          { label: 'Plus de 8 véhicules', value: 14 }
+        ],
+        field: 'fleetCount'
+      });
+    }
+
+    // Q4: Alimentation & Approvisionnement local
+    questions.push({
+      id: 'local_food',
+      text: "Quelle est la part d'approvisionnement en produits régionaux (MRC de L'Érable / Centre-du-Québec) ?",
+      options: [
+        { label: 'Faible (< 20%)', value: 15 },
+        { label: 'Moyenne (20% à 50%)', value: 35 },
+        { label: 'Élevée (> 50% circuits courts)', value: 65 }
+      ],
+      field: 'localFoodPct'
+    });
+
+    // Q5: Questions sectorielles adaptées
+    if (sector === 'agriculture' && profile !== 'citizen') {
+      questions.push({
+        id: 'agri_details',
+        text: "Secteur Agricole / Érablière : Quelle est votre superficie cultivée (ha) et le nombre de têtes de bétail ?",
+        options: [
+          { label: '< 25 ha / 15 bovins', value: 20 },
+          { label: '25 à 75 ha / 45 bovins', value: 50 },
+          { label: '> 75 ha / Érablière > 3000 entailles', value: 110 }
+        ],
+        field: 'agriHa'
+      });
+    }
+
+    // Q6: Séquestration Carbone
+    questions.push({
+      id: 'trees',
+      text: "Combien d'arbres avez-vous plantés ou gérez-vous en reboisement forestier dans la MRC de L'Érable ?",
+      options: [
+        { label: 'Aucun pour le moment', value: 0 },
+        { label: '1 à 15 arbres', value: 10 },
+        { label: '15 à 50 arbres', value: 30 },
+        { label: 'Plus de 50 arbres / Boisé géré', value: 120 }
+      ],
+      field: 'treesPlanted'
+    });
+
+    return questions;
   };
 
-  const calcMobility = () => {
-    let factor = 0.00019; // Gasoline
-    if (carType === 'electric') factor = 0.00003;
-    if (carType === 'hybrid') factor = 0.00011;
-    return parseFloat((kmCar * factor).toFixed(1));
+  // Initialize Conversational Chat
+  useEffect(() => {
+    if (evalMode === 'conversational' && step === 3) {
+      const qList = getConversationalQuestions();
+      setConvStepIndex(0);
+      setChatMessages([
+        { 
+          sender: 'ai', 
+          text: qList[0].text,
+          options: qList[0].options,
+          field: qList[0].field
+        }
+      ]);
+    }
+  }, [evalMode, step, detailLevel, profile, sector]);
+
+  const handleConversationalAnswer = (option) => {
+    const qList = getConversationalQuestions();
+    const currentQ = qList[convStepIndex];
+
+    if (currentQ.field === 'heatingType') setHeatingType(option.value);
+    if (currentQ.field === 'energyBillDollars') setEnergyBillDollars(option.value);
+    if (currentQ.field === 'surfaceM2') setSurfaceM2(option.value);
+    if (currentQ.field === 'specializedKwh') setSpecializedKwh(option.value);
+    if (currentQ.field === 'kmCar') setKmCar(option.value);
+    if (currentQ.field === 'fleetCount') setFleetCount(option.value);
+    if (currentQ.field === 'localFoodPct') setLocalFoodPct(option.value);
+    if (currentQ.field === 'agriHa') setAgriHa(option.value);
+    if (currentQ.field === 'treesPlanted') setTreesPlanted(option.value);
+
+    const updatedMessages = [
+      ...chatMessages,
+      { sender: 'user', text: option.label }
+    ];
+
+    const nextIndex = convStepIndex + 1;
+    if (nextIndex < qList.length) {
+      setConvStepIndex(nextIndex);
+      setTimeout(() => {
+        setChatMessages([
+          ...updatedMessages,
+          { 
+            sender: 'ai', 
+            text: qList[nextIndex].text,
+            options: qList[nextIndex].options,
+            field: qList[nextIndex].field
+          }
+        ]);
+      }, 400);
+    } else {
+      setConvStepIndex(nextIndex);
+      setTimeout(() => {
+        setChatMessages([
+          ...updatedMessages,
+          { 
+            sender: 'ai', 
+            text: "Merci ! Votre évaluation conversationnelle est terminée. Cliquez ci-dessous pour consulter votre bilan GES et votre plan d'action !",
+            isComplete: true
+          }
+        ]);
+      }, 500);
+    }
   };
 
-  const calcDiet = () => {
-    let base = 2.4;
-    if (dietType === 'vegan') base = 1.2;
-    if (dietType === 'meat') base = 3.6;
-    return base;
+  // CALCULATION MODEL (Scopes 1, 2, 3 + Sequestration)
+  const calcScope1 = () => {
+    let s1 = 0;
+    if (heatingType === 'oil') s1 += (heatingFuelAmount * 2.7) / 1000;
+    else if (heatingType === 'gas') s1 += (heatingFuelAmount * 1.9) / 1000;
+    
+    if (carType === 'gasoline') s1 += (kmCar * 0.00019);
+    else if (carType === 'hybrid') s1 += (kmCar * 0.00011);
+    
+    if (detailLevel !== 'level1') {
+      s1 += (fleetCount * 1.8);
+    }
+
+    if (sector === 'agriculture' && profile !== 'citizen') {
+      s1 += (agriLivestockCount * 1.2) + (agriFertilizerKg * 0.005) + (agriDieselLiters * 0.0027);
+    }
+
+    return parseFloat(s1.toFixed(2));
   };
 
-  const energyVal = calcEnergy();
-  const mobilityVal = calcMobility();
-  const dietVal = calcDiet();
-  const grossTotal = parseFloat((energyVal + mobilityVal + dietVal).toFixed(1));
-  
-  let offsets = 0;
-  if (actions.treePlanting) offsets += 0.3;
-  if (actions.solar) offsets += 0.2;
-  const netTotal = Math.max(0.2, parseFloat((grossTotal - offsets).toFixed(1)));
+  const calcScope2 = () => {
+    let kwh = detailLevel === 'level1' ? energyBillDollars * 7.5 : energyKwh;
+    if (detailLevel === 'level3') kwh += specializedKwh;
+    let s2 = (kwh * 0.0013) / 1000;
+    return parseFloat(s2.toFixed(2));
+  };
+
+  const calcScope3 = () => {
+    let s3 = 0;
+    if (dietType === 'vegan') s3 += 1.2;
+    else if (dietType === 'balanced') s3 += 2.2;
+    else if (dietType === 'meat') s3 += 3.5;
+
+    s3 *= (1 - (localFoodPct * 0.002));
+
+    const commuteKmAnnual = workDaysWeek * dailyCommuteKm * 46;
+    s3 += (commuteKmAnnual * 0.00012);
+
+    if (detailLevel !== 'level1') {
+      s3 += (paperReams * 0.004);
+      if (detailLevel === 'level3') {
+        s3 += (freightKm * 0.00028) + (landfillWasteKg * 0.0008);
+      }
+    }
+
+    return parseFloat(s3.toFixed(2));
+  };
+
+  const calcSequestration = () => {
+    let seq = 0;
+    seq += treesPlanted * 0.025;
+    if (actions.heatPump) seq += 1.8;
+    if (actions.compost) seq += (wasteCompostKg * 0.0005);
+    if (actions.solar) seq += (solarOnsiteKwh * 0.0005) + 0.8;
+    if (actions.retroFitSavingsKwh) seq += (retroFitSavingsKwh * 0.0013) / 1000;
+    return parseFloat(seq.toFixed(2));
+  };
+
+  const scope1Val = calcScope1();
+  const scope2Val = calcScope2();
+  const scope3Val = calcScope3();
+  const sequestrationVal = calcSequestration();
+
+  const grossTotal = parseFloat((scope1Val + scope2Val + scope3Val).toFixed(2));
+  const netTotal = Math.max(0.1, parseFloat((grossTotal - sequestrationVal).toFixed(2)));
 
   const handleSendMessage = (msg) => {
     const query = msg || chatInput;
@@ -79,11 +366,13 @@ export default function EvaluationView({ onBackHome }) {
     setChatInput('');
 
     setTimeout(() => {
-      let reply = "L'hydroélectricité québécoise est extrêmement propre (≈ 1.3g CO₂e/kWh), ce qui réduit fortement l'impact de l'électricité directe dans la MRC de L'Érable.";
+      let reply = "L'hydroélectricité québécoise est à 95% propre (≈ 1.3g CO₂e/kWh), ce qui réduit votre Scope 2 à un niveau très bas.";
       if (query.toLowerCase().includes('mrc') || query.toLowerCase().includes('stat')) {
-        reply = "La MRC de L'Érable compte 24 457 habitants sur 10 municipalités, avec 60% de forêt et 43% d'emplois liés à l'agriculture.";
-      } else if (query.toLowerCase().includes('chauffage')) {
-        reply = "Passer d'un chauffage au mazout à une thermopompe électrique dans la MRC permet d'économiser jusqu'à 2.5 tCO₂e/an.";
+        reply = "La MRC de L'Érable compte 10 municipalités et 24 457 habitants. 60% du territoire est couvert de forêts et 31% est agricole.";
+      } else if (query.toLowerCase().includes('chauffage') || query.toLowerCase().includes('thermopompe')) {
+        reply = "Remplacer un chauffage au mazout par une thermopompe électrique dans L'Érable permet d'éviter jusqu'à 2.7 tCO₂e/an.";
+      } else if (query.toLowerCase().includes('arbre') || query.toLowerCase().includes('forêt')) {
+        reply = "Chaque arbre adulte planté dans la MRC de L'Érable séquestre environ 25 kg de CO₂e par an.";
       }
       setChatMessages(prev => [...prev, { sender: 'ai', text: reply }]);
     }, 600);
@@ -92,6 +381,15 @@ export default function EvaluationView({ onBackHome }) {
   const toggleAction = (key) => {
     setActions(prev => ({ ...prev, [key]: !prev[key] }));
   };
+
+  const getMaxSteps = () => {
+    if (evalMode === 'conversational') return 4;
+    if (detailLevel === 'level1') return 5;
+    if (detailLevel === 'level2') return 6;
+    return 7; // Level 3 Expert
+  };
+
+  const maxSteps = getMaxSteps();
 
   return (
     <div style={{ backgroundColor: 'var(--color-surface)', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -111,21 +409,37 @@ export default function EvaluationView({ onBackHome }) {
               <span className="step-pill-sep">→</span>
               <span className={`step-pill ${step === 1 ? 'active' : step > 1 ? 'done' : ''}`} onClick={() => setStep(1)}>Profil</span>
               <span className="step-pill-sep">→</span>
-              <span className={`step-pill ${step === 2 ? 'active' : step > 2 ? 'done' : ''}`} onClick={() => setStep(2)}>Énergie</span>
+              <span className={`step-pill ${step === 2 ? 'active' : step > 2 ? 'done' : ''}`} onClick={() => setStep(2)}>Détail &amp; Mode</span>
               <span className="step-pill-sep">→</span>
-              <span className={`step-pill ${step === 3 ? 'active' : step > 3 ? 'done' : ''}`} onClick={() => setStep(3)}>Mobilité</span>
+              
+              {evalMode === 'conversational' ? (
+                <span className={`step-pill ${step === 3 ? 'active' : step > 3 ? 'done' : ''}`} onClick={() => setStep(3)}>Audit IA Chat</span>
+              ) : (
+                <>
+                  <span className={`step-pill ${step === 3 ? 'active' : step > 3 ? 'done' : ''}`} onClick={() => setStep(3)}>Énergie</span>
+                  <span className="step-pill-sep">→</span>
+                  <span className={`step-pill ${step === 4 ? 'active' : step > 4 ? 'done' : ''}`} onClick={() => setStep(4)}>Mobilité</span>
+                  <span className="step-pill-sep">→</span>
+                  <span className={`step-pill ${step === 5 ? 'active' : step > 5 ? 'done' : ''}`} onClick={() => setStep(5)}>Consommation</span>
+                  {detailLevel === 'level3' && (
+                    <>
+                      <span className="step-pill-sep">→</span>
+                      <span className={`step-pill ${step === 6 ? 'active' : step > 6 ? 'done' : ''}`} onClick={() => setStep(6)}>Expert &amp; Secteur</span>
+                    </>
+                  )}
+                </>
+              )}
               <span className="step-pill-sep">→</span>
-              <span className={`step-pill ${step === 4 ? 'active' : step > 4 ? 'done' : ''}`} onClick={() => setStep(4)}>Consommation</span>
-              <span className="step-pill-sep">→</span>
-              <span className={`step-pill ${step === 5 ? 'active' : step > 5 ? 'done' : ''}`} onClick={() => setStep(5)}>Actions</span>
-              <span className="step-pill-sep">→</span>
-              <span className={`step-pill ${step === 6 ? 'active' : ''}`} onClick={() => setStep(6)}>Résultats</span>
+              <span className={`step-pill ${step === maxSteps ? 'active' : ''}`} onClick={() => setStep(maxSteps)}>Résultats</span>
             </div>
-            <span className="mobile-step-counter">Étape {step} sur 6</span>
+            <span className="mobile-step-counter">Étape {step} sur {maxSteps}</span>
           </div>
 
           <div className="eval-header-actions">
-            <span className="eval-user-badge">Invité</span>
+            <span className="eval-user-badge" style={{ background: '#f0fdf4', color: '#059669', border: '1px solid #bbf7d0', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+              {detailLevel === 'level1' ? <Zap size={14} /> : detailLevel === 'level2' ? <BarChart2 size={14} /> : <Microscope size={14} />}
+              {detailLevel === 'level1' ? 'Rapide (5m)' : detailLevel === 'level2' ? 'Détaillé (15-30m)' : 'Expert (1h+)'} • {evalMode === 'conversational' ? 'Conversationnel' : 'Formulaire'}
+            </span>
             <button onClick={onBackHome} className="btn-eval-back">
               <X size={16} /> Quitter
             </button>
@@ -133,13 +447,13 @@ export default function EvaluationView({ onBackHome }) {
         </div>
 
         <div className="eval-global-progress">
-          <div className="eval-global-fill" style={{ width: `${(step / 6) * 100}%` }} />
+          <div className="eval-global-fill" style={{ width: `${(step / maxSteps) * 100}%` }} />
         </div>
       </header>
 
       {/* Main Layout */}
-      <main className="eval-main">
-        <div className="eval-wizard-panel">
+      <main className={`eval-main ${step === 0 || evalMode === 'conversational' ? 'onboarding-main' : ''}`}>
+        <div className="eval-wizard-panel" style={{ width: '100%' }}>
           {/* STEP 0: Onboarding / Informations à préparer */}
           {step === 0 && (
             <div className="eval-step active onboarding-step-view">
@@ -316,7 +630,7 @@ export default function EvaluationView({ onBackHome }) {
                 })}
               </div>
 
-              {/* 2. Localisation / Région & Code Postal (All Actors) */}
+              {/* 2. Localisation / Région & Code Postal */}
               <div className="form-section-title" style={{ marginTop: '24px' }}>2. Localisation &amp; Territoire</div>
               <div className="eval-form-fields" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginTop: '12px' }}>
                 <div className="form-group">
@@ -362,8 +676,8 @@ export default function EvaluationView({ onBackHome }) {
                   <div className="eval-field" style={{ marginTop: '12px' }}>
                     <div className="select-wrapper">
                       <select value={sector} onChange={(e) => setSector(e.target.value)} className="eval-select">
-                        <option value="agriculture">Agriculture &amp; Agroalimentaire</option>
-                        <option value="foresterie">Foresterie &amp; Transformation du bois</option>
+                        <option value="agriculture">Agriculture &amp; Agroalimentaire (43% MRC L'Érable)</option>
+                        <option value="foresterie">Foresterie &amp; Transformation du bois (60% Forêt)</option>
                         <option value="batiment">Bâtiments, Construction &amp; Génie</option>
                         <option value="transport">Transport, Logistique &amp; Équipements</option>
                         <option value="commerce">Commerce, Restauration &amp; Services</option>
@@ -371,7 +685,7 @@ export default function EvaluationView({ onBackHome }) {
                         <option value="education">Éducation, Recherche &amp; Culture</option>
                         <option value="sante">Santé &amp; Services sociaux</option>
                         <option value="administration">Administration, Collectivité &amp; Municipal</option>
-                        <option value="obnl">OBNL, Association &amp; Communautaire</option>
+                        <option value="obnl">OBNL, Association &amp; Communautaire (CDC)</option>
                       </select>
                     </div>
                   </div>
@@ -407,30 +721,250 @@ export default function EvaluationView({ onBackHome }) {
             </div>
           )}
 
-          {/* STEP 2: Énergie */}
+          {/* STEP 2: Choix du Niveau de Détail & Mode de réponse */}
           {step === 2 && (
+            <div className="eval-step active detail-level-step-view">
+              <div className="onboarding-header">
+                <h2>Choisissez votre niveau de détail</h2>
+                <p>Sélectionnez le niveau qui correspond à votre disponibilité et à vos besoins.</p>
+              </div>
+
+              {/* 3 Level Cards Grid */}
+              <div className="detail-level-grid">
+                {[
+                  {
+                    id: 'level1',
+                    title: 'Niveau 1 - Rapide',
+                    duration: '5 min (4-5 questions)',
+                    desc: 'Questions minimales pour une empreinte initiale rapide',
+                    icon: Zap,
+                    color: '#f59e0b'
+                  },
+                  {
+                    id: 'level2',
+                    title: 'Niveau 2 - Détaillé',
+                    duration: '15-30 min (12-15 questions)',
+                    desc: 'Collecte approfondie (surface m², kWh, flotte, compost, % local)',
+                    icon: BarChart2,
+                    color: '#059669'
+                  },
+                  {
+                    id: 'level3',
+                    title: 'Niveau 3 - Expert',
+                    duration: '1h+ (Exhaustif Bilan GES)',
+                    desc: 'Bilan ISO 14064 (fret, serveurs, bilans sectoriels & déchets)',
+                    icon: Microscope,
+                    color: '#6366f1'
+                  }
+                ].map((item) => {
+                  const Icon = item.icon;
+                  const isSelected = detailLevel === item.id;
+                  return (
+                    <div 
+                      key={item.id} 
+                      className={`detail-level-card ${isSelected ? 'active' : ''}`}
+                      onClick={() => setDetailLevel(item.id)}
+                    >
+                      <div className="level-card-icon" style={{ color: item.color }}>
+                        <Icon size={28} />
+                      </div>
+                      <h3>{item.title}</h3>
+                      <span className="level-duration-tag">{item.duration}</span>
+                      <p>{item.desc}</p>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Mode Switcher: Conversationnel vs Formulaire */}
+              <div className="eval-mode-toggle-container">
+                <div className="eval-mode-toggle-bar">
+                  <button
+                    type="button"
+                    className={`btn-mode-toggle ${evalMode === 'conversational' ? 'active' : ''}`}
+                    onClick={() => setEvalMode('conversational')}
+                  >
+                    <MessageSquare size={18} />
+                    <span>Conversationnel (IA Guidée)</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    className={`btn-mode-toggle ${evalMode === 'form' ? 'active' : ''}`}
+                    onClick={() => setEvalMode('form')}
+                  >
+                    <FileText size={18} />
+                    <span>Formulaire</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Validation Action */}
+              <div className="detail-level-actions">
+                {!detailLevel ? (
+                  <div className="level-prompt-banner">
+                    Veuillez d'abord sélectionner un niveau de détail ci-dessus.
+                  </div>
+                ) : (
+                  <div className="step-actions" style={{ marginTop: '28px' }}>
+                    <button className="btn-eval-back-step" onClick={() => setStep(1)}>
+                      <ArrowLeft size={16} /> Retour
+                    </button>
+                    <button className="btn-eval-next" onClick={() => setStep(3)}>
+                      Commencer en Mode {evalMode === 'conversational' ? 'Conversationnel (IA)' : 'Formulaire'} <ArrowRight size={18} />
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* MODE CONVERSATIONNEL INTERACTIF */}
+          {evalMode === 'conversational' && step === 3 && (
+            <div className="eval-step active conversational-audit-view" style={{ maxWidth: '800px', margin: '0 auto' }}>
+              <div className="conv-hero-header" style={{ textAlign: 'center', marginBottom: '24px' }}>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#f0fdf4', border: '1px solid #bbf7d0', color: '#059669', padding: '6px 16px', borderRadius: '9999px', fontWeight: 700, fontSize: '0.85rem', marginBottom: '12px' }}>
+                  <Bot size={18} />
+                  Audit Interactif IA — Niveau {detailLevel === 'level1' ? '1 (Rapide)' : detailLevel === 'level2' ? '2 (Détaillé)' : '3 (Expert)'}
+                </div>
+                <h2>Conseiller Environnemental IA</h2>
+                <p>Répondez aux questions ci-dessous. Votre bilan GES s'actualise en temps réel.</p>
+              </div>
+
+              <div className="conv-chat-card" style={{ background: '#ffffff', border: '1.5px solid #e2e8f0', borderRadius: '24px', padding: '24px', boxShadow: '0 10px 30px rgba(15,23,42,0.06)' }}>
+                <div className="conv-messages-container" style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '24px' }}>
+                  {chatMessages.map((msg, index) => (
+                    <div key={index} className={`conv-msg-bubble ${msg.sender === 'user' ? 'conv-user' : 'conv-ai'}`} style={{
+                      alignSelf: msg.sender === 'user' ? 'flex-end' : 'flex-start',
+                      maxWidth: '85%',
+                      background: msg.sender === 'user' ? '#059669' : '#f8fafc',
+                      color: msg.sender === 'user' ? '#ffffff' : '#0f172a',
+                      padding: '16px 20px',
+                      borderRadius: '18px',
+                      border: msg.sender === 'user' ? 'none' : '1px solid #e2e8f0',
+                      fontSize: '0.95rem',
+                      lineHeight: '1.5'
+                    }}>
+                      <div style={{ fontWeight: 700, fontSize: '0.78rem', marginBottom: '4px', color: msg.sender === 'user' ? '#a7f3d0' : '#64748b', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        {msg.sender === 'user' ? 'Vous' : <><Bot size={14} /> Conseiller IA ERABLE GES</>}
+                      </div>
+                      <p style={{ margin: 0, color: msg.sender === 'user' ? '#ffffff' : '#0f172a', fontWeight: msg.sender === 'user' ? 600 : 400 }}>{msg.text}</p>
+
+                      {msg.options && (
+                        <div className="conv-options-grid" style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '14px' }}>
+                          {msg.options.map((opt, optIdx) => (
+                            <button
+                              key={optIdx}
+                              type="button"
+                              className="btn-conv-option"
+                              onClick={() => handleConversationalAnswer(opt)}
+                            >
+                              <span>{opt.label}</span>
+                              <ChevronRight size={18} />
+                            </button>
+                          ))}
+                        </div>
+                      )}
+
+                      {msg.isComplete && (
+                        <button
+                          type="button"
+                          className="btn-eval-next"
+                          onClick={() => setStep(4)}
+                          style={{ marginTop: '16px', width: '100%', justifyContent: 'center' }}
+                        >
+                          Voir mes résultats et recommandations <ArrowRight size={18} />
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+
+                <div style={{ background: '#0f172a', color: '#ffffff', padding: '16px 20px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <div>
+                    <span style={{ fontSize: '0.78rem', color: '#34d399', fontWeight: 800, textTransform: 'uppercase' }}>Estimation en direct</span>
+                    <div style={{ fontSize: '1.4rem', fontWeight: 800 }}>{netTotal} tCO₂e / an</div>
+                  </div>
+                  <button className="btn-change-mode-dark" onClick={() => setStep(2)}>
+                    <ArrowLeft size={16} /> Changer de mode
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* MODE FORMULAIRE (STEP 3: Énergie & Bâtiment) */}
+          {evalMode === 'form' && step === 3 && (
             <div className="eval-step active">
               <div className="step-hero-illus">
                 <img src="/images/illus_energy.png" alt="Énergie" className="illus-step-img" />
               </div>
-              <h2 className="step-question">Énergie et bâtiments</h2>
-              <p className="step-hint">L'énergie des bâtiments est un poste clé de la transition.</p>
+              <h2 className="step-question">Énergie et Bâtiments ({detailLevel === 'level1' ? 'Niveau 1 Rapide' : detailLevel === 'level2' ? 'Niveau 2 Détaillé' : 'Niveau 3 Expert'})</h2>
+              <p className="step-hint">Renseignez vos caractéristiques énergétiques.</p>
 
-              <div className="eval-form-fields" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                <div className="form-group">
-                  <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>
-                    Consommation d'électricité annuelle (kWh) : {energyKwh} kWh
-                  </label>
-                  <input 
-                    type="range" 
-                    min="2000" 
-                    max="50000" 
-                    step="1000" 
-                    value={energyKwh} 
-                    onChange={(e) => setEnergyKwh(Number(e.target.value))} 
-                    style={{ width: '100%' }} 
-                  />
-                </div>
+              <div className="eval-form-fields" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                {detailLevel === 'level1' ? (
+                  <div className="form-group">
+                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>
+                      Facture énergétique annuelle totale ($ CAD) : {energyBillDollars.toLocaleString()} $
+                    </label>
+                    <input 
+                      type="range" 
+                      min="500" 
+                      max="15000" 
+                      step="250" 
+                      value={energyBillDollars} 
+                      onChange={(e) => setEnergyBillDollars(Number(e.target.value))} 
+                      style={{ width: '100%' }} 
+                    />
+                    <span style={{ fontSize: '0.8rem', color: '#059669', fontWeight: 700, marginTop: '6px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                      <Lightbulb size={14} /> Conversion automatique : ≈ {(energyBillDollars * 7.5).toLocaleString()} kWh en tarif Hydro-Québec.
+                    </span>
+                  </div>
+                ) : (
+                  <>
+                    <div className="form-group" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                      <div>
+                        <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>Surface totale (m²) :</label>
+                        <input 
+                          type="number"
+                          className="eval-input"
+                          value={surfaceM2}
+                          onChange={(e) => setSurfaceM2(Number(e.target.value))}
+                        />
+                      </div>
+                      <div>
+                        <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>Nombre de bâtiments :</label>
+                        <input 
+                          type="number"
+                          className="eval-input"
+                          value={buildingCount}
+                          onChange={(e) => setBuildingCount(Number(e.target.value))}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="form-group" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                      <div>
+                        <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>Période de construction :</label>
+                        <select className="eval-select" value={buildDecade} onChange={(e) => setBuildDecade(e.target.value)}>
+                          <option value="pre1980">Avant 1980 (Isolation d'origine)</option>
+                          <option value="1980-2000">1980 - 2000 (Standard)</option>
+                          <option value="2000s">2000 à aujourd'hui (Haute efficacité)</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>Consommation électricité (kWh) :</label>
+                        <input 
+                          type="number"
+                          className="eval-input"
+                          value={energyKwh}
+                          onChange={(e) => setEnergyKwh(Number(e.target.value))}
+                        />
+                      </div>
+                    </div>
+                  </>
+                )}
 
                 <div className="form-group">
                   <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>Source principale de chauffage :</label>
@@ -438,36 +972,96 @@ export default function EvaluationView({ onBackHome }) {
                     <select value={heatingType} onChange={(e) => setHeatingType(e.target.value)} className="eval-select">
                       <option value="hydro">Électricité (Hydro-Québec / Thermopompe)</option>
                       <option value="gas">Gaz naturel</option>
-                      <option value="oil">Mazout / Biomasse</option>
+                      <option value="oil">Mazout (Huile de chauffage)</option>
+                      <option value="biomass">Biomasse / Bois local de L'Érable</option>
                     </select>
                   </div>
                 </div>
+
+                {detailLevel === 'level3' && (
+                  <div className="form-group" style={{ background: '#f8fafc', padding: '18px', borderRadius: '16px', border: '1px solid #e2e8f0' }}>
+                    <label style={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: '#0f172a' }}>
+                      <Cpu size={18} style={{ color: '#6366f1' }} /> Données Avancées Niveau 3 (Expert)
+                    </label>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+                      <div>
+                        <span style={{ fontSize: '0.84rem', color: '#64748b' }}>Équipements spécialisés (kWh/an serveurs/labos/cuisines) :</span>
+                        <input 
+                          type="number" 
+                          className="eval-input" 
+                          value={specializedKwh} 
+                          onChange={(e) => setSpecializedKwh(Number(e.target.value))} 
+                        />
+                      </div>
+                      <div>
+                        <span style={{ fontSize: '0.84rem', color: '#64748b' }}>Production solaire/géothermie sur site (kWh/an) :</span>
+                        <input 
+                          type="number" 
+                          className="eval-input" 
+                          value={solarOnsiteKwh} 
+                          onChange={(e) => setSolarOnsiteKwh(Number(e.target.value))} 
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
 
-              <div className="step-actions">
-                <button className="btn-eval-back-step" onClick={() => setStep(1)}>
+              <div className="step-actions" style={{ marginTop: '28px' }}>
+                <button className="btn-eval-back-step" onClick={() => setStep(2)}>
                   <ArrowLeft size={16} /> Retour
                 </button>
-                <button className="btn-eval-next" onClick={() => setStep(3)}>
+                <button className="btn-eval-next" onClick={() => setStep(4)}>
                   Continuer <ArrowRight size={18} />
                 </button>
               </div>
             </div>
           )}
 
-          {/* STEP 3: Mobilité */}
-          {step === 3 && (
+          {/* MODE FORMULAIRE (STEP 4: Mobilité, Flottes & Transports) */}
+          {evalMode === 'form' && step === 4 && (
             <div className="eval-step active">
               <div className="step-hero-illus">
                 <img src="/images/illus_mobility.png" alt="Mobilité" className="illus-step-img" />
               </div>
-              <h2 className="step-question">Transports et déplacements</h2>
-              <p className="step-hint">Évaluez vos kilomètres parcourus et vos modes de transport.</p>
+              <h2 className="step-question">Transports et mobilité ({detailLevel === 'level1' ? 'Niveau 1' : detailLevel === 'level2' ? 'Niveau 2' : 'Niveau 3 Expert'})</h2>
+              <p className="step-hint">Évaluez le kilométrage et les déplacements professionnels / personnels.</p>
 
-              <div className="eval-form-fields" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <div className="eval-form-fields" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                <div style={{ background: '#f8fafc', padding: '18px', borderRadius: '16px', border: '1px solid #e2e8f0' }}>
+                  <label style={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: '#0f172a' }}>
+                    <Car size={18} style={{ color: '#059669' }} /> Calculateur dynamique de trajets quotidiens
+                  </label>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+                    <div>
+                      <span style={{ fontSize: '0.84rem', color: '#64748b' }}>Jours de travail / semaine :</span>
+                      <input 
+                        type="number" 
+                        min="1" 
+                        max="7" 
+                        className="eval-input" 
+                        value={workDaysWeek} 
+                        onChange={(e) => setWorkDaysWeek(Number(e.target.value))} 
+                      />
+                    </div>
+                    <div>
+                      <span style={{ fontSize: '0.84rem', color: '#64748b' }}>Distance aller-retour (km) :</span>
+                      <input 
+                        type="number" 
+                        className="eval-input" 
+                        value={dailyCommuteKm} 
+                        onChange={(e) => setDailyCommuteKm(Number(e.target.value))} 
+                      />
+                    </div>
+                  </div>
+                  <span style={{ fontSize: '0.82rem', color: '#059669', fontWeight: 700, marginTop: '8px', display: 'block' }}>
+                    Calcul du trajet domicile-travail : {(workDaysWeek * dailyCommuteKm * 46).toLocaleString()} km/an.
+                  </span>
+                </div>
+
                 <div className="form-group">
                   <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>
-                    Kilométrage annuel en voiture : {kmCar.toLocaleString()} km
+                    Kilométrage annuel total en véhicule : {kmCar.toLocaleString()} km
                   </label>
                   <input 
                     type="range" 
@@ -480,52 +1074,59 @@ export default function EvaluationView({ onBackHome }) {
                   />
                 </div>
 
-                <div className="form-group">
-                  <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>Type de véhicule principal :</label>
-                  <div className="select-wrapper">
-                    <select value={carType} onChange={(e) => setCarType(e.target.value)} className="eval-select">
-                      <option value="gasoline">Essence / Diesel</option>
-                      <option value="hybrid">Hybride (PHEV)</option>
-                      <option value="electric">100% Électrique (VE)</option>
-                    </select>
+                {detailLevel !== 'level1' && profile !== 'citizen' && (
+                  <div className="form-group" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                    <div>
+                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>Flotte de véhicules (nombre) :</label>
+                      <input 
+                        type="number" 
+                        className="eval-input" 
+                        value={fleetCount} 
+                        onChange={(e) => setFleetCount(Number(e.target.value))} 
+                      />
+                    </div>
+                    <div>
+                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>Voyages d'affaires annuels :</label>
+                      <input 
+                        type="number" 
+                        className="eval-input" 
+                        value={staffTravelCount} 
+                        onChange={(e) => setStaffTravelCount(Number(e.target.value))} 
+                      />
+                    </div>
                   </div>
-                </div>
-              </div>
+                )}
 
-              <div className="step-actions">
-                <button className="btn-eval-back-step" onClick={() => setStep(2)}>
-                  <ArrowLeft size={16} /> Retour
-                </button>
-                <button className="btn-eval-next" onClick={() => setStep(4)}>
-                  Continuer <ArrowRight size={18} />
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* STEP 4: Consommation */}
-          {step === 4 && (
-            <div className="eval-step active">
-              <div className="step-hero-illus">
-                <img src="/images/illus_consumption.png" alt="Consommation" className="illus-step-img" />
-              </div>
-              <h2 className="step-question">Alimentation et consommation</h2>
-              <p className="step-hint">Vos choix de consommation influencent les émissions indirectes.</p>
-
-              <div className="eval-form-fields" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                <div className="form-group">
-                  <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>Régime alimentaire habituel :</label>
-                  <div className="select-wrapper">
-                    <select value={dietType} onChange={(e) => setDietType(e.target.value)} className="eval-select">
-                      <option value="balanced">Équilibré (Viande modérée &amp; produits locaux)</option>
-                      <option value="meat">Riche en viande rouge &amp; transformée</option>
-                      <option value="vegan">Végétarien / Végétalien</option>
-                    </select>
+                {detailLevel === 'level3' && (
+                  <div className="form-group" style={{ background: '#eef2ff', padding: '18px', borderRadius: '16px', border: '1px solid #c7d2fe' }}>
+                    <label style={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: '#3730a3' }}>
+                      <Truck size={18} /> Fret &amp; Logistique Niveau 3 (Expert)
+                    </label>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+                      <div>
+                        <span style={{ fontSize: '0.84rem', color: '#4338ca' }}>Distance annuelle fret/livraison (km) :</span>
+                        <input 
+                          type="number" 
+                          className="eval-input" 
+                          value={freightKm} 
+                          onChange={(e) => setFreightKm(Number(e.target.value))} 
+                        />
+                      </div>
+                      <div>
+                        <span style={{ fontSize: '0.84rem', color: '#4338ca' }}>Kilomètres évités en télétravail :</span>
+                        <input 
+                          type="number" 
+                          className="eval-input" 
+                          value={teleworkKmSaved} 
+                          onChange={(e) => setTeleworkKmSaved(Number(e.target.value))} 
+                        />
+                      </div>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
 
-              <div className="step-actions">
+              <div className="step-actions" style={{ marginTop: '28px' }}>
                 <button className="btn-eval-back-step" onClick={() => setStep(3)}>
                   <ArrowLeft size={16} /> Retour
                 </button>
@@ -536,63 +1137,161 @@ export default function EvaluationView({ onBackHome }) {
             </div>
           )}
 
-          {/* STEP 5: Actions */}
-          {step === 5 && (
+          {/* MODE FORMULAIRE (STEP 5: Consommation & Déchets) */}
+          {evalMode === 'form' && step === 5 && (
+            <div className="eval-step active">
+              <div className="step-hero-illus">
+                <img src="/images/illus_consumption.png" alt="Consommation" className="illus-step-img" />
+              </div>
+              <h2 className="step-question">Alimentation, consommables et gestion des déchets</h2>
+              <p className="step-hint">Mesurez l'empreinte de la chaîne d'approvisionnement et du recyclage.</p>
+
+              <div className="eval-form-fields" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                <div className="form-group">
+                  <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>Régime alimentaire / type de restauration :</label>
+                  <div className="select-wrapper">
+                    <select value={dietType} onChange={(e) => setDietType(e.target.value)} className="eval-select">
+                      <option value="balanced">Équilibré (Viande modérée &amp; produits locaux)</option>
+                      <option value="meat">Riche en viande rouge &amp; transformée</option>
+                      <option value="vegan">Végétarien / Végétalien</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="form-group">
+                  <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>
+                    Part d'aliments locaux (MRC de L'Érable / Québec) : {localFoodPct}%
+                  </label>
+                  <input 
+                    type="range" 
+                    min="0" 
+                    max="100" 
+                    step="5" 
+                    value={localFoodPct} 
+                    onChange={(e) => setLocalFoodPct(Number(e.target.value))} 
+                    style={{ width: '100%' }} 
+                  />
+                </div>
+
+                {detailLevel !== 'level1' && (
+                  <div className="form-group" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                    <div>
+                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>Matière compostée (kg/an) :</label>
+                      <input 
+                        type="number" 
+                        className="eval-input" 
+                        value={wasteCompostKg} 
+                        onChange={(e) => setWasteCompostKg(Number(e.target.value))} 
+                      />
+                    </div>
+                    <div>
+                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>Consommation papier (ramettes/an) :</label>
+                      <input 
+                        type="number" 
+                        className="eval-input" 
+                        value={paperReams} 
+                        onChange={(e) => setPaperReams(Number(e.target.value))} 
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="step-actions" style={{ marginTop: '28px' }}>
+                <button className="btn-eval-back-step" onClick={() => setStep(4)}>
+                  <ArrowLeft size={16} /> Retour
+                </button>
+                <button className="btn-eval-next" onClick={() => setStep(detailLevel === 'level3' ? 6 : maxSteps)}>
+                  Continuer <ArrowRight size={18} />
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* MODE FORMULAIRE (STEP 6: SPÉCIFICITÉS SECTORIELLES - LEVEL 3 EXPERT) */}
+          {evalMode === 'form' && step === 6 && detailLevel === 'level3' && (
             <div className="eval-step active">
               <div className="step-hero-illus">
                 <img src="/images/illus_actions.png" alt="Actions" className="illus-step-img" />
               </div>
-              <h2 className="step-question">Actions et engagements écologiques</h2>
-              <p className="step-hint">Sélectionnez les initiatives déjà en place ou planifiées.</p>
+              <h2 className="step-question">Données Spécifiques au Secteur ({sector.toUpperCase()}) — Niveau 3</h2>
+              <p className="step-hint">Inégalée précision pour l’agriculture, les institutions et l’industrie de L'Érable.</p>
 
-              <div className="actions-checklist" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                {[
-                  { key: 'heatPump', label: 'Thermopompe haute efficacité installée' },
-                  { key: 'compost', label: 'Compostage des résidus organiques' },
-                  { key: 'localFood', label: 'Approvisionnement local (MRC de L\'Érable)' },
-                  { key: 'treePlanting', label: 'Plantation d\'arbres / Reboisement' },
-                  { key: 'solar', label: 'Panneaux solaires ou énergie renouvelable' }
-                ].map(item => (
-                  <label 
-                    key={item.key} 
-                    className="action-check-card"
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '12px',
-                      padding: '14px 18px',
-                      background: actions[item.key] ? '#f0fdf4' : '#ffffff',
-                      border: `1.5px solid ${actions[item.key] ? '#059669' : '#e2e8f0'}`,
-                      borderRadius: '14px',
-                      cursor: 'pointer',
-                      fontWeight: 600,
-                      color: actions[item.key] ? '#047857' : '#1e293b'
-                    }}
-                  >
-                    <input 
-                      type="checkbox" 
-                      checked={actions[item.key]} 
-                      onChange={() => toggleAction(item.key)} 
-                      style={{ width: '18px', height: '18px', accentColor: '#059669' }}
-                    />
-                    <span>{item.label}</span>
+              <div className="eval-form-fields" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                {sector === 'agriculture' ? (
+                  <div style={{ background: '#f0fdf4', padding: '20px', borderRadius: '18px', border: '1.5px solid #bbf7d0' }}>
+                    <h3 style={{ margin: '0 0 14px 0', color: '#065f46', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <Wheat size={20} /> Paramètres Agricoles &amp; Érablière
+                    </h3>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+                      <div>
+                        <span style={{ fontSize: '0.84rem', color: '#047857' }}>Superficie cultivée (hectares) :</span>
+                        <input type="number" className="eval-input" value={agriHa} onChange={(e) => setAgriHa(Number(e.target.value))} />
+                      </div>
+                      <div>
+                        <span style={{ fontSize: '0.84rem', color: '#047857' }}>Consommation diesel machinerie (L/an) :</span>
+                        <input type="number" className="eval-input" value={agriDieselLiters} onChange={(e) => setAgriDieselLiters(Number(e.target.value))} />
+                      </div>
+                      <div>
+                        <span style={{ fontSize: '0.84rem', color: '#047857' }}>Engrais azotés N (kg/an) :</span>
+                        <input type="number" className="eval-input" value={agriFertilizerKg} onChange={(e) => setAgriFertilizerKg(Number(e.target.value))} />
+                      </div>
+                      <div>
+                        <span style={{ fontSize: '0.84rem', color: '#047857' }}>Entailles érablière (nombre) :</span>
+                        <input type="number" className="eval-input" value={agriTapsCount} onChange={(e) => setAgriTapsCount(Number(e.target.value))} />
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div style={{ background: '#f8fafc', padding: '20px', borderRadius: '18px', border: '1.5px solid #e2e8f0' }}>
+                    <h3 style={{ margin: '0 0 14px 0', color: '#0f172a', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <Factory size={20} /> Déchets Ultimes &amp; Durabilité du Matériel
+                    </h3>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+                      <div>
+                        <span style={{ fontSize: '0.84rem', color: '#64748b' }}>Déchets ultimes enfouis (kg/an) :</span>
+                        <input type="number" className="eval-input" value={landfillWasteKg} onChange={(e) => setLandfillWasteKg(Number(e.target.value))} />
+                      </div>
+                      <div>
+                        <span style={{ fontSize: '0.84rem', color: '#64748b' }}>Cycle renouvellement informatique (ans) :</span>
+                        <input type="number" className="eval-input" value={equipmentRenewalYears} onChange={(e) => setEquipmentRenewalYears(Number(e.target.value))} />
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                <div style={{ background: '#f0fdf4', padding: '18px', borderRadius: '16px', border: '1px solid #bbf7d0' }}>
+                  <label style={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', color: '#065f46' }}>
+                    <Trees size={18} /> Arbres plantés / Reboisement géré : {treesPlanted} arbres
                   </label>
-                ))}
+                  <input 
+                    type="range" 
+                    min="0" 
+                    max="200" 
+                    step="5" 
+                    value={treesPlanted} 
+                    onChange={(e) => setTreesPlanted(Number(e.target.value))} 
+                    style={{ width: '100%' }} 
+                  />
+                  <span style={{ fontSize: '0.82rem', color: '#047857', marginTop: '6px', display: 'block' }}>
+                    Séquestration estimée : -{(treesPlanted * 0.025).toFixed(2)} tCO₂e/an.
+                  </span>
+                </div>
               </div>
 
-              <div className="step-actions">
-                <button className="btn-eval-back-step" onClick={() => setStep(4)}>
+              <div className="step-actions" style={{ marginTop: '28px' }}>
+                <button className="btn-eval-back-step" onClick={() => setStep(5)}>
                   <ArrowLeft size={16} /> Retour
                 </button>
-                <button className="btn-eval-calculate" onClick={() => setStep(6)}>
+                <button className="btn-eval-calculate" onClick={() => setStep(7)}>
                   Calculer mes résultats <ArrowRight size={18} />
                 </button>
               </div>
             </div>
           )}
 
-          {/* STEP 6: Results */}
-          {step === 6 && (
+          {/* LAST STEP: RÉSULTATS & PLAN D'ACTION */}
+          {step === maxSteps && (
             <div className="eval-step active">
               <div className="step-hero-illus">
                 <img src="/images/illus_results.png" alt="Résultats" className="illus-step-img" />
@@ -600,29 +1299,32 @@ export default function EvaluationView({ onBackHome }) {
               
               <div className="results-header-text">
                 <h2 className="step-question">Bilan GES et plan d'action personnalisé</h2>
-                <p className="step-hint">Voici l'estimation de votre empreinte environnementale annuelle.</p>
+                <p className="step-hint">Analyse selon le framework TogetherSense de la MRC de L'Érable ({detailLevel === 'level1' ? 'Niveau 1 Rapide' : detailLevel === 'level2' ? 'Niveau 2 Détaillé' : 'Niveau 3 Expert ISO'}).</p>
               </div>
 
-              <div className="results-summary-card" style={{ background: '#0f172a', color: '#ffffff', padding: '24px', borderRadius: '20px', marginBottom: '24px', textIndent: 0 }}>
-                <div style={{ fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-neon-yellow)', fontWeight: 700 }}>
-                  Empreinte Totale Estimée
+              {/* Main Score Summary */}
+              <div className="results-summary-card" style={{ background: '#0f172a', color: '#ffffff', padding: '28px', borderRadius: '24px', marginBottom: '24px' }}>
+                <div style={{ fontSize: '0.82rem', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#34d399', fontWeight: 800 }}>
+                  EMPREINTE TOTALE NETTE ESTIMÉE
                 </div>
-                <div style={{ fontSize: '3rem', fontWeight: 800, margin: '8px 0', fontFamily: 'var(--font-heading)', color: '#ffffff', display: 'flex', alignItems: 'baseline', gap: '8px' }}>
+                <div style={{ fontSize: '3.2rem', fontWeight: 800, margin: '8px 0', fontFamily: 'var(--font-heading)', color: '#ffffff', display: 'flex', alignItems: 'baseline', gap: '8px' }}>
                   {netTotal} <span style={{ fontSize: '1.2rem', fontWeight: 600, color: '#94a3b8' }}>tCO₂e / an</span>
                 </div>
-                <p style={{ fontSize: '0.9rem', color: '#cbd5e1', margin: 0 }}>
-                  Par rapport à la moyenne québécoise (≈ 9.2 tCO₂e/pers), votre bilan affiche un profil responsable.
-                </p>
+                <div style={{ display: 'flex', gap: '16px', fontSize: '0.88rem', color: '#cbd5e1', marginTop: '12px' }}>
+                  <span>Émissions brutes : <strong>{grossTotal} tCO₂e</strong></span>
+                  <span>•</span>
+                  <span style={{ color: '#a7f3d0' }}>Séquestration/Réduction : <strong>-{sequestrationVal} tCO₂e</strong></span>
+                </div>
               </div>
 
-              {/* Tabs */}
-              <div className="results-tabs" style={{ display: 'flex', gap: '8px', marginBottom: '16px' }}>
+              {/* Scope Breakdown Tabs */}
+              <div className="results-tabs" style={{ display: 'flex', gap: '8px', marginBottom: '18px' }}>
                 <button 
                   className={`btn-tab ${activeTab === 'breakdown' ? 'active' : ''}`}
                   onClick={() => setActiveTab('breakdown')}
                   style={{
-                    padding: '8px 16px',
-                    borderRadius: '10px',
+                    padding: '10px 20px',
+                    borderRadius: '12px',
                     border: 'none',
                     background: activeTab === 'breakdown' ? '#059669' : '#f1f5f9',
                     color: activeTab === 'breakdown' ? '#ffffff' : '#64748b',
@@ -630,14 +1332,14 @@ export default function EvaluationView({ onBackHome }) {
                     cursor: 'pointer'
                   }}
                 >
-                  Détail par poste
+                  Ventilation par Scope (1, 2, 3)
                 </button>
                 <button 
                   className={`btn-tab ${activeTab === 'recom' ? 'active' : ''}`}
                   onClick={() => setActiveTab('recom')}
                   style={{
-                    padding: '8px 16px',
-                    borderRadius: '10px',
+                    padding: '10px 20px',
+                    borderRadius: '12px',
                     border: 'none',
                     background: activeTab === 'recom' ? '#059669' : '#f1f5f9',
                     color: activeTab === 'recom' ? '#ffffff' : '#64748b',
@@ -645,48 +1347,68 @@ export default function EvaluationView({ onBackHome }) {
                     cursor: 'pointer'
                   }}
                 >
-                  Recommandations MRC
+                  Plan d'Action Régional MRC
                 </button>
               </div>
 
               {activeTab === 'breakdown' ? (
-                <div className="breakdown-list" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                  <div className="breakdown-item" style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', background: '#f8fafc', borderRadius: '12px' }}>
-                    <span>⚡ Énergie &amp; Chauffage</span>
-                    <strong>{energyVal} tCO₂e</strong>
+                <div className="breakdown-list" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  <div className="breakdown-item" style={{ display: 'flex', justifyContent: 'space-between', padding: '14px 18px', background: '#f8fafc', borderRadius: '14px', border: '1px solid #e2e8f0' }}>
+                    <div>
+                      <strong style={{ color: '#0f172a', display: 'block' }}>Scope 1 : Émissions directes (Chauffage, Carburants &amp; Agriculture)</strong>
+                      <span style={{ fontSize: '0.82rem', color: '#64748b' }}>Combustion sur site, bétail et engrais</span>
+                    </div>
+                    <strong style={{ fontSize: '1.1rem', color: '#0f172a' }}>{scope1Val} tCO₂e</strong>
                   </div>
-                  <div className="breakdown-item" style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', background: '#f8fafc', borderRadius: '12px' }}>
-                    <span>🚗 Transports &amp; Véhicule</span>
-                    <strong>{mobilityVal} tCO₂e</strong>
+
+                  <div className="breakdown-item" style={{ display: 'flex', justifyContent: 'space-between', padding: '14px 18px', background: '#f8fafc', borderRadius: '14px', border: '1px solid #e2e8f0' }}>
+                    <div>
+                      <strong style={{ color: '#0f172a', display: 'block' }}>Scope 2 : Énergie achetée (Hydro-Québec &amp; Équipements)</strong>
+                      <span style={{ fontSize: '0.82rem', color: '#64748b' }}>Consommation électrique propre (1.3g CO₂/kWh)</span>
+                    </div>
+                    <strong style={{ fontSize: '1.1rem', color: '#0f172a' }}>{scope2Val} tCO₂e</strong>
                   </div>
-                  <div className="breakdown-item" style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', background: '#f8fafc', borderRadius: '12px' }}>
-                    <span>🥗 Alimentation &amp; Consommation</span>
-                    <strong>{dietVal} tCO₂e</strong>
+
+                  <div className="breakdown-item" style={{ display: 'flex', justifyContent: 'space-between', padding: '14px 18px', background: '#f8fafc', borderRadius: '14px', border: '1px solid #e2e8f0' }}>
+                    <div>
+                      <strong style={{ color: '#0f172a', display: 'block' }}>Scope 3 : Chaîne de valeur (Fret, Alimentation, Déplacements, Achats)</strong>
+                      <span style={{ fontSize: '0.82rem', color: '#64748b' }}>Trajets quotidiens, achats et déchets</span>
+                    </div>
+                    <strong style={{ fontSize: '1.1rem', color: '#0f172a' }}>{scope3Val} tCO₂e</strong>
                   </div>
-                  {offsets > 0 && (
-                    <div className="breakdown-item" style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', background: '#f0fdf4', color: '#047857', borderRadius: '12px' }}>
-                      <span>🌱 Compensations &amp; Actions</span>
-                      <strong>-{offsets} tCO₂e</strong>
+
+                  {sequestrationVal > 0 && (
+                    <div className="breakdown-item" style={{ display: 'flex', justifyContent: 'space-between', padding: '14px 18px', background: '#f0fdf4', color: '#047857', borderRadius: '14px', border: '1px solid #bbf7d0' }}>
+                      <div>
+                        <strong style={{ color: '#065f46', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                          <Leaf size={16} /> Séquestration Forestière &amp; Gains Positifs (L'Érable)
+                        </strong>
+                        <span style={{ fontSize: '0.82rem', color: '#047857' }}>Reboisement forestier et réductions actives</span>
+                      </div>
+                      <strong style={{ fontSize: '1.1rem', color: '#047857' }}>-{sequestrationVal} tCO₂e</strong>
                     </div>
                   )}
                 </div>
               ) : (
                 <div className="recom-list" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                  <div style={{ padding: '14px', background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '12px', fontSize: '0.9rem', color: '#065f46' }}>
-                    <strong>1. Subvention Thermopompe MRC</strong> : Bénéficiez des aides locales pour optimiser le chauffage de votre bâtiment.
+                  <div style={{ padding: '16px', background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '14px', fontSize: '0.9rem', color: '#065f46' }}>
+                    <strong>1. Subvention Thermopompe MRC de L'Érable</strong> : Bénéficiez des aides locales pour remplacer les systèmes au mazout ou au gaz.
                   </div>
-                  <div style={{ padding: '14px', background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '12px', fontSize: '0.9rem', color: '#065f46' }}>
-                    <strong>2. Programme de compostage municipal</strong> : Réduisez de 30% le poids de vos bacs de résidus ultimes.
+                  <div style={{ padding: '16px', background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '14px', fontSize: '0.9rem', color: '#065f46' }}>
+                    <strong>2. Programme de Compostage Régional (CDC)</strong> : Réduisez de 30% la masse de déchets ultimes dirigés vers les sites d'enfouissement.
+                  </div>
+                  <div style={{ padding: '16px', background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '14px', fontSize: '0.9rem', color: '#065f46' }}>
+                    <strong>3. Circuits Courts Agroalimentaires</strong> : Priorisez les producteurs agricoles de L'Érable pour abaisser l'empreinte Scope 3.
                   </div>
                 </div>
               )}
 
-              <div className="results-actions" style={{ marginTop: '24px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                <button className="btn-eval-back-step" onClick={() => setStep(5)}>
-                  <ArrowLeft size={16} /> Modifier
+              <div className="results-actions" style={{ marginTop: '28px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                <button className="btn-eval-back-step" onClick={() => setStep(2)}>
+                  <ArrowLeft size={16} /> Modifier les choix
                 </button>
-                <button className="btn-results-home" onClick={onBackHome} style={{ background: '#059669', color: '#ffffff', border: 'none', borderRadius: '12px', padding: '12px 20px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  Terminer l'évaluation
+                <button className="btn-results-home" onClick={onBackHome} style={{ background: '#059669', color: '#ffffff', border: 'none', borderRadius: '12px', padding: '12px 24px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  Terminer et sauvegarder le bilan
                 </button>
               </div>
             </div>
@@ -694,45 +1416,47 @@ export default function EvaluationView({ onBackHome }) {
         </div>
 
         {/* Right Sidebar: AI Environmental Assistant */}
-        <div className="eval-ai-sidebar">
-          <div className="ai-chat-card">
-            <div className="ai-chat-header">
-              <div className="ai-status-dot" />
-              <span>CONSEILLER ENVIRONNEMENTAL IA</span>
-            </div>
+        {step > 0 && evalMode === 'form' && (
+          <div className="eval-ai-sidebar">
+            <div className="ai-chat-card">
+              <div className="ai-chat-header">
+                <div className="ai-status-dot" />
+                <span>CONSEILLER ENVIRONNEMENTAL IA</span>
+              </div>
 
-            <div className="ai-chat-body">
-              {chatMessages.map((msg, index) => (
-                <div key={index} className={`ai-msg ${msg.sender === 'user' ? 'user-msg' : 'bot-msg'}`}>
-                  {msg.text}
-                </div>
-              ))}
-            </div>
+              <div className="ai-chat-body">
+                {chatMessages.map((msg, index) => (
+                  <div key={index} className={`ai-msg ${msg.sender === 'user' ? 'user-msg' : 'bot-msg'}`}>
+                    {msg.text}
+                  </div>
+                ))}
+              </div>
 
-            <div className="ai-quick-prompts">
-              <button onClick={() => handleSendMessage("Comment réduire mon chauffage ?")}>Réduire mon chauffage</button>
-              <button onClick={() => handleSendMessage("Quelles sont les infos sur la MRC ?")}>Infos sur la MRC</button>
-            </div>
+              <div className="ai-quick-prompts">
+                <button onClick={() => handleSendMessage("Comment estimer ma facture ?")}>Facture $ ➔ kWh</button>
+                <button onClick={() => handleSendMessage("Séquestration des arbres ?")}>Séquestration arbres</button>
+              </div>
 
-            <div className="ai-chat-input-row">
-              <input 
-                type="text" 
-                placeholder="Poser une question..." 
-                value={chatInput} 
-                onChange={(e) => setChatInput(e.target.value)} 
-                onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()} 
-              />
-              <button onClick={() => handleSendMessage()} className="btn-send-ai">
-                <Send size={16} />
-              </button>
-            </div>
+              <div className="ai-chat-input-row">
+                <input 
+                  type="text" 
+                  placeholder="Poser une question..." 
+                  value={chatInput} 
+                  onChange={(e) => setChatInput(e.target.value)} 
+                  onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()} 
+                />
+                <button onClick={() => handleSendMessage()} className="btn-send-ai">
+                  <Send size={16} />
+                </button>
+              </div>
 
-            <div className="ai-score-preview">
-              <span className="score-val">{netTotal}</span>
-              <span className="score-unit">tCO₂e / an (Net)</span>
+              <div className="ai-score-preview">
+                <span className="score-val">{netTotal}</span>
+                <span className="score-unit">tCO₂e / an (Nette)</span>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </main>
     </div>
   );

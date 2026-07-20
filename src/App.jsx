@@ -15,7 +15,7 @@ import { useScrollReveal } from './utils/useScrollReveal';
 export default function App() {
   const [view, setView] = useState('landing'); // 'landing' | 'evaluation' | 'login' | 'register'
 
-  useScrollReveal();
+  useScrollReveal(view);
 
   if (view === 'evaluation') {
     return <EvaluationView onBackHome={() => setView('landing')} />;
