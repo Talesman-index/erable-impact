@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Évaluation Environnementale — ERABLE GES</title>
+    <meta name="description" content="Commencez votre évaluation environnementale personnalisée sur ERABLE GES. Mesurer, comprendre et réduire votre impact.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="evaluation.css">
+</head>
+<body>
+
+    <!-- Top App Bar -->
+    <header class="eval-header">
+        <div class="eval-header-inner">
+            <a href="index.html" class="eval-logo">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M 12,2 C 11.5,4 11.5,4.5 11,5.5 C 10.5,5 9.5,4 8,3 C 8,4.5 8.5,5.5 8.5,6 C 7.5,5.5 6,5 5,5 C 5.5,6 6,7 7,8 C 5,7.5 3.5,7 2,7 C 3,8 4.5,9.5 5.5,10 C 4.5,10 3.5,10.5 2.5,10.5 C 3.5,11.5 5,12 6,12 C 5,13 4,14 3,15 C 4.5,14.5 5.5,14 6.5,13.5 C 6,14.5 5.5,16 5.5,17 C 6.5,16 7.5,15 8,14 C 8.5,15.5 9,17 9.5,18.5 C 10.5,18 11.5,17.5 12,17.5 L 12,22 L 12.5,22 L 12.5,17.5 C 13,17.5 14,18 15,18.5 C 15.5,17 16,15.5 16.5,14 C 17,15 18,16 19,17 C 19,16 18.5,14.5 18,13.5 C 19,14 20,14.5 21.5,15 C 20.5,14 19.5,13 18.5,12 C 19.5,12 21,11.5 22,10.5 C 21,10.5 20,10 19,10 C 20,9.5 21.5,8 22.5,7 C 21,7 19.5,7.5 17.5,8 C 18.5,7 19,6 19.5,5 C 18.5,5 17,5.5 16,6 C 16,5.5 16.5,4.5 16.5,3 C 15,4 14,5 13.5,5.5 C 13,4.5 13,4 12.5,2 L 12,2 Z"/>
+                </svg>
+                <span>ERABLE <strong>GES</strong></span>
+            </a>
+
+            <div class="eval-header-progress">
+                <div class="header-step-pills">
+                    <span class="step-pill active" data-step="1">Profil</span>
+                    <span class="step-pill-sep">→</span>
+                    <span class="step-pill" data-step="2">Énergie</span>
+                    <span class="step-pill-sep">→</span>
+                    <span class="step-pill" data-step="3">Mobilité</span>
+                    <span class="step-pill-sep">→</span>
+                    <span class="step-pill" data-step="4">Consommation</span>
+                    <span class="step-pill-sep">→</span>
+                    <span class="step-pill" data-step="5">Résultats</span>
+                </div>
+                <span class="mobile-step-counter" id="mobile-step-counter">Étape 1 sur 5</span>
+            </div>
+
+            <div class="eval-header-actions">
+                <span id="eval-user-badge" class="eval-user-badge">Invité</span>
+                <a href="index.html" class="btn-eval-back">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    Quitter
+                </a>
+            </div>
+        </div>
+
+        <!-- Full-width progress bar -->
+        <div class="eval-global-progress">
+            <div class="eval-global-fill" id="eval-global-fill" style="width: 20%;"></div>
+        </div>
+    </header>
+
+    <!-- Main Evaluation Layout -->
+    <main class="eval-main">
+        <!-- Left: Q&A Wizard Panel -->
+        <div class="eval-wizard-panel">
+
+            <!-- Step 1: Profile -->
+            <div class="eval-step active" data-eval-step="1">
+                <div class="step-hero-illus">
+                    <img src="images/illus_profile.png" alt="Illustration Profil" class="illus-step-img">
+                </div>
+                <h2 class="step-question">Créez votre profil d'évaluation</h2>
+                <p class="step-hint">Adaptez les calculs, les facteurs d'émissions et le niveau de détail selon vos besoins.</p>
+
+                <!-- Profile Choice -->
+                <div class="form-section-title">1. Type d'acteur</div>
+                <div class="profile-choice-grid select-5-columns">
+                    <label class="profile-choice">
+                        <input type="radio" name="eval-profile" value="citizen" checked>
+                        <div class="profile-choice-card">
+                            <div class="choice-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            </div>
+                            <h4>Citoyen</h4>
+                            <p>Bilan personnel et mode de vie.</p>
+                        </div>
+                    </label>
+
+                    <label class="profile-choice">
+                        <input type="radio" name="eval-profile" value="organisation">
+                        <div class="profile-choice-card">
+                            <div class="choice-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            </div>
+                            <h4>Organisation</h4>
+                            <p>OBNL, coop et milieu associatif.</p>
+                        </div>
+                    </label>
+
+                    <label class="profile-choice">
+                        <input type="radio" name="eval-profile" value="company">
+                        <div class="profile-choice-card">
+                            <div class="choice-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                            </div>
+                            <h4>Entreprise</h4>
+                            <p>Opérations commerciales et PME.</p>
+                        </div>
+                    </label>
+
+                    <label class="profile-choice">
+                        <input type="radio" name="eval-profile" value="institution">
+                        <div class="profile-choice-card">
+                            <div class="choice-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                            </div>
+                            <h4>Institution</h4>
+                            <p>Écoles, hôpitaux et services.</p>
+                        </div>
+                    </label>
+
+                    <label class="profile-choice">
+                        <input type="radio" name="eval-profile" value="municipality">
+                        <div class="profile-choice-card">
+                            <div class="choice-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+                            </div>
+                            <h4>Collectivité</h4>
+                            <p>Municipalités, villes et MRC.</p>
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Sector Choice -->
+                <div class="form-section-title">2. Secteur d'activité</div>
+                <div class="eval-field" style="margin-top: 0;">
+                    <div class="select-wrapper">
+                        <select id="eval-sector" class="eval-select">
+                            <option value="education">Éducation & Recherche</option>
+                            <option value="agriculture" selected>Agriculture & Agroalimentaire</option>
+                            <option value="health">Santé & Services sociaux</option>
+                            <option value="environment">Environnement & Conservation</option>
+                            <option value="youth">Jeunesse & Loisirs</option>
+                            <option value="community">Communautaire & Action sociale</option>
+                            <option value="food-aid">Aide alimentaire & Solidarité</option>
+                            <option value="restaurant">Restauration & Hébergement</option>
+                            <option value="art-culture">Art, Culture & Événementiel</option>
+                            <option value="politics">Politique & Affaires publiques</option>
+                        </select>
+                        <svg class="select-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                </div>
+
+                <!-- Level of Detail Choice -->
+                <div class="form-section-title">3. Niveau de précision de l'évaluation</div>
+                <div class="level-choice-grid">
+                    <label class="level-choice">
+                        <input type="radio" name="eval-level" value="1" checked>
+                        <div class="level-choice-card">
+                            <div class="choice-icon level-1-color">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                            </div>
+                            <div class="level-info">
+                                <h4>Niveau 1 : Estimation rapide</h4>
+                                <p>Indicateurs clés et estimations globales (5-15 min)</p>
+                            </div>
+                        </div>
+                    </label>
+
+                    <label class="level-choice">
+                        <input type="radio" name="eval-level" value="2">
+                        <div class="level-choice-card">
+                            <div class="choice-icon level-2-color">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                            </div>
+                            <div class="level-info">
+                                <h4>Niveau 2 : Analyse détaillée</h4>
+                                <p>Consommations détaillées, achats et mobilités (30-60 min)</p>
+                            </div>
+                        </div>
+                    </label>
+
+                    <label class="level-choice">
+                        <input type="radio" name="eval-level" value="3">
+                        <div class="level-choice-card">
+                            <div class="choice-icon level-3-color">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            </div>
+                            <div class="level-info">
+                                <h4>Niveau 3 : Audit avancé</h4>
+                                <p>Scope 3 complet, historique mensuel et séquestration (1-3 h)</p>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="step-actions">
+                    <button class="btn-eval-next" data-target="2">Continuer
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 2: Energy & Buildings -->
+            <div class="eval-step" data-eval-step="2">
+                <div class="step-hero-illus">
+                    <img src="images/illus_energy.png" alt="Illustration Énergie" class="illus-step-img">
+                </div>
+                <h2 class="step-question" id="step-2-title">Énergie et bâtiments</h2>
+                <p class="step-hint" id="step-2-hint">Les bâtiments représentent souvent 20 à 40 % de l'empreinte totale.</p>
+                
+                <div id="step-2-fields" class="eval-form-fields">
+                    <!-- Dynamically rendered by JS -->
+                </div>
+
+                <div class="step-actions">
+                    <button class="btn-eval-back-step" data-target="1">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                        Retour
+                    </button>
+                    <button class="btn-eval-next" data-target="3">Continuer
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 3: Transports & Mobilité -->
+            <div class="eval-step" data-eval-step="3">
+                <div class="step-hero-illus">
+                    <img src="images/illus_mobility.png" alt="Illustration Mobilité" class="illus-step-img">
+                </div>
+                <h2 class="step-question" id="step-3-title">Transports et mobilité</h2>
+                <p class="step-hint" id="step-3-hint">La mobilité est souvent le premier ou deuxième poste d'émissions.</p>
+                
+                <div id="step-3-fields" class="eval-form-fields">
+                    <!-- Dynamically rendered by JS -->
+                </div>
+
+                <div class="step-actions">
+                    <button class="btn-eval-back-step" data-target="2">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                        Retour
+                    </button>
+                    <button class="btn-eval-next" data-target="4">Continuer
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 4: Consommation / Achats -->
+            <div class="eval-step" data-eval-step="4">
+                <div class="step-hero-illus">
+                    <img src="images/illus_consumption.png" alt="Illustration Consommation" class="illus-step-img">
+                </div>
+                <h2 class="step-question" id="step-4-title">Alimentation et consommation</h2>
+                <p class="step-hint" id="step-4-hint">Vos choix de consommation et de déchets influencent le bilan carbone.</p>
+                
+                <div id="step-4-fields" class="eval-form-fields">
+                    <!-- Dynamically rendered by JS -->
+                </div>
+
+                <div class="step-actions">
+                    <button class="btn-eval-back-step" data-target="3">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                        Retour
+                    </button>
+                    <button class="btn-eval-next" id="btn-step-4-next" data-target="5">Continuer
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 5: Questionnaire sectoriel spécifique -->
+            <div class="eval-step" data-eval-step="5">
+                <div class="step-hero-illus">
+                    <img src="images/illus_food.png" alt="Illustration Secteur" class="illus-step-img">
+                </div>
+                <h2 class="step-question" id="step-5-title">Pratiques sectorielles</h2>
+                <p class="step-hint" id="step-5-hint">Questions adaptées à votre domaine pour plus de précision.</p>
+                
+                <div id="step-5-fields" class="eval-form-fields">
+                    <!-- Dynamically rendered by JS -->
+                </div>
+
+                <div class="step-actions">
+                    <button class="btn-eval-back-step" data-target="4">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                        Retour
+                    </button>
+                    <button class="btn-eval-next" data-target="6">Continuer
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 6: Actions positives (Offsets & Sequestration) -->
+            <div class="eval-step" data-eval-step="6">
+                <div class="step-hero-illus">
+                    <img src="images/illus_seedling.png" alt="Illustration Actions Positives" class="illus-step-img">
+                </div>
+                <h2 class="step-question" id="step-6-title">Vos actions positives pour le territoire</h2>
+                <p class="step-hint" id="step-6-hint">Cochez les actions concrètes que vous mettez en œuvre pour réduire ou séquestrer du carbone.</p>
+                
+                <div id="step-6-fields" class="actions-checklist-grid">
+                    <!-- Dynamically rendered by JS -->
+                </div>
+
+                <div class="step-actions">
+                    <button class="btn-eval-back-step" id="btn-step-6-back" data-target="5">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                        Retour
+                    </button>
+                    <button class="btn-eval-calculate" id="btn-calculate">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                        Calculer mon empreinte
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 7: Results & Action Plan -->
+            <div class="eval-step" data-eval-step="7">
+                <div class="results-header">
+                    <img src="images/illus_results.png" alt="Illustration Résultats" class="illus-results-img">
+                    <div>
+                        <h2>Votre cockpit environnemental</h2>
+                        <p class="step-hint">Consultez votre empreinte et pilotez vos plans de réduction.</p>
+                    </div>
+                </div>
+
+                <!-- Main Score Widget -->
+                <div class="results-score-card">
+                    <div class="score-gauge-wrap">
+                        <svg class="score-gauge-svg" viewBox="0 0 120 120">
+                            <circle class="gauge-track" cx="60" cy="60" r="50" fill="transparent" stroke-width="10"/>
+                            <circle class="gauge-arc" id="results-gauge-arc" cx="60" cy="60" r="50" fill="transparent" stroke-width="10"
+                                stroke-dasharray="314.16" stroke-dashoffset="100"/>
+                        </svg>
+                        <div class="score-center">
+                            <span class="score-number" id="results-total">7.8</span>
+                            <span class="score-unit">tCO₂e/an</span>
+                        </div>
+                    </div>
+                    <div class="score-context">
+                        <div class="context-row">
+                            <span class="context-label">Profil d'acteur</span>
+                            <span class="context-value" id="results-profile-label">Citoyen</span>
+                        </div>
+                        <div class="context-row">
+                            <span class="context-label">Facteurs nets</span>
+                            <span class="context-value" style="font-weight:700;"><span id="results-gross">8.2</span> t Brut / <span id="results-offset" style="color:#059669">-0.4</span> t Offsets</span>
+                        </div>
+                        <div class="context-row">
+                            <span class="context-label">Comparatif régional</span>
+                            <span class="context-value positive" id="results-compare-value">-15 % sous la moyenne</span>
+                        </div>
+                        <div class="score-progress-bar-wrap">
+                            <div class="score-bar-track">
+                                <div class="score-bar-fill" id="results-bar-fill" style="width: 65%;"></div>
+                                <div class="score-avg-marker" id="results-avg-marker" style="left: 80%;"></div>
+                            </div>
+                            <div class="score-bar-labels">
+                                <span>0t</span>
+                                <span id="results-bar-avg-text">Moyenne</span>
+                                <span>Max</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabs Navigation -->
+                <div class="dashboard-tabs-nav">
+                    <button class="dashboard-tab-btn active" data-tab="breakdown">Répartition</button>
+                    <button class="dashboard-tab-btn" data-tab="actions">Plan d'action</button>
+                    <button class="dashboard-tab-btn" data-tab="history">Historique &amp; Tendances</button>
+                </div>
+
+                <!-- Tab 1: Breakdown (Bars & Custom SVG charts) -->
+                <div class="dashboard-tab-content active" id="tab-breakdown-content">
+                    <div class="results-breakdown">
+                        <h3 class="breakdown-heading" style="margin-bottom: 12px;">Répartition par poste</h3>
+                        <div class="breakdown-row">
+                            <div class="breakdown-row-label">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                                Énergie & Bâtiments
+                            </div>
+                            <div class="breakdown-row-bar-wrap">
+                                <div class="breakdown-bar-fill emerald" id="res-bar-energy" style="width:25%"></div>
+                            </div>
+                            <span class="breakdown-val" id="res-val-energy">1.9 t</span>
+                        </div>
+                        <div class="breakdown-row">
+                            <div class="breakdown-row-label">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                                Transports & Mobilité
+                            </div>
+                            <div class="breakdown-row-bar-wrap">
+                                <div class="breakdown-bar-fill amber" id="res-bar-mobility" style="width:45%"></div>
+                            </div>
+                            <span class="breakdown-val" id="res-val-mobility">3.5 t</span>
+                        </div>
+                        <div class="breakdown-row">
+                            <div class="breakdown-row-label" id="res-label-third">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                                Alimentation & Déchets
+                            </div>
+                            <div class="breakdown-row-bar-wrap">
+                                <div class="breakdown-bar-fill emerald" id="res-bar-diet" style="width:30%"></div>
+                            </div>
+                            <span class="breakdown-val" id="res-val-diet">2.4 t</span>
+                        </div>
+                        <!-- Sector breakdown (optional) -->
+                        <div class="breakdown-row" id="res-row-sector" style="display:none;">
+                            <div class="breakdown-row-label" id="res-label-sector">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg>
+                                Opérations Sectorielles
+                              </div>
+                            <div class="breakdown-row-bar-wrap">
+                                <div class="breakdown-bar-fill purple" id="res-bar-sector" style="width:0%; background:#a855f7;"></div>
+                            </div>
+                            <span class="breakdown-val" id="res-val-sector">0.0 t</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Action Plan Checklist -->
+                <div class="dashboard-tab-content" id="tab-actions-content">
+                    <h3 style="margin-bottom: 12px; font-size: 1.1rem; color: var(--color-secondary);">Mon plan d'action personnalisé</h3>
+                    <p class="step-hint" style="margin-top: 0; margin-bottom: 16px;">Sélectionnez les gestes que vous vous engagez à réaliser pour recalculer immédiatement votre potentiel d'impact.</p>
+                    
+                    <div class="action-plan-checklist" id="action-plan-list">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+
+                <!-- Tab 3: History & Trend Line -->
+                <div class="dashboard-tab-content" id="tab-history-content">
+                    <h3 style="margin-bottom: 12px; font-size: 1.1rem; color: var(--color-secondary);">Suivi historique et progression</h3>
+                    <p class="step-hint" style="margin-top: 0; margin-bottom: 16px;">Renseignez vos bilans précédents pour observer votre courbe de transition dans le temps.</p>
+                    
+                    <div class="history-table-container">
+                        <table class="history-table">
+                            <thead>
+                                <tr>
+                                    <th>Année</th>
+                                    <th>Bilan (tCO₂e)</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody id="history-table-body">
+                                <!-- Filled by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="history-chart-wrapper">
+                        <svg class="history-trend-svg" id="history-trend-chart"></svg>
+                    </div>
+                </div>
+
+                <!-- Recommendations List -->
+                <div class="results-recs" style="margin-top: 24px;">
+                    <h3 class="recs-heading">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><path d="M9.663 17h4.673M12 3v1m6.364 1.364l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 1 1 7.072 0l-.548.547A3.374 3.374 0 0 0 14 18.469V19a2 2 0 0 1-2 2h0a2 2 0 0 1-2-2v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                        Recommandations stratégiques
+                    </h3>
+                    <ul id="results-recs-list" class="recs-list-items">
+                        <!-- Filled by JS -->
+                    </ul>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="results-actions">
+                    <button class="btn-eval-back-step" id="btn-results-back" data-target="6">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                        Modifier mes réponses
+                    </button>
+                    <button class="btn-results-home" id="btn-export-pdf" style="background:#0f172a; color:white; border:none; border-radius:var(--radius-sm); padding:10px 16px; cursor:pointer; display:inline-flex; align-items:center; gap:8px;">
+                        📥 Exporter PDF
+                    </button>
+                    <button class="btn-results-home" id="btn-export-csv" style="background:#f1f5f9; color:#1e293b; border:1px solid #cbd5e1; border-radius:var(--radius-sm); padding:10px 16px; cursor:pointer; display:inline-flex; align-items:center; gap:8px;">
+                        📊 Télécharger CSV
+                    </button>
+                    <a href="index.html" class="btn-results-home">
+                        Retour à l'accueil
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Live Dashboard Sidebar & AI Advisor -->
+        <aside class="eval-sidebar">
+            <!-- AI Chat Advisor Card -->
+            <div class="sidebar-card">
+                <div class="sidebar-live-badge">
+                    <span class="live-dot"></span>
+                    Conseiller Environnemental IA
+                </div>
+
+                <!-- Mascot -->
+                <div class="sidebar-mascot">
+                    <svg width="56" height="56" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="45" fill="#064e3b"/>
+                        <circle cx="35" cy="45" r="5" fill="#fff"/><circle cx="35" cy="45" r="2" fill="#000"/>
+                        <circle cx="65" cy="45" r="5" fill="#fff"/><circle cx="65" cy="45" r="2" fill="#000"/>
+                        <path d="M40 65q10 8 20 0" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none"/>
+                        <path d="M78 28c5-5 5-14 0-19s-14-5-19 0l-4 4 19 19 4-4z" fill="#34d399"/>
+                    </svg>
+                    <div class="sidebar-bubble">
+                        <p id="sidebar-mascot-text">Bonjour! Je suis votre conseiller. Je vous guiderai et estimerai les données manquantes grâce aux moyennes régionales.</p>
+                    </div>
+                </div>
+
+                <!-- AI Chat Log -->
+                <div class="eval-sidebar-chat-layout">
+                    <div class="chat-container-new" id="ai-chat-log">
+                        <div class="chat-msg-new ai">
+                            Posez-moi des questions sur les facteurs d'émissions de la MRC de L'Érable, ou cliquez sur les suggestions ci-dessous.
+                        </div>
+                    </div>
+
+                    <!-- Suggestion Chips -->
+                    <div class="chat-suggestions-new" id="ai-chat-suggestions">
+                        <button class="chat-suggest-btn-new" data-query="smart-defaults">Smart defaults ?</button>
+                        <button class="chat-suggest-btn-new" data-query="heating-tips">Réduire mon chauffage</button>
+                        <button class="chat-suggest-btn-new" data-query="mrc-stats">Infos sur la MRC</button>
+                    </div>
+
+                    <!-- Custom Chat Input -->
+                    <div class="chat-input-row-new">
+                        <input type="text" id="ai-chat-input" placeholder="Poser une question..." class="chat-input-new">
+                        <button id="ai-chat-send" class="chat-send-btn-new" aria-label="Envoyer">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="sidebar-score-block" style="margin-top: 20px;">
+                    <div class="sidebar-score-number" id="sidebar-total">—</div>
+                    <div class="sidebar-score-label">tCO₂e / an (Net)</div>
+                </div>
+
+                <!-- Mini breakdown -->
+                <div class="sidebar-breakdown" style="margin-top: 15px;">
+                    <div class="mini-bar-row">
+                        <span>Énergie</span>
+                        <div class="mini-track"><div class="mini-fill" id="mini-bar-energy" style="width:0%"></div></div>
+                        <span id="mini-val-energy">—</span>
+                    </div>
+                    <div class="mini-bar-row">
+                        <span>Mobilité</span>
+                        <div class="mini-track"><div class="mini-fill amber" id="mini-bar-mobility" style="width:0%"></div></div>
+                        <span id="mini-val-mobility">—</span>
+                    </div>
+                    <div class="mini-bar-row">
+                        <span id="mini-label-third">Consommation</span>
+                        <div class="mini-track"><div class="mini-fill" id="mini-bar-diet" style="width:0%"></div></div>
+                        <span id="mini-val-diet">—</span>
+                    </div>
+                    <!-- Sector specific mini breakdown row -->
+                    <div class="mini-bar-row" id="mini-row-sector" style="display:none;">
+                        <span id="mini-label-sector">Secteur</span>
+                        <div class="mini-track"><div class="mini-fill" id="mini-bar-sector" style="width:0%; background:#a855f7;"></div></div>
+                        <span id="mini-val-sector">—</span>
+                    </div>
+                </div>
+
+                <!-- Contextual tip box -->
+                <div class="sidebar-tip-box" style="margin-top: 15px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                    <p id="sidebar-tip-text">L'hydroélectricité québécoise est extrêmement propre (environ 1.3g CO2e/kWh).</p>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="evaluation.js"></script>
+</body>
+</html>
