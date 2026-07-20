@@ -1,45 +1,98 @@
 import React from 'react';
-import { Layers, Home, MapPin } from 'lucide-react';
+import { Users, Layers, Home, MapPin, ArrowUpRight, TreePine, HeartHandshake } from 'lucide-react';
 
 export default function AboutSection({ onStartEval }) {
   return (
-    <section className="about-platform-section-new">
-      <div className="container about-new-container">
-        <div className="about-new-grid">
-          <div className="about-new-left">
-            <div className="about-new-img-wrap">
-              <img src="/images/illus_about.png" alt="Action collective" className="about-new-img" />
-            </div>
-            <p className="about-new-left-desc">
-              Portée par un tissu communautaire dynamique, la transition socioclimatique de la MRC de L'Érable réunit citoyens, organismes, entreprises et institutions autour d'une vision commune : mesurer pour mieux agir.
-            </p>
-            <button onClick={onStartEval} className="btn-dark-green-capsule">
-              En savoir plus sur nous
-            </button>
+    <section className="about-framer-section">
+      <div className="container about-framer-container">
+        {/* Section Header */}
+        <div className="about-framer-header">
+          <div className="framer-tag-chip">
+            <Users size={14} />
+            <span>ENGAGEMENT &amp; MOBILISATION</span>
           </div>
 
-          <div className="about-new-right">
-            <h2 className="about-new-title">
-              Une démarche collective, inclusive et ancrée dans les réalités du territoire de la MRC de L'Érable.
-            </h2>
+          <h2 className="about-framer-title">
+            Une démarche collective ancrée dans les réalités de la <span className="highlight-text-gradient">MRC de L'Érable</span>.
+          </h2>
+        </div>
 
-            <div className="about-allies-block">
-              <p className="allies-heading">En partenariat avec</p>
-              <div className="allies-logos-strip">
-                <div className="ally-logo-item ally-logo-featured">
-                  <img src="/images/CDCE-horizontal.png" alt="CDC de L'Érable" className="cdce-logo-img" />
+        {/* Bento Grid Layout */}
+        <div className="about-framer-bento-grid">
+          {/* Left Hero Image Bento Card */}
+          <div className="about-hero-bento-card">
+            <div className="about-bento-bg" style={{ backgroundImage: `url('/images/illus_about.png')` }} />
+            <div className="about-bento-overlay" />
+
+            <div className="about-bento-top">
+              <div className="bento-glass-pill">
+                <TreePine size={14} style={{ marginRight: 6 }} />
+                Action Éco-Citoyenne
+              </div>
+            </div>
+
+            <div className="about-bento-bottom">
+              <p className="about-bento-desc">
+                Portée par un tissu communautaire dynamique, la transition socioclimatique réunit citoyens, organismes, entreprises et institutions autour d'un objectif : mesurer pour mieux agir.
+              </p>
+              <button onClick={onStartEval} className="bento-white-btn">
+                <span>Découvrir la démarche</span>
+                <ArrowUpRight size={16} />
+              </button>
+            </div>
+          </div>
+
+          {/* Right Column: Partners & Ecosystem Bento Cards */}
+          <div className="about-right-bento-col">
+            {/* Partners Card */}
+            <div className="about-partners-bento-card">
+              <div className="partners-card-header">
+                <span className="partners-card-label">ACTEURS &amp; PARTENAIRES</span>
+                <h4>Gouvernance partagée du territoire</h4>
+              </div>
+
+              <div className="framer-partners-grid">
+                <div className="framer-partner-featured">
+                  <img src="/images/CDCE-horizontal.png" alt="CDC de L'Érable" className="cdce-logo-img-framer" />
+                  <span className="partner-badge-tag">Initiateur du projet</span>
                 </div>
-                <div className="ally-logo-item">
-                  <Layers className="ally-icon" size={18} />
-                  <span>MRC Érable</span>
+
+                <div className="framer-partner-item">
+                  <Layers size={18} className="partner-icon" />
+                  <span>MRC de L'Érable</span>
                 </div>
-                <div className="ally-logo-item">
-                  <Home className="ally-icon" size={18} />
+
+                <div className="framer-partner-item">
+                  <Home size={18} className="partner-icon" />
                   <span>Ville de Plessisville</span>
                 </div>
-                <div className="ally-logo-item">
-                  <MapPin className="ally-icon" size={18} />
+
+                <div className="framer-partner-item">
+                  <MapPin size={18} className="partner-icon" />
                   <span>Régie des matières résiduelles</span>
+                </div>
+              </div>
+            </div>
+
+            {/* 2 Mini Feature Bento Cards */}
+            <div className="about-mini-bento-row">
+              <div className="about-mini-bento-card">
+                <div className="mini-bento-icon green">
+                  <MapPin size={22} />
+                </div>
+                <div className="mini-bento-content">
+                  <h5>10 Municipalités</h5>
+                  <p>Centre-du-Québec</p>
+                </div>
+              </div>
+
+              <div className="about-mini-bento-card dark">
+                <div className="mini-bento-icon neon">
+                  <HeartHandshake size={22} />
+                </div>
+                <div className="mini-bento-content">
+                  <h5>Transition Inclusive</h5>
+                  <p>Citoyens &amp; PME</p>
                 </div>
               </div>
             </div>
