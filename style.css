@@ -5,9 +5,9 @@
 /* Design Tokens & Theme Variables */
 :root {
     /* Color Palette */
-    --color-primary: #0f392b;       /* Deep Organic Forest Green */
-    --color-primary-hover: #0a291f;
-    --color-primary-light: #e6f4ee;
+    --color-primary: #059669;       /* Vivid Electric Green */
+    --color-primary-hover: #047857;
+    --color-primary-light: #d1fae5;
     
     --color-secondary: #0f172a;     /* Deep Slate / Dark Navy */
     --color-secondary-hover: #1e293b;
@@ -16,7 +16,7 @@
     --color-accent-light: #fef3c7;
     
     --color-danger: #ef4444;        /* Red */
-    --color-success: #0f392b;       /* Forest Green */
+    --color-success: #059669;       /* Green */
     
     /* Solarion Custom Colors */
     --color-neon-yellow: #dbfc49;
@@ -28,8 +28,8 @@
     /* Backgrounds */
     --color-bg-base: #fdfbf7;       /* Soft Warm White */
     --color-bg-card: #ffffff;
-    --color-bg-dark: #09261c;       /* Forest Green Dark */
-    --color-bg-footer: #041711;     /* Deep Forest Footer */
+    --color-bg-dark: #064e3b;       /* Forest Green Dark */
+    --color-bg-footer: #022c22;     /* Very Dark Green */
     
     /* Typography */
     --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
@@ -2788,7 +2788,7 @@ input[type="range"],
 }
 
 .highlight-text-gradient {
-    background: linear-gradient(135deg, #0b2e22, #1a5e46);
+    background: linear-gradient(135deg, #059669, #10b981);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -3258,20 +3258,60 @@ input[type="range"],
     margin-bottom: 24px;
 }
 
-.login-badge-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 5px 12px;
-    border-radius: 9999px;
-    background: #f0fdf4;
-    border: 1px solid #bbf7d0;
+/* Auth Modal Tab Bar */
+.auth-tab-row {
+    display: flex;
+    background: #f1f5f9;
+    padding: 4px;
+    border-radius: 14px;
+    margin-bottom: 20px;
+}
+
+.auth-tab-btn {
+    flex: 1;
+    height: 40px;
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.auth-tab-btn.active {
+    background: #ffffff;
+    color: #0f172a;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+}
+
+.auth-switch-prompt {
+    text-align: center;
+    font-size: 0.88rem;
+    color: #64748b;
+    margin-top: 16px;
+}
+
+.auth-switch-link {
+    background: none;
+    border: none;
     color: #059669;
-    font-size: 0.72rem;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    margin-bottom: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 0.88rem;
+    padding: 0 4px;
+}
+
+.login-select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%3A64748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+    cursor: pointer;
 }
 
 .login-modal-title {
@@ -3809,9 +3849,9 @@ input[type="range"],
     font-weight: 700;
     padding: 4px 10px;
     border-radius: 9999px;
-    background: #e6f4ee;
-    color: #0f392b;
-    border: 1px solid #bce3d4;
+    background: #f0fdf4;
+    color: #059669;
+    border: 1px solid #bbf7d0;
     white-space: nowrap;
 }
 
@@ -3831,13 +3871,13 @@ input[type="range"],
 
 .framer-partner-item:hover {
     background: #ffffff;
-    border-color: #0f392b;
-    color: #0f392b;
-    box-shadow: 0 4px 14px rgba(15, 57, 43, 0.1);
+    border-color: #059669;
+    color: #059669;
+    box-shadow: 0 4px 14px rgba(5, 150, 105, 0.1);
 }
 
 .partner-icon {
-    color: #0f392b;
+    color: #059669;
     flex-shrink: 0;
 }
 
@@ -4155,15 +4195,15 @@ input[type="range"],
 }
 
 .why-card-icon-box.soft-emerald {
-    background: #e6f4ee;
-    color: #0f392b;
-    border: 1px solid #bce3d4;
+    background: #ecfdf5;
+    color: #059669;
+    border: 1px solid #a7f3d0;
 }
 
 .why-soft-badge {
-    background: #e6f4ee;
-    border: 1px solid #bce3d4;
-    color: #0f392b;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #059669;
     font-size: 0.78rem;
     font-weight: 700;
     padding: 6px 14px;
@@ -4180,7 +4220,7 @@ input[type="range"],
 .why-soft-metric {
     font-size: 0.84rem;
     font-weight: 700;
-    color: #0f392b;
+    color: #059669;
 }
 
 @media (max-width: 1024px) {
