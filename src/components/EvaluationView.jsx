@@ -7,8 +7,11 @@ import {
 
 export default function EvaluationView({ onBackHome }) {
   const [step, setStep] = useState(1);
-  const [profile, setProfile] = useState('citizen');
+  const [profile, setProfile] = useState('citizen'); // 'citizen' | 'organisation' | 'company' | 'institution' | 'municipality'
+  const [location, setLocation] = useState('Région de L\'Érable');
+  const [postalCode, setPostalCode] = useState('G6L 1A1');
   const [sector, setSector] = useState('agriculture');
+  const [orgSize, setOrgSize] = useState('small'); // 'small' | 'medium' | 'large'
   const [level, setLevel] = useState(1);
 
   // Form State
@@ -141,6 +144,7 @@ export default function EvaluationView({ onBackHome }) {
               <h2 className="step-question">Créez votre profil d'évaluation</h2>
               <p className="step-hint">Adaptez les calculs et facteurs d'émissions selon votre réalité.</p>
 
+              {/* 1. Type d'acteur */}
               <div className="form-section-title">1. Type d'acteur</div>
               <div className="profile-choice-grid select-5-columns">
                 {[
@@ -170,20 +174,88 @@ export default function EvaluationView({ onBackHome }) {
                 })}
               </div>
 
-              <div className="form-section-title" style={{ marginTop: '24px' }}>2. Secteur d'activité</div>
-              <div className="eval-field" style={{ marginTop: 0 }}>
-                <div className="select-wrapper">
-                  <select value={sector} onChange={(e) => setSector(e.target.value)} className="eval-select">
-                    <option value="agriculture">Agriculture & Agroalimentaire</option>
-                    <option value="education">Éducation & Recherche</option>
-                    <option value="health">Santé & Services sociaux</option>
-                    <option value="environment">Environnement & Conservation</option>
-                    <option value="community">Communautaire & Action sociale</option>
-                  </select>
+              {/* 2. Localisation / Région & Code Postal (All Actors) */}
+              <div className="form-section-title" style={{ marginTop: '24px' }}>2. Localisation &amp; Territoire</div>
+              <div className="eval-form-fields" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginTop: '12px' }}>
+                <div className="form-group">
+                  <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', fontSize: '0.9rem', color: '#1e293b' }}>
+                    Localisation / Région <span style={{ color: '#e11d48' }}>*</span>
+                  </label>
+                  <div className="select-wrapper">
+                    <select value={location} onChange={(e) => setLocation(e.target.value)} className="eval-select">
+                      <option value="Région de L'Érable">Région de L'Érable</option>
+                      <option value="Ville de Plessisville">Ville de Plessisville</option>
+                      <option value="Ville de Princeville">Ville de Princeville</option>
+                      <option value="Notre-Dame-de-Lourdes">Notre-Dame-de-Lourdes</option>
+                      <option value="Saint-Ferdinand">Saint-Ferdinand</option>
+                      <option value="Sainte-Sophie-d'Halifax">Sainte-Sophie-d'Halifax</option>
+                      <option value="Inverness">Inverness</option>
+                      <option value="Laurierville">Laurierville</option>
+                      <option value="Lyster">Lyster</option>
+                      <option value="Villeroy">Villeroy</option>
+                      <option value="Autre région du Québec">Autre région du Québec</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="form-group">
+                  <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', fontSize: '0.9rem', color: '#1e293b' }}>
+                    Code postal <span style={{ color: '#e11d48' }}>*</span>
+                  </label>
+                  <input
+                    type="text"
+                    className="eval-select"
+                    style={{ background: '#ffffff' }}
+                    placeholder="G6L 1A1"
+                    value={postalCode}
+                    onChange={(e) => setPostalCode(e.target.value.toUpperCase())}
+                  />
+                  <span style={{ fontSize: '0.78rem', color: '#64748b', marginTop: '4px', display: 'block' }}>Format: A1A 1A1</span>
                 </div>
               </div>
 
-              <div className="step-actions">
+              {/* 3. Secteur d'activité & 4. Taille (ONLY for NON-Citizen Actors) */}
+              {profile !== 'citizen' && (
+                <>
+                  <div className="form-section-title" style={{ marginTop: '24px' }}>3. Secteur d'activité</div>
+                  <div className="eval-field" style={{ marginTop: '12px' }}>
+                    <div className="select-wrapper">
+                      <select value={sector} onChange={(e) => setSector(e.target.value)} className="eval-select">
+                        <option value="agriculture">Agriculture &amp; Agroalimentaire</option>
+                        <option value="foresterie">Foresterie &amp; Transformation du bois</option>
+                        <option value="batiment">Bâtiments, Construction &amp; Génie</option>
+                        <option value="transport">Transport, Logistique &amp; Équipements</option>
+                        <option value="commerce">Commerce, Restauration &amp; Services</option>
+                        <option value="manufacturier">Manufacturier, Transformation &amp; Industrie</option>
+                        <option value="education">Éducation, Recherche &amp; Culture</option>
+                        <option value="sante">Santé &amp; Services sociaux</option>
+                        <option value="administration">Administration, Collectivité &amp; Municipal</option>
+                        <option value="obnl">OBNL, Association &amp; Communautaire</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="form-section-title" style={{ marginTop: '24px' }}>4. Taille de l'organisation <span style={{ color: '#e11d48' }}>*</span></div>
+                  <div className="org-size-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginTop: '12px' }}>
+                    {[
+                      { id: 'small', title: 'Petite', desc: '< 20 personnes' },
+                      { id: 'medium', title: 'Moyenne', desc: '20-100 personnes' },
+                      { id: 'large', title: 'Grande', desc: '> 100 personnes' }
+                    ].map(item => (
+                      <div 
+                        key={item.id} 
+                        className={`org-size-card ${orgSize === item.id ? 'active' : ''}`}
+                        onClick={() => setOrgSize(item.id)}
+                      >
+                        <h4>{item.title}</h4>
+                        <p>{item.desc}</p>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
+
+              <div className="step-actions" style={{ marginTop: '32px' }}>
                 <button className="btn-eval-next" onClick={() => setStep(2)}>
                   Continuer <ArrowRight size={18} />
                 </button>
@@ -218,13 +290,13 @@ export default function EvaluationView({ onBackHome }) {
 
                 <div className="form-group">
                   <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>Source principale de chauffage :</label>
-                  <select value={heatingType} onChange={(e) => setHeatingType(e.target.value)} className="eval-select">
-                    <option value="hydro">Hydroélectricité / Plinthes électriques</option>
-                    <option value="heatpump">Thermopompe haute efficacité</option>
-                    <option value="oil">Chauffage au mazout (Fioul)</option>
-                    <option value="gas">Gaz naturel</option>
-                    <option value="wood">Bois de chauffage certifié</option>
-                  </select>
+                  <div className="select-wrapper">
+                    <select value={heatingType} onChange={(e) => setHeatingType(e.target.value)} className="eval-select">
+                      <option value="hydro">Électricité (Hydro-Québec / Thermopompe)</option>
+                      <option value="gas">Gaz naturel</option>
+                      <option value="oil">Mazout / Biomasse</option>
+                    </select>
+                  </div>
                 </div>
               </div>
 
@@ -245,13 +317,13 @@ export default function EvaluationView({ onBackHome }) {
               <div className="step-hero-illus">
                 <img src="/images/illus_mobility.png" alt="Mobilité" className="illus-step-img" />
               </div>
-              <h2 className="step-question">Transports et mobilité</h2>
-              <p className="step-hint">La mobilité est souvent le premier poste d'émissions en milieu rural.</p>
+              <h2 className="step-question">Transports et déplacements</h2>
+              <p className="step-hint">Évaluez vos kilomètres parcourus et vos modes de transport.</p>
 
               <div className="eval-form-fields" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 <div className="form-group">
                   <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>
-                    Kilométrage annuel en voiture : {kmCar.toLocaleString()} km/an
+                    Kilométrage annuel en voiture : {kmCar.toLocaleString()} km
                   </label>
                   <input 
                     type="range" 
@@ -265,13 +337,14 @@ export default function EvaluationView({ onBackHome }) {
                 </div>
 
                 <div className="form-group">
-                  <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>Motorisation du véhicule :</label>
-                  <select value={carType} onChange={(e) => setCarType(e.target.value)} className="eval-select">
-                    <option value="gasoline">Essence (standard)</option>
-                    <option value="diesel">Diesel</option>
-                    <option value="hybrid">Hybride</option>
-                    <option value="electric">100% Électrique (EV)</option>
-                  </select>
+                  <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>Type de véhicule principal :</label>
+                  <div className="select-wrapper">
+                    <select value={carType} onChange={(e) => setCarType(e.target.value)} className="eval-select">
+                      <option value="gasoline">Essence / Diesel</option>
+                      <option value="hybrid">Hybride (PHEV)</option>
+                      <option value="electric">100% Électrique (VE)</option>
+                    </select>
+                  </div>
                 </div>
               </div>
 
@@ -293,17 +366,18 @@ export default function EvaluationView({ onBackHome }) {
                 <img src="/images/illus_consumption.png" alt="Consommation" className="illus-step-img" />
               </div>
               <h2 className="step-question">Alimentation et consommation</h2>
-              <p className="step-hint">Vos choix alimentaires et de gestion des déchets influencent votre bilan.</p>
+              <p className="step-hint">Vos choix de consommation influencent les émissions indirectes.</p>
 
               <div className="eval-form-fields" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 <div className="form-group">
                   <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>Régime alimentaire habituel :</label>
-                  <select value={dietType} onChange={(e) => setDietType(e.target.value)} className="eval-select">
-                    <option value="balanced">Équilibré (viande 2-4x/semaine)</option>
-                    <option value="meat">Riche en viande rouge</option>
-                    <option value="flexitarian">Flexitarien (viande occasionnelle)</option>
-                    <option value="vegan">Végétalien / Végétarien</option>
-                  </select>
+                  <div className="select-wrapper">
+                    <select value={dietType} onChange={(e) => setDietType(e.target.value)} className="eval-select">
+                      <option value="balanced">Équilibré (Viande modérée &amp; produits locaux)</option>
+                      <option value="meat">Riche en viande rouge &amp; transformée</option>
+                      <option value="vegan">Végétarien / Végétalien</option>
+                    </select>
+                  </div>
                 </div>
               </div>
 
@@ -318,30 +392,46 @@ export default function EvaluationView({ onBackHome }) {
             </div>
           )}
 
-          {/* STEP 5: Actions Positives */}
+          {/* STEP 5: Actions */}
           {step === 5 && (
             <div className="eval-step active">
               <div className="step-hero-illus">
-                <img src="/images/illus_seedling.png" alt="Actions" className="illus-step-img" />
+                <img src="/images/illus_actions.png" alt="Actions" className="illus-step-img" />
               </div>
-              <h2 className="step-question">Vos actions positives pour le territoire</h2>
-              <p className="step-hint">Cochez les gestes concrètement mis en œuvre pour réduire ou séquestrer du carbone.</p>
+              <h2 className="step-question">Actions et engagements écologiques</h2>
+              <p className="step-hint">Sélectionnez les initiatives déjà en place ou planifiées.</p>
 
-              <div className="actions-checklist-grid" style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '16px' }}>
+              <div className="actions-checklist" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 {[
-                  { key: 'heatPump', label: 'Thermopompe / Chauffage électrique efficace' },
-                  { key: 'localFood', label: 'Achats locaux et de saison dans la MRC de L\'Érable' },
-                  { key: 'compost', label: 'Compostage domestique ou bac brun municipal' },
-                  { key: 'treePlanting', label: 'Plantation d\'arbres / Reboisement sur terrain' },
-                  { key: 'solar', label: 'Panneaux solaires ou énergie renouvelable d\'appoint' }
-                ].map(act => (
-                  <label key={act.key} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 16px', background: 'white', borderRadius: '12px', border: '1px solid var(--color-border)', cursor: 'pointer' }}>
+                  { key: 'heatPump', label: 'Thermopompe haute efficacité installée' },
+                  { key: 'compost', label: 'Compostage des résidus organiques' },
+                  { key: 'localFood', label: 'Approvisionnement local (MRC de L\'Érable)' },
+                  { key: 'treePlanting', label: 'Plantation d\'arbres / Reboisement' },
+                  { key: 'solar', label: 'Panneaux solaires ou énergie renouvelable' }
+                ].map(item => (
+                  <label 
+                    key={item.key} 
+                    className="action-check-card"
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '12px',
+                      padding: '14px 18px',
+                      background: actions[item.key] ? '#f0fdf4' : '#ffffff',
+                      border: `1.5px solid ${actions[item.key] ? '#059669' : '#e2e8f0'}`,
+                      borderRadius: '14px',
+                      cursor: 'pointer',
+                      fontWeight: 600,
+                      color: actions[item.key] ? '#047857' : '#1e293b'
+                    }}
+                  >
                     <input 
                       type="checkbox" 
-                      checked={actions[act.key]} 
-                      onChange={() => toggleAction(act.key)} 
+                      checked={actions[item.key]} 
+                      onChange={() => toggleAction(item.key)} 
+                      style={{ width: '18px', height: '18px', accentColor: '#059669' }}
                     />
-                    <span style={{ fontWeight: 500 }}>{act.label}</span>
+                    <span>{item.label}</span>
                   </label>
                 ))}
               </div>
@@ -351,162 +441,154 @@ export default function EvaluationView({ onBackHome }) {
                   <ArrowLeft size={16} /> Retour
                 </button>
                 <button className="btn-eval-calculate" onClick={() => setStep(6)}>
-                  Calculer mon empreinte
+                  Calculer mes résultats <ArrowRight size={18} />
                 </button>
               </div>
             </div>
           )}
 
-          {/* STEP 6: Results Cockpit */}
+          {/* STEP 6: Results */}
           {step === 6 && (
             <div className="eval-step active">
-              <div className="results-header">
-                <img src="/images/illus_results.png" alt="Résultats" className="illus-results-img" />
-                <div className="results-header-text">
-                  <h2 style={{ margin: 0, padding: 0, lineHeight: 1.25 }}>Votre cockpit environnemental</h2>
-                  <p style={{ margin: '6px 0 0 0', padding: 0, color: 'var(--color-muted)', fontSize: '0.95rem' }}>Consultez votre bilan et pilotez vos progrès en temps réel.</p>
-                </div>
+              <div className="step-hero-illus">
+                <img src="/images/illus_results.png" alt="Résultats" className="illus-step-img" />
+              </div>
+              
+              <div className="results-header-text">
+                <h2 className="step-question">Bilan GES et plan d'action personnalisé</h2>
+                <p className="step-hint">Voici l'estimation de votre empreinte environnementale annuelle.</p>
               </div>
 
-              <div className="results-score-card">
-                <div className="score-gauge-wrap">
-                  <svg className="score-gauge-svg" viewBox="0 0 120 120">
-                    <circle className="gauge-track" cx="60" cy="60" r="50" fill="transparent" strokeWidth="10" />
-                    <circle className="gauge-arc" cx="60" cy="60" r="50" fill="transparent" strokeWidth="10" strokeDasharray="314.16" strokeDashoffset={314 - (netTotal / 15) * 314} />
-                  </svg>
-                  <div className="score-center">
-                    <span className="score-number">{netTotal}</span>
-                    <span className="score-unit">tCO₂e/an</span>
-                  </div>
+              <div className="results-summary-card" style={{ background: '#0f172a', color: '#ffffff', padding: '24px', borderRadius: '20px', marginBottom: '24px', textIndent: 0 }}>
+                <div style={{ fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-neon-yellow)', fontWeight: 700 }}>
+                  Empreinte Totale Estimée
                 </div>
-
-                <div className="score-context">
-                  <div className="context-row">
-                    <span className="context-label">Profil d'acteur</span>
-                    <span className="context-value" style={{ textTransform: 'capitalize' }}>{profile}</span>
-                  </div>
-                  <div className="context-row">
-                    <span className="context-label">Facteurs nets</span>
-                    <span className="context-value" style={{ fontWeight: 700 }}>
-                      {grossTotal} t Brut / <span style={{ color: '#059669' }}>-{offsets} t Offsets</span>
-                    </span>
-                  </div>
-                  <div className="context-row">
-                    <span className="context-label">Comparatif régional</span>
-                    <span className="context-value positive">-18 % sous la moyenne MRC</span>
-                  </div>
+                <div style={{ fontSize: '3rem', fontWeight: 800, margin: '8px 0', fontFamily: 'var(--font-heading)', color: '#ffffff', display: 'flex', alignItems: 'baseline', gap: '8px' }}>
+                  {netTotal} <span style={{ fontSize: '1.2rem', fontWeight: 600, color: '#94a3b8' }}>tCO₂e / an</span>
                 </div>
+                <p style={{ fontSize: '0.9rem', color: '#cbd5e1', margin: 0 }}>
+                  Par rapport à la moyenne québécoise (≈ 9.2 tCO₂e/pers), votre bilan affiche un profil responsable.
+                </p>
               </div>
 
-              {/* Tabs Nav */}
-              <div className="dashboard-tabs-nav">
-                <button className={`dashboard-tab-btn ${activeTab === 'breakdown' ? 'active' : ''}`} onClick={() => setActiveTab('breakdown')}>Répartition</button>
-                <button className={`dashboard-tab-btn ${activeTab === 'actions' ? 'active' : ''}`} onClick={() => setActiveTab('actions')}>Plan d'action</button>
+              {/* Tabs */}
+              <div className="results-tabs" style={{ display: 'flex', gap: '8px', marginBottom: '16px' }}>
+                <button 
+                  className={`btn-tab ${activeTab === 'breakdown' ? 'active' : ''}`}
+                  onClick={() => setActiveTab('breakdown')}
+                  style={{
+                    padding: '8px 16px',
+                    borderRadius: '10px',
+                    border: 'none',
+                    background: activeTab === 'breakdown' ? '#059669' : '#f1f5f9',
+                    color: activeTab === 'breakdown' ? '#ffffff' : '#64748b',
+                    fontWeight: 700,
+                    cursor: 'pointer'
+                  }}
+                >
+                  Détail par poste
+                </button>
+                <button 
+                  className={`btn-tab ${activeTab === 'recom' ? 'active' : ''}`}
+                  onClick={() => setActiveTab('recom')}
+                  style={{
+                    padding: '8px 16px',
+                    borderRadius: '10px',
+                    border: 'none',
+                    background: activeTab === 'recom' ? '#059669' : '#f1f5f9',
+                    color: activeTab === 'recom' ? '#ffffff' : '#64748b',
+                    fontWeight: 700,
+                    cursor: 'pointer'
+                  }}
+                >
+                  Recommandations MRC
+                </button>
               </div>
 
-              {activeTab === 'breakdown' && (
-                <div className="results-breakdown" style={{ marginTop: '20px' }}>
-                  <h3 className="breakdown-heading" style={{ marginBottom: '12px' }}>Répartition par poste</h3>
-                  
-                  <div className="breakdown-row">
-                    <div className="breakdown-row-label">Énergie & Bâtiments</div>
-                    <div className="breakdown-row-bar-wrap">
-                      <div className="breakdown-bar-fill emerald" style={{ width: `${Math.min(100, (energyVal / grossTotal) * 100)}%` }} />
-                    </div>
-                    <span className="breakdown-val">{energyVal} t</span>
+              {activeTab === 'breakdown' ? (
+                <div className="breakdown-list" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  <div className="breakdown-item" style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', background: '#f8fafc', borderRadius: '12px' }}>
+                    <span>⚡ Énergie &amp; Chauffage</span>
+                    <strong>{energyVal} tCO₂e</strong>
                   </div>
-
-                  <div className="breakdown-row">
-                    <div className="breakdown-row-label">Transports & Mobilité</div>
-                    <div className="breakdown-row-bar-wrap">
-                      <div className="breakdown-bar-fill amber" style={{ width: `${Math.min(100, (mobilityVal / grossTotal) * 100)}%` }} />
-                    </div>
-                    <span className="breakdown-val">{mobilityVal} t</span>
+                  <div className="breakdown-item" style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', background: '#f8fafc', borderRadius: '12px' }}>
+                    <span>🚗 Transports &amp; Véhicule</span>
+                    <strong>{mobilityVal} tCO₂e</strong>
                   </div>
-
-                  <div className="breakdown-row">
-                    <div className="breakdown-row-label">Alimentation & Déchets</div>
-                    <div className="breakdown-row-bar-wrap">
-                      <div className="breakdown-bar-fill emerald" style={{ width: `${Math.min(100, (dietVal / grossTotal) * 100)}%` }} />
+                  <div className="breakdown-item" style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', background: '#f8fafc', borderRadius: '12px' }}>
+                    <span>🥗 Alimentation &amp; Consommation</span>
+                    <strong>{dietVal} tCO₂e</strong>
+                  </div>
+                  {offsets > 0 && (
+                    <div className="breakdown-item" style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', background: '#f0fdf4', color: '#047857', borderRadius: '12px' }}>
+                      <span>🌱 Compensations &amp; Actions</span>
+                      <strong>-{offsets} tCO₂e</strong>
                     </div>
-                    <span className="breakdown-val">{dietVal} t</span>
+                  )}
+                </div>
+              ) : (
+                <div className="recom-list" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  <div style={{ padding: '14px', background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '12px', fontSize: '0.9rem', color: '#065f46' }}>
+                    <strong>1. Subvention Thermopompe MRC</strong> : Bénéficiez des aides locales pour optimiser le chauffage de votre bâtiment.
+                  </div>
+                  <div style={{ padding: '14px', background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '12px', fontSize: '0.9rem', color: '#065f46' }}>
+                    <strong>2. Programme de compostage municipal</strong> : Réduisez de 30% le poids de vos bacs de résidus ultimes.
                   </div>
                 </div>
               )}
 
-              {activeTab === 'actions' && (
-                <div style={{ marginTop: '20px' }}>
-                  <h3 style={{ marginBottom: '12px' }}>Plan d'action personnalisé</h3>
-                  <p className="step-hint">Sélectionnez les gestes pour recalculer immédiatement votre potentiel.</p>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '12px' }}>
-                    {Object.entries(actions).map(([key, val]) => (
-                      <label key={key} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px', background: 'white', borderRadius: '8px', border: '1px solid var(--color-border)', cursor: 'pointer' }}>
-                        <input type="checkbox" checked={val} onChange={() => toggleAction(key)} />
-                        <span>Engagement : {key}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              <div className="results-actions" style={{ marginTop: '24px' }}>
+              <div className="results-actions" style={{ marginTop: '24px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                 <button className="btn-eval-back-step" onClick={() => setStep(5)}>
-                  <ArrowLeft size={16} /> Modifier mes réponses
+                  <ArrowLeft size={16} /> Modifier
                 </button>
-                <button className="btn-results-home" onClick={() => alert('Exportation PDF en cours...')} style={{ background: '#0f172a', color: 'white' }}>
-                  <FileText size={16} /> Exporter PDF
-                </button>
-                <button className="btn-results-home" onClick={onBackHome}>
-                  Retour à l'accueil
+                <button className="btn-results-home" onClick={onBackHome} style={{ background: '#059669', color: '#ffffff', border: 'none', borderRadius: '12px', padding: '12px 20px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  Terminer l'évaluation
                 </button>
               </div>
             </div>
           )}
         </div>
 
-        {/* Sidebar Live Advisor */}
-        <aside className="eval-sidebar">
-          <div className="sidebar-card">
-            <div className="sidebar-live-badge">
-              <span className="live-dot" />
-              Conseiller Environnemental IA
+        {/* Right Sidebar: AI Environmental Assistant */}
+        <div className="eval-ai-sidebar">
+          <div className="ai-chat-card">
+            <div className="ai-chat-header">
+              <div className="ai-status-dot" />
+              <span>CONSEILLER ENVIRONNEMENTAL IA</span>
             </div>
 
-            <div className="eval-sidebar-chat-layout" style={{ marginTop: '16px' }}>
-              <div className="chat-container-new" style={{ maxHeight: '220px', overflowY: 'auto' }}>
-                {chatMessages.map((m, idx) => (
-                  <div key={idx} className={`chat-msg-new ${m.sender}`}>
-                    {m.text}
-                  </div>
-                ))}
-              </div>
-
-              <div className="chat-suggestions-new" style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', margin: '12px 0' }}>
-                <button className="chat-suggest-btn-new" onClick={() => handleSendMessage('Réduire mon chauffage')}>Réduire mon chauffage</button>
-                <button className="chat-suggest-btn-new" onClick={() => handleSendMessage('Infos sur la MRC')}>Infos sur la MRC</button>
-              </div>
-
-              <div className="chat-input-row-new">
-                <input 
-                  type="text" 
-                  className="chat-input-new" 
-                  placeholder="Poser une question..."
-                  value={chatInput} 
-                  onChange={(e) => setChatInput(e.target.value)} 
-                  onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
-                />
-                <button onClick={() => handleSendMessage()} className="chat-send-btn-new" aria-label="Envoyer">
-                  <Send size={14} />
-                </button>
-              </div>
+            <div className="ai-chat-body">
+              {chatMessages.map((msg, index) => (
+                <div key={index} className={`ai-msg ${msg.sender === 'user' ? 'user-msg' : 'bot-msg'}`}>
+                  {msg.text}
+                </div>
+              ))}
             </div>
 
-            <div className="sidebar-score-block" style={{ marginTop: '20px' }}>
-              <div className="sidebar-score-number">{netTotal}</div>
-              <div className="sidebar-score-label">tCO₂e / an (Net)</div>
+            <div className="ai-quick-prompts">
+              <button onClick={() => handleSendMessage("Comment réduire mon chauffage ?")}>Réduire mon chauffage</button>
+              <button onClick={() => handleSendMessage("Quelles sont les infos sur la MRC ?")}>Infos sur la MRC</button>
+            </div>
+
+            <div className="ai-chat-input-row">
+              <input 
+                type="text" 
+                placeholder="Poser une question..." 
+                value={chatInput} 
+                onChange={(e) => setChatInput(e.target.value)} 
+                onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()} 
+              />
+              <button onClick={() => handleSendMessage()} className="btn-send-ai">
+                <Send size={16} />
+              </button>
+            </div>
+
+            <div className="ai-score-preview">
+              <span className="score-val">{netTotal}</span>
+              <span className="score-unit">tCO₂e / an (Net)</span>
             </div>
           </div>
-        </aside>
+        </div>
       </main>
     </div>
   );

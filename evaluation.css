@@ -1619,3 +1619,61 @@ body {
         margin-top: 40px !important;
     }
 }
+
+/* Organisation Size Card Selector */
+.org-size-card {
+    background: #ffffff;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 20px 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.org-size-card:hover {
+    border-color: #059669;
+    box-shadow: 0 4px 14px rgba(5, 150, 105, 0.08);
+}
+
+.org-size-card.active {
+    border-color: #059669;
+    background: #f0fdf4;
+    box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
+}
+
+.org-size-card h4 {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0;
+}
+
+.org-size-card p {
+    font-size: 0.88rem;
+    color: #64748b;
+    margin: 0;
+}
+
+.org-size-card.active h4 {
+    color: #047857;
+}
+
+.org-size-card.active p {
+    color: #059669;
+}
+
+@media (max-width: 640px) {
+    .eval-form-fields[style*="gridTemplateColumns"] {
+        grid-template-columns: 1fr !important;
+    }
+    .org-size-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
