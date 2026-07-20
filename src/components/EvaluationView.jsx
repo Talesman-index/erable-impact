@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { 
   User, Users, Building, GraduationCap, MapPin, 
   Zap, Truck, ShoppingBag, Leaf, Award, 
-  ArrowLeft, ArrowRight, X, Send, Download, FileText
+  ArrowLeft, ArrowRight, X, Send, Download, FileText, Info, ChevronRight, ChevronDown
 } from 'lucide-react';
 
 export default function EvaluationView({ onBackHome }) {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0); // 0 = Onboarding / Infos à préparer, 1 = Profil, 2 = Énergie, etc.
+  const [unitSystem, setUnitSystem] = useState('metric'); // 'metric' | 'imperial'
+  const [showDetailedInfo, setShowDetailedInfo] = useState(false);
+
   const [profile, setProfile] = useState('citizen'); // 'citizen' | 'organisation' | 'company' | 'institution' | 'municipality'
   const [location, setLocation] = useState('Région de L\'Érable');
   const [postalCode, setPostalCode] = useState('G6L 1A1');
@@ -104,6 +107,8 @@ export default function EvaluationView({ onBackHome }) {
 
           <div className="eval-header-progress">
             <div className="header-step-pills">
+              <span className={`step-pill ${step === 0 ? 'active' : step > 0 ? 'done' : ''}`} onClick={() => setStep(0)}>Accueil</span>
+              <span className="step-pill-sep">→</span>
               <span className={`step-pill ${step === 1 ? 'active' : step > 1 ? 'done' : ''}`} onClick={() => setStep(1)}>Profil</span>
               <span className="step-pill-sep">→</span>
               <span className={`step-pill ${step === 2 ? 'active' : step > 2 ? 'done' : ''}`} onClick={() => setStep(2)}>Énergie</span>
@@ -135,6 +140,143 @@ export default function EvaluationView({ onBackHome }) {
       {/* Main Layout */}
       <main className="eval-main">
         <div className="eval-wizard-panel">
+          {/* STEP 0: Onboarding / Informations à préparer */}
+          {step === 0 && (
+            <div className="eval-step active onboarding-step-view">
+              <div className="onboarding-header">
+                <h2>Évaluation de l'empreinte carbone</h2>
+                <p>Commencez par sélectionner votre profil pour personnaliser l'évaluation</p>
+              </div>
+
+              {/* Card 1: Unité de mesure */}
+              <div className="unit-measure-card">
+                <div className="unit-measure-left">
+                  <div className="unit-title-row">
+                    <strong>Unité de mesure</strong>
+                    <Info size={16} className="unit-info-icon" title="Par défaut, les analyses sont en mode métrique." />
+                  </div>
+                  <p>Par défaut, les analyses sont en mode métrique.</p>
+                </div>
+                <div className="unit-toggle-buttons">
+                  <button 
+                    type="button"
+                    className={`btn-unit ${unitSystem === 'metric' ? 'active' : ''}`}
+                    onClick={() => setUnitSystem('metric')}
+                  >
+                    Métrique
+                  </button>
+                  <button 
+                    type="button"
+                    className={`btn-unit ${unitSystem === 'imperial' ? 'active' : ''}`}
+                    onClick={() => setUnitSystem('imperial')}
+                  >
+                    Impérial
+                  </button>
+                </div>
+              </div>
+
+              {/* Card 2: Informations à préparer */}
+              <div className="prep-info-box">
+                <h3 className="prep-title">Informations à préparer</h3>
+                <p className="prep-subtitle">
+                  Pas besoin de tout avoir dès le début : commencez avec l'essentiel. Vous pourrez compléter plus tard.
+                </p>
+
+                {/* 3 Quick Prep Cards */}
+                <div className="prep-quick-grid">
+                  <div className="prep-quick-card">
+                    <span className="prep-card-tag">ÉNERGIE</span>
+                    <h4>Factures énergie</h4>
+                    <p>Électricité, gaz, fioul/mazout.</p>
+                  </div>
+
+                  <div className="prep-quick-card">
+                    <span className="prep-card-tag">BÂTIMENT</span>
+                    <h4>Superficies</h4>
+                    <p>Surface des bâtiments/locaux.</p>
+                  </div>
+
+                  <div className="prep-quick-card">
+                    <span className="prep-card-tag">MOBILITÉ</span>
+                    <h4>Kilométrage</h4>
+                    <p>Véhicules et déplacements principaux.</p>
+                  </div>
+                </div>
+
+                {/* Collapsible Accordion Button */}
+                <div className="prep-accordion-wrap">
+                  <button 
+                    type="button"
+                    className="btn-prep-toggle"
+                    onClick={() => setShowDetailedInfo(!showDetailedInfo)}
+                  >
+                    <span className="arrow-icon">{showDetailedInfo ? '▼' : '▶'}</span>
+                    <span>Voir les informations utiles pour une analyse détaillée</span>
+                  </button>
+
+                  {showDetailedInfo && (
+                    <div className="prep-detailed-content">
+                      <ul>
+                        <li><strong>Périmètre</strong> : sites concernés, année de référence, type d'activité.</li>
+                        <li><strong>Bâtiments</strong> : nombre de bâtiments, année de construction, taux d'occupation.</li>
+                        <li><strong>Chauffage / ECS / climatisation</strong> : type d'équipements, consommation, fuites de réfrigérants.</li>
+                        <li><strong>Mobilité avancée</strong> : domicile-travail, déplacements professionnels, train/avion, télétravail.</li>
+                        <li><strong>Logistique / fret</strong> : distances de transport de matériel, type de véhicule.</li>
+                        <li><strong>Alimentation</strong> : nombre de repas, part locale, gaspillage alimentaire.</li>
+                        <li><strong>Achats et immobilisations</strong> : équipements, numérique, mobilier, durée de vie.</li>
+                        <li><strong>Déchets</strong> : quantités recyclées, compostées, incinérées, enfouies.</li>
+                        <li><strong>Eau</strong> : consommation annuelle et eau chaude.</li>
+                        <li><strong>Indicateurs d'activité</strong> : effectifs, usagers/clients, jours d'ouverture.</li>
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Onboarding Steps Timeline */}
+              <div className="onboarding-steps-preview">
+                <div className="step-preview-item">
+                  <div className="preview-num active">1</div>
+                  <div className="preview-text">
+                    <strong>Sélection du profil</strong>
+                    <span>Type, secteur, localisation</span>
+                  </div>
+                </div>
+
+                <div className="step-preview-item">
+                  <div className="preview-num">2</div>
+                  <div className="preview-text">
+                    <strong>Questions</strong>
+                    <span>Collecte des données</span>
+                  </div>
+                </div>
+
+                <div className="step-preview-item">
+                  <div className="preview-num">3</div>
+                  <div className="preview-text">
+                    <strong>Résultats</strong>
+                    <span>Visualisation et analyse</span>
+                  </div>
+                </div>
+
+                <div className="step-preview-item">
+                  <div className="preview-num">4</div>
+                  <div className="preview-text">
+                    <strong>Plan d'action</strong>
+                    <span>Recommandations et export</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Start Button */}
+              <div className="onboarding-actions" style={{ marginTop: '28px', textAlign: 'center' }}>
+                <button type="button" className="btn-onboarding-start" onClick={() => setStep(1)}>
+                  Commencer
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* STEP 1: Profile */}
           {step === 1 && (
             <div className="eval-step active">
@@ -255,6 +397,9 @@ export default function EvaluationView({ onBackHome }) {
               )}
 
               <div className="step-actions" style={{ marginTop: '32px' }}>
+                <button className="btn-eval-back-step" onClick={() => setStep(0)}>
+                  <ArrowLeft size={16} /> Retour
+                </button>
                 <button className="btn-eval-next" onClick={() => setStep(2)}>
                   Continuer <ArrowRight size={18} />
                 </button>
