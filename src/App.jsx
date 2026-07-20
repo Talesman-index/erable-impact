@@ -7,13 +7,13 @@ import AboutSection from './components/AboutSection';
 import ImpactSection from './components/ImpactSection';
 import CTASection from './components/CTASection';
 import Footer from './components/Footer';
-import LoginModal from './components/LoginModal';
+import LoginPage from './components/LoginPage';
+import RegisterPage from './components/RegisterPage';
 import EvaluationView from './components/EvaluationView';
 import { useScrollReveal } from './utils/useScrollReveal';
 
 export default function App() {
-  const [view, setView] = useState('landing'); // 'landing' | 'evaluation'
-  const [loginOpen, setLoginOpen] = useState(false);
+  const [view, setView] = useState('landing'); // 'landing' | 'evaluation' | 'login' | 'register'
 
   useScrollReveal();
 
@@ -21,10 +21,29 @@ export default function App() {
     return <EvaluationView onBackHome={() => setView('landing')} />;
   }
 
+  if (view === 'login') {
+    return (
+      <LoginPage 
+        onBackHome={() => setView('landing')} 
+        onGoRegister={() => setView('register')} 
+      />
+    );
+  }
+
+  if (view === 'register') {
+    return (
+      <RegisterPage 
+        onBackHome={() => setView('landing')} 
+        onGoLogin={() => setView('login')} 
+      />
+    );
+  }
+
   return (
     <div className="app-root">
       <Navbar 
-        onOpenLogin={() => setLoginOpen(true)} 
+        onOpenLogin={() => setView('login')} 
+        onOpenRegister={() => setView('register')} 
         onStartEval={() => setView('evaluation')} 
       />
       
@@ -38,11 +57,6 @@ export default function App() {
       </main>
 
       <Footer onStartEval={() => setView('evaluation')} />
-
-      <LoginModal 
-        isOpen={loginOpen} 
-        onClose={() => setLoginOpen(false)} 
-      />
     </div>
   );
 }

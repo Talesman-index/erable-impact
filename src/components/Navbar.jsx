@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { User, X, ArrowUpRight, Sparkles } from 'lucide-react';
+import { User, UserPlus, X, ArrowUpRight } from 'lucide-react';
 
-export default function Navbar({ onOpenLogin, onStartEval }) {
+export default function Navbar({ onOpenLogin, onOpenRegister, onStartEval }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -47,10 +47,15 @@ export default function Navbar({ onOpenLogin, onStartEval }) {
 
         {/* Desktop Header Actions */}
         <div className="header-actions-group">
-          <button onClick={onOpenLogin} className="header-action-user" aria-label="Connexion Espace Membre">
+          <button onClick={onOpenLogin} className="header-action-user" aria-label="Connexion Espace Membre" title="Se connecter">
             <User size={20} />
             <span className="user-badge">0</span>
           </button>
+
+          <button onClick={onOpenRegister} className="btn-header-register-text">
+            Créer un compte
+          </button>
+
           <button onClick={onStartEval} className="btn-header-neon">
             Commencer <span className="arrow-right">→</span>
           </button>
@@ -116,9 +121,14 @@ export default function Navbar({ onOpenLogin, onStartEval }) {
             <ArrowUpRight size={18} />
           </button>
           
+          <button onClick={() => { closeMobile(); onOpenRegister(); }} className="btn-mobile-drawer-login" style={{ background: '#f0fdf4', color: '#059669', border: '1px solid #bbf7d0' }}>
+            <UserPlus size={18} />
+            <span>Créer un compte</span>
+          </button>
+
           <button onClick={() => { closeMobile(); onOpenLogin(); }} className="btn-mobile-drawer-login">
             <User size={18} />
-            <span>Espace Membre</span>
+            <span>Se connecter</span>
           </button>
         </div>
       </div>
