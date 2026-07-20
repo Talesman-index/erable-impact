@@ -9,10 +9,13 @@ import CTASection from './components/CTASection';
 import Footer from './components/Footer';
 import LoginModal from './components/LoginModal';
 import EvaluationView from './components/EvaluationView';
+import { useScrollReveal } from './utils/useScrollReveal';
 
 export default function App() {
   const [view, setView] = useState('landing'); // 'landing' | 'evaluation'
   const [loginOpen, setLoginOpen] = useState(false);
+
+  useScrollReveal();
 
   if (view === 'evaluation') {
     return <EvaluationView onBackHome={() => setView('landing')} />;

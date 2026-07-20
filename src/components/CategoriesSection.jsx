@@ -6,7 +6,7 @@ export default function CategoriesSection({ onStartEval }) {
     <section id="measure" className="categories-section-new">
       <div className="container measure-new-container">
         {/* Header Row */}
-        <div className="measure-header-row">
+        <div className="measure-header-row reveal-on-scroll">
           <div>
             <h2 className="measure-title">Secteurs d'évaluation environnementale</h2>
           </div>
@@ -17,11 +17,14 @@ export default function CategoriesSection({ onStartEval }) {
           </button>
         </div>
 
-        {/* Bento Grid */}
+        {/* Bento Grid with Project Photography */}
         <div className="categories-grid-bento">
           {/* Card 1: Énergie */}
-          <div className="bento-sector-card energy-bento has-hover-image">
-            <div className="bento-hover-bg" style={{ backgroundImage: `url('/images/bento_energy_bg.png')` }} />
+          <div className="bento-sector-card energy-bento has-hover-image reveal-on-scroll reveal-delay-1">
+            <div 
+              className="bento-hover-bg" 
+              style={{ backgroundImage: `url('/images/businesswoman-analyzing-esg-report-with-green-sphe-2026-01-20-01-09-53-utc.jpg')` }} 
+            />
             <div className="bento-hover-overlay" />
 
             <div className="bento-sector-top">
@@ -44,9 +47,12 @@ export default function CategoriesSection({ onStartEval }) {
             </div>
           </div>
 
-          {/* Card 2: Agriculture (Hero Image Card) */}
-          <div className="bento-sector-card agri-bento">
-            <div className="bento-agri-bg" style={{ backgroundImage: `url('/images/illus_food.png')` }} />
+          {/* Card 2: Agriculture (Hero Image Card with authentic field photo) */}
+          <div className="bento-sector-card agri-bento reveal-on-scroll reveal-delay-2">
+            <div 
+              className="bento-agri-bg" 
+              style={{ backgroundImage: `url('/images/beatiful-morning-green-field-with-blue-heaven-2026-03-26-04-36-32-utc.jpg')` }} 
+            />
             <div className="bento-agri-overlay" />
             
             <div className="bento-agri-top">
@@ -67,8 +73,11 @@ export default function CategoriesSection({ onStartEval }) {
           </div>
 
           {/* Card 3: Mobilité */}
-          <div className="bento-sector-card mobility-bento has-hover-image">
-            <div className="bento-hover-bg" style={{ backgroundImage: `url('/images/bento_mobility_bg.png')` }} />
+          <div className="bento-sector-card mobility-bento has-hover-image reveal-on-scroll reveal-delay-3">
+            <div 
+              className="bento-hover-bg" 
+              style={{ backgroundImage: `url('/images/green-globe-with-trees-and-windmills-against-sky-2026-03-26-03-35-56-utc.jpg')` }} 
+            />
             <div className="bento-hover-overlay" />
 
             <div className="bento-sector-top">

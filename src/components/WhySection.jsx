@@ -7,7 +7,7 @@ export default function WhySection({ onStartEval }) {
       <div className="container container-about-solarion">
         {/* Left Column: Interactive Bento Cards */}
         <div className="about-solarion-left">
-          <div className="bento-card-why">
+          <div className="bento-card-why reveal-on-scroll reveal-delay-1">
             <div className="bento-card-header">
               <div className="bento-icon-box green">
                 <Zap size={22} />
@@ -26,7 +26,7 @@ export default function WhySection({ onStartEval }) {
             </div>
           </div>
 
-          <div className="bento-card-why accent">
+          <div className="bento-card-why accent reveal-on-scroll reveal-delay-2">
             <div className="bento-card-header">
               <div className="bento-icon-box dark">
                 <Shield size={22} />
@@ -46,8 +46,8 @@ export default function WhySection({ onStartEval }) {
           </div>
         </div>
 
-        {/* Right Column: Webflow/Framer Editorial Content */}
-        <div className="about-solarion-right">
+        {/* Right Column: Editorial Content */}
+        <div className="about-solarion-right reveal-on-scroll reveal-delay-3">
           <h2 className="about-title-solarion">
             Un outil participatif au service de la transition de la <span className="highlight-text-gradient">MRC de L'Érable</span>.
           </h2>

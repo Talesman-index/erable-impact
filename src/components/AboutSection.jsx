@@ -1,30 +1,26 @@
 import React from 'react';
-import { Layers, Home, MapPin, ArrowUpRight, TreePine, HeartHandshake } from 'lucide-react';
+import { Layers, Home, MapPin, ArrowUpRight, Building2 } from 'lucide-react';
 
 export default function AboutSection({ onStartEval }) {
   return (
     <section className="about-framer-section">
       <div className="container about-framer-container">
-        {/* Section Header */}
-        <div className="about-framer-header">
+        {/* Section Title */}
+        <div className="about-framer-header reveal-on-scroll">
           <h2 className="about-framer-title">
             Une démarche collective ancrée dans les réalités de la <span className="highlight-text-gradient">MRC de L'Érable</span>.
           </h2>
         </div>
 
-        {/* Bento Grid Layout */}
+        {/* Bento Grid Layout using authentic project image */}
         <div className="about-framer-bento-grid">
-          {/* Left Hero Image Bento Card */}
-          <div className="about-hero-bento-card">
-            <div className="about-bento-bg" style={{ backgroundImage: `url('/images/illus_about.png')` }} />
+          {/* Left Authentic Project Image Card */}
+          <div className="about-hero-bento-card reveal-on-scroll reveal-delay-1">
+            <div 
+              className="about-bento-bg" 
+              style={{ backgroundImage: `url('/images/esg-strategy-discussion-around-the-wooden-table-2026-03-20-04-19-54-utc.jpg')` }} 
+            />
             <div className="about-bento-overlay" />
-
-            <div className="about-bento-top">
-              <div className="bento-glass-pill">
-                <TreePine size={14} style={{ marginRight: 6 }} />
-                Action Éco-Citoyenne
-              </div>
-            </div>
 
             <div className="about-bento-bottom">
               <p className="about-bento-desc">
@@ -38,7 +34,7 @@ export default function AboutSection({ onStartEval }) {
           </div>
 
           {/* Right Column: Partners & Ecosystem Bento Cards */}
-          <div className="about-right-bento-col">
+          <div className="about-right-bento-col reveal-on-scroll reveal-delay-2">
             {/* Partners Card */}
             <div className="about-partners-bento-card">
               <div className="partners-card-header">
@@ -82,10 +78,10 @@ export default function AboutSection({ onStartEval }) {
 
               <div className="about-mini-bento-card dark">
                 <div className="mini-bento-icon neon">
-                  <HeartHandshake size={22} />
+                  <Building2 size={22} />
                 </div>
                 <div className="mini-bento-content">
-                  <h5>Transition Inclusive</h5>
+                  <h5>24 457 Habitants</h5>
                   <p>Citoyens &amp; PME</p>
                 </div>
               </div>
