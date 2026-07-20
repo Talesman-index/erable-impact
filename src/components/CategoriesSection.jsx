@@ -1,5 +1,5 @@
 import React from 'react';
-import { Zap, Truck, ArrowUpRight, Sprout, BarChart3, Building2, Car } from 'lucide-react';
+import { Zap, Truck, ArrowUpRight, Sprout, BarChart3, Car } from 'lucide-react';
 
 export default function CategoriesSection({ onStartEval }) {
   return (
@@ -24,7 +24,10 @@ export default function CategoriesSection({ onStartEval }) {
         {/* Bento Grid */}
         <div className="categories-grid-bento">
           {/* Card 1: Énergie */}
-          <div className="bento-sector-card energy-bento">
+          <div className="bento-sector-card energy-bento has-hover-image">
+            <div className="bento-hover-bg" style={{ backgroundImage: `url('/images/bento_energy_bg.png')` }} />
+            <div className="bento-hover-overlay" />
+
             <div className="bento-sector-top">
               <div className="bento-sector-icon">
                 <Zap size={24} />
@@ -69,7 +72,10 @@ export default function CategoriesSection({ onStartEval }) {
           </div>
 
           {/* Card 3: Mobilité */}
-          <div className="bento-sector-card mobility-bento">
+          <div className="bento-sector-card mobility-bento has-hover-image">
+            <div className="bento-hover-bg" style={{ backgroundImage: `url('/images/bento_mobility_bg.png')` }} />
+            <div className="bento-hover-overlay" />
+
             <div className="bento-sector-top">
               <div className="bento-sector-icon amber">
                 <Truck size={24} />
