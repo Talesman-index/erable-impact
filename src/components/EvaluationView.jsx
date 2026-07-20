@@ -10,6 +10,7 @@ export default function EvaluationView({ onBackHome }) {
   const [step, setStep] = useState(0); 
   const [unitSystem, setUnitSystem] = useState('metric'); // 'metric' | 'imperial'
   const [showDetailedInfo, setShowDetailedInfo] = useState(false);
+  const [showAdvancedParams, setShowAdvancedParams] = useState(false);
 
   // Profile State
   const [profile, setProfile] = useState('citizen'); // 'citizen' | 'organisation' | 'company' | 'institution' | 'municipality'
@@ -61,27 +62,22 @@ export default function EvaluationView({ onBackHome }) {
   const [wasteRecycleKg, setWasteRecycleKg] = useState(320);
 
   // LEVEL 3 FIELDS (Expert ISO/Bilan Carbone)
-  const [specializedKwh, setSpecializedKwh] = useState(6500); // Server rooms, labs, cold storage
-  const [solarOnsiteKwh, setSolarOnsiteKwh] = useState(1200); // Solar/Geothermal production
-  const [freightKm, setFreightKm] = useState(4500); // Fret / marchandises
+  const [specializedKwh, setSpecializedKwh] = useState(6500); 
+  const [solarOnsiteKwh, setSolarOnsiteKwh] = useState(1200); 
+  const [freightKm, setFreightKm] = useState(4500); 
   const [freightVehicleType, setFreightVehicleType] = useState('semi');
-  const [equipmentRenewalYears, setEquipmentRenewalYears] = useState(4); // IT renewal cycle
+  const [equipmentRenewalYears, setEquipmentRenewalYears] = useState(4); 
   const [furnitureReusePct, setFurnitureReusePct] = useState(35);
   const [landfillWasteKg, setLandfillWasteKg] = useState(450);
   const [hazardousWasteKg, setHazardousWasteKg] = useState(30);
-  const [beefKgPerYear, setBeefKgPerYear] = useState(200);
-  const [poultryKgPerYear, setPoultryKgPerYear] = useState(300);
 
   // SECTOR-SPECIFIC FIELDS (Agriculture, Érablières & Éducation)
-  const [agriHa, setAgriHa] = useState(50); // Cultivated surface (ha)
-  const [agriForestHa, setAgriForestHa] = useState(35); // Forest & Maple grove (ha)
-  const [agriLivestockCount, setAgriLivestockCount] = useState(45); // Têtes de bétail
-  const [agriFertilizerKg, setAgriFertilizerKg] = useState(800); // Nitrogen fertilizer
-  const [agriDieselLiters, setAgriDieselLiters] = useState(2500); // Tractor diesel L/yr
-  const [agriTapsCount, setAgriTapsCount] = useState(3000); // Érablière entailles
-
-  const [schoolBusCount, setSchoolBusCount] = useState(6);
-  const [schoolMealsPerDay, setSchoolMealsPerDay] = useState(350);
+  const [agriHa, setAgriHa] = useState(50); 
+  const [agriForestHa, setAgriForestHa] = useState(35); 
+  const [agriLivestockCount, setAgriLivestockCount] = useState(45); 
+  const [agriFertilizerKg, setAgriFertilizerKg] = useState(800); 
+  const [agriDieselLiters, setAgriDieselLiters] = useState(2500); 
+  const [agriTapsCount, setAgriTapsCount] = useState(3000); 
 
   // Actions Positives & Séquestration Carbone
   const [treesPlanted, setTreesPlanted] = useState(20);
@@ -92,8 +88,7 @@ export default function EvaluationView({ onBackHome }) {
     treePlanting: true,
     solar: false,
     greenElectricity: true,
-    smartThermostats: true,
-    zeroPaper: false
+    smartThermostats: true
   });
 
   // CONVERSATIONAL MODE STATE
@@ -102,11 +97,10 @@ export default function EvaluationView({ onBackHome }) {
   const [chatMessages, setChatMessages] = useState([]);
   const [activeTab, setActiveTab] = useState('breakdown');
 
-  // Conversational Questions Engine dynamically adapted to Level & Profile
+  // Conversational Questions Engine
   const getConversationalQuestions = () => {
     const questions = [];
 
-    // Q1: Chauffage
     questions.push({
       id: 'heating',
       text: `Bonjour ! Initions l'évaluation pour votre profil [${profile === 'citizen' ? 'Citoyen' : profile}]. Quelle est la source principale de chauffage de vos installations dans la MRC de L'Érable ?`,
@@ -119,7 +113,6 @@ export default function EvaluationView({ onBackHome }) {
       field: 'heatingType'
     });
 
-    // Q2: Énergie selon le niveau
     if (detailLevel === 'level1') {
       questions.push({
         id: 'energy_bill',
@@ -159,7 +152,6 @@ export default function EvaluationView({ onBackHome }) {
       }
     }
 
-    // Q3: Transport principal & Flotte
     questions.push({
       id: 'car_km',
       text: "Quel est le kilométrage annuel effectué en véhicule automobile principal ?",
@@ -185,7 +177,6 @@ export default function EvaluationView({ onBackHome }) {
       });
     }
 
-    // Q4: Alimentation & Approvisionnement local
     questions.push({
       id: 'local_food',
       text: "Quelle est la part d'approvisionnement en produits régionaux (MRC de L'Érable / Centre-du-Québec) ?",
@@ -197,7 +188,6 @@ export default function EvaluationView({ onBackHome }) {
       field: 'localFoodPct'
     });
 
-    // Q5: Questions sectorielles adaptées
     if (sector === 'agriculture' && profile !== 'citizen') {
       questions.push({
         id: 'agri_details',
@@ -211,7 +201,6 @@ export default function EvaluationView({ onBackHome }) {
       });
     }
 
-    // Q6: Séquestration Carbone
     questions.push({
       id: 'trees',
       text: "Combien d'arbres avez-vous plantés ou gérez-vous en reboisement forestier dans la MRC de L'Érable ?",
@@ -227,7 +216,6 @@ export default function EvaluationView({ onBackHome }) {
     return questions;
   };
 
-  // Initialize Conversational Chat
   useEffect(() => {
     if (evalMode === 'conversational' && step === 3) {
       const qList = getConversationalQuestions();
@@ -291,7 +279,7 @@ export default function EvaluationView({ onBackHome }) {
     }
   };
 
-  // CALCULATION MODEL (Scopes 1, 2, 3 + Sequestration)
+  // CALCULATION MODEL
   const calcScope1 = () => {
     let s1 = 0;
     if (heatingType === 'oil') s1 += (heatingFuelAmount * 2.7) / 1000;
@@ -345,7 +333,6 @@ export default function EvaluationView({ onBackHome }) {
     if (actions.heatPump) seq += 1.8;
     if (actions.compost) seq += (wasteCompostKg * 0.0005);
     if (actions.solar) seq += (solarOnsiteKwh * 0.0005) + 0.8;
-    if (actions.retroFitSavingsKwh) seq += (retroFitSavingsKwh * 0.0013) / 1000;
     return parseFloat(seq.toFixed(2));
   };
 
@@ -386,7 +373,7 @@ export default function EvaluationView({ onBackHome }) {
     if (evalMode === 'conversational') return 4;
     if (detailLevel === 'level1') return 5;
     if (detailLevel === 'level2') return 6;
-    return 7; // Level 3 Expert
+    return 7; 
   };
 
   const maxSteps = getMaxSteps();
@@ -799,7 +786,6 @@ export default function EvaluationView({ onBackHome }) {
                 </div>
               </div>
 
-              {/* Validation Action */}
               <div className="detail-level-actions">
                 {!detailLevel ? (
                   <div className="level-prompt-banner">
@@ -893,119 +879,202 @@ export default function EvaluationView({ onBackHome }) {
             </div>
           )}
 
-          {/* MODE FORMULAIRE (STEP 3: Énergie & Bâtiment) */}
+          {/* MODE FORMULAIRE ULTRA-RICHE (STEP 3: Énergie & Bâtiment) */}
           {evalMode === 'form' && step === 3 && (
             <div className="eval-step active">
               <div className="step-hero-illus">
                 <img src="/images/illus_energy.png" alt="Énergie" className="illus-step-img" />
               </div>
-              <h2 className="step-question">Énergie et Bâtiments ({detailLevel === 'level1' ? 'Niveau 1 Rapide' : detailLevel === 'level2' ? 'Niveau 2 Détaillé' : 'Niveau 3 Expert'})</h2>
-              <p className="step-hint">Renseignez vos caractéristiques énergétiques.</p>
+              <h2 className="step-question">Énergie et Infrastructure Immobilière</h2>
+              <p className="step-hint">Niveau de collecte : {detailLevel === 'level1' ? 'Niveau 1 Rapide' : detailLevel === 'level2' ? 'Niveau 2 Détaillé' : 'Niveau 3 Expert Bilan Carbone'}</p>
 
-              <div className="eval-form-fields" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              {/* CARD GROUP 1: Périmètre Bâtiment */}
+              <div className="form-card-group">
+                <div className="form-card-header">
+                  <div className="form-card-title">
+                    <div className="form-card-title-icon"><Building size={18} /></div>
+                    <span>1. Caractéristiques de l'Infrastructure</span>
+                  </div>
+                  <span className="form-card-badge">Périmètre Immobilier</span>
+                </div>
+
                 {detailLevel === 'level1' ? (
                   <div className="form-group">
-                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>
-                      Facture énergétique annuelle totale ($ CAD) : {energyBillDollars.toLocaleString()} $
+                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>
+                      Facture énergétique annuelle globale ($ CAD) :
                     </label>
-                    <input 
-                      type="range" 
-                      min="500" 
-                      max="15000" 
-                      step="250" 
-                      value={energyBillDollars} 
-                      onChange={(e) => setEnergyBillDollars(Number(e.target.value))} 
-                      style={{ width: '100%' }} 
-                    />
-                    <span style={{ fontSize: '0.8rem', color: '#059669', fontWeight: 700, marginTop: '6px', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                      <Lightbulb size={14} /> Conversion automatique : ≈ {(energyBillDollars * 7.5).toLocaleString()} kWh en tarif Hydro-Québec.
-                    </span>
+                    <div className="input-unit-wrap">
+                      <input 
+                        type="number" 
+                        className="eval-input"
+                        value={energyBillDollars} 
+                        onChange={(e) => setEnergyBillDollars(Number(e.target.value))} 
+                      />
+                      <span className="unit-chip">$ CAD</span>
+                    </div>
+                    
+                    <div className="form-callout-banner">
+                      <Lightbulb size={18} className="form-callout-icon" />
+                      <div>
+                        <strong>Conversion Intelligente :</strong> Votre facture correspond à environ <strong>{(energyBillDollars * 7.5).toLocaleString()} kWh</strong> d'électricité sur le tarif moyen d'Hydro-Québec.
+                      </div>
+                    </div>
                   </div>
                 ) : (
                   <>
-                    <div className="form-group" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                      <div>
-                        <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>Surface totale (m²) :</label>
-                        <input 
-                          type="number"
-                          className="eval-input"
-                          value={surfaceM2}
-                          onChange={(e) => setSurfaceM2(Number(e.target.value))}
-                        />
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
+                      <div className="form-group">
+                        <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>
+                          Superficie chauffée / occupée :
+                        </label>
+                        <div className="input-unit-wrap">
+                          <input 
+                            type="number"
+                            className="eval-input"
+                            value={surfaceM2}
+                            onChange={(e) => setSurfaceM2(Number(e.target.value))}
+                          />
+                          <span className="unit-chip">m²</span>
+                        </div>
                       </div>
-                      <div>
-                        <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>Nombre de bâtiments :</label>
-                        <input 
-                          type="number"
-                          className="eval-input"
-                          value={buildingCount}
-                          onChange={(e) => setBuildingCount(Number(e.target.value))}
-                        />
+
+                      <div className="form-group">
+                        <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>
+                          Nombre de bâtiments / sites :
+                        </label>
+                        <div className="input-unit-wrap">
+                          <input 
+                            type="number"
+                            className="eval-input"
+                            value={buildingCount}
+                            onChange={(e) => setBuildingCount(Number(e.target.value))}
+                          />
+                          <span className="unit-chip">site(s)</span>
+                        </div>
                       </div>
                     </div>
 
-                    <div className="form-group" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                      <div>
-                        <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>Période de construction :</label>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                      <div className="form-group">
+                        <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>
+                          Décennie de construction :
+                        </label>
                         <select className="eval-select" value={buildDecade} onChange={(e) => setBuildDecade(e.target.value)}>
-                          <option value="pre1980">Avant 1980 (Isolation d'origine)</option>
+                          <option value="pre1980">Avant 1980 (Faible isolation)</option>
                           <option value="1980-2000">1980 - 2000 (Standard)</option>
-                          <option value="2000s">2000 à aujourd'hui (Haute efficacité)</option>
+                          <option value="2000s">2000 à aujourd'hui (Haute performance)</option>
                         </select>
                       </div>
-                      <div>
-                        <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>Consommation électricité (kWh) :</label>
-                        <input 
-                          type="number"
-                          className="eval-input"
-                          value={energyKwh}
-                          onChange={(e) => setEnergyKwh(Number(e.target.value))}
-                        />
+
+                      <div className="form-group">
+                        <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>
+                          Consommation électrique réelle :
+                        </label>
+                        <div className="input-unit-wrap">
+                          <input 
+                            type="number"
+                            className="eval-input"
+                            value={energyKwh}
+                            onChange={(e) => setEnergyKwh(Number(e.target.value))}
+                          />
+                          <span className="unit-chip">kWh/an</span>
+                        </div>
                       </div>
                     </div>
                   </>
                 )}
+              </div>
 
-                <div className="form-group">
-                  <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>Source principale de chauffage :</label>
-                  <div className="select-wrapper">
-                    <select value={heatingType} onChange={(e) => setHeatingType(e.target.value)} className="eval-select">
-                      <option value="hydro">Électricité (Hydro-Québec / Thermopompe)</option>
-                      <option value="gas">Gaz naturel</option>
-                      <option value="oil">Mazout (Huile de chauffage)</option>
-                      <option value="biomass">Biomasse / Bois local de L'Érable</option>
-                    </select>
+              {/* CARD GROUP 2: Source de Chauffage en Tuiles Visuelles */}
+              <div className="form-card-group">
+                <div className="form-card-header">
+                  <div className="form-card-title">
+                    <div className="form-card-title-icon"><Zap size={18} /></div>
+                    <span>2. Énergie de Chauffage Principal</span>
                   </div>
+                  <span className="form-card-badge">Scope 1 &amp; Scope 2</span>
                 </div>
 
-                {detailLevel === 'level3' && (
-                  <div className="form-group" style={{ background: '#f8fafc', padding: '18px', borderRadius: '16px', border: '1px solid #e2e8f0' }}>
-                    <label style={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: '#0f172a' }}>
-                      <Cpu size={18} style={{ color: '#6366f1' }} /> Données Avancées Niveau 3 (Expert)
+                <div className="tile-option-grid">
+                  {[
+                    { id: 'hydro', title: 'Hydro-Québec / Thermopompe', subtitle: 'Propre (1.3g CO₂/kWh)' },
+                    { id: 'gas', title: 'Gaz naturel', subtitle: 'Combustion fossile 1.9 kg/m³' },
+                    { id: 'oil', title: 'Mazout (Huile)', subtitle: 'Élevé 2.7 kg/Litre' },
+                    { id: 'biomass', title: 'Biomasse Bois L\'Érable', subtitle: 'Ressource forestière locale' }
+                  ].map(opt => (
+                    <div 
+                      key={opt.id} 
+                      className={`tile-option-card ${heatingType === opt.id ? 'active' : ''}`}
+                      onClick={() => setHeatingType(opt.id)}
+                    >
+                      <span className="tile-option-title">{opt.title}</span>
+                      <span className="tile-option-subtitle">{opt.subtitle}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {(heatingType === 'gas' || heatingType === 'oil') && (
+                  <div className="form-group" style={{ marginTop: '16px' }}>
+                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>
+                      Volume annuel consommé ({heatingType === 'gas' ? 'm³ de gaz' : 'Litres de mazout'}) :
                     </label>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
-                      <div>
-                        <span style={{ fontSize: '0.84rem', color: '#64748b' }}>Équipements spécialisés (kWh/an serveurs/labos/cuisines) :</span>
-                        <input 
-                          type="number" 
-                          className="eval-input" 
-                          value={specializedKwh} 
-                          onChange={(e) => setSpecializedKwh(Number(e.target.value))} 
-                        />
-                      </div>
-                      <div>
-                        <span style={{ fontSize: '0.84rem', color: '#64748b' }}>Production solaire/géothermie sur site (kWh/an) :</span>
-                        <input 
-                          type="number" 
-                          className="eval-input" 
-                          value={solarOnsiteKwh} 
-                          onChange={(e) => setSolarOnsiteKwh(Number(e.target.value))} 
-                        />
-                      </div>
+                    <div className="input-unit-wrap">
+                      <input 
+                        type="number" 
+                        className="eval-input"
+                        value={heatingFuelAmount}
+                        onChange={(e) => setHeatingFuelAmount(Number(e.target.value))}
+                      />
+                      <span className="unit-chip">{heatingType === 'gas' ? 'm³' : 'L'}</span>
                     </div>
                   </div>
                 )}
               </div>
+
+              {/* CARD GROUP 3: Paramètres Avancés Niveau 3 */}
+              {detailLevel === 'level3' && (
+                <div className="form-card-group">
+                  <div className="form-card-header">
+                    <div className="form-card-title">
+                      <div className="form-card-title-icon"><Cpu size={18} /></div>
+                      <span>3. Équipements Spécialisés &amp; Autoproduction</span>
+                    </div>
+                    <span className="form-card-badge" style={{ background: '#eef2ff', color: '#3730a3' }}>Niveau 3 Expert</span>
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                    <div className="form-group">
+                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>
+                        Serveurs, Cuisines, Labos (kWh) :
+                      </label>
+                      <div className="input-unit-wrap">
+                        <input 
+                          type="number"
+                          className="eval-input"
+                          value={specializedKwh}
+                          onChange={(e) => setSpecializedKwh(Number(e.target.value))}
+                        />
+                        <span className="unit-chip">kWh/an</span>
+                      </div>
+                    </div>
+
+                    <div className="form-group">
+                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>
+                        Solaire ou Géothermie sur site :
+                      </label>
+                      <div className="input-unit-wrap">
+                        <input 
+                          type="number"
+                          className="eval-input"
+                          value={solarOnsiteKwh}
+                          onChange={(e) => setSolarOnsiteKwh(Number(e.target.value))}
+                        />
+                        <span className="unit-chip">kWh/an</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               <div className="step-actions" style={{ marginTop: '28px' }}>
                 <button className="btn-eval-back-step" onClick={() => setStep(2)}>
@@ -1018,23 +1087,31 @@ export default function EvaluationView({ onBackHome }) {
             </div>
           )}
 
-          {/* MODE FORMULAIRE (STEP 4: Mobilité, Flottes & Transports) */}
+          {/* MODE FORMULAIRE ULTRA-RICHE (STEP 4: Mobilité & Transports) */}
           {evalMode === 'form' && step === 4 && (
             <div className="eval-step active">
               <div className="step-hero-illus">
                 <img src="/images/illus_mobility.png" alt="Mobilité" className="illus-step-img" />
               </div>
-              <h2 className="step-question">Transports et mobilité ({detailLevel === 'level1' ? 'Niveau 1' : detailLevel === 'level2' ? 'Niveau 2' : 'Niveau 3 Expert'})</h2>
-              <p className="step-hint">Évaluez le kilométrage et les déplacements professionnels / personnels.</p>
+              <h2 className="step-question">Transports et Mobilité Régionale</h2>
+              <p className="step-hint">Calculateurs de déplacements personnels, flottes et fret.</p>
 
-              <div className="eval-form-fields" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                <div style={{ background: '#f8fafc', padding: '18px', borderRadius: '16px', border: '1px solid #e2e8f0' }}>
-                  <label style={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: '#0f172a' }}>
-                    <Car size={18} style={{ color: '#059669' }} /> Calculateur dynamique de trajets quotidiens
-                  </label>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
-                    <div>
-                      <span style={{ fontSize: '0.84rem', color: '#64748b' }}>Jours de travail / semaine :</span>
+              {/* CARD GROUP 1: Trajets Quotidiens */}
+              <div className="form-card-group">
+                <div className="form-card-header">
+                  <div className="form-card-title">
+                    <div className="form-card-title-icon"><Car size={18} /></div>
+                    <span>1. Déplacements Domicile-Travail</span>
+                  </div>
+                  <span className="form-card-badge">Calculateur Automatique</span>
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                  <div className="form-group">
+                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>
+                      Jours de travail par semaine :
+                    </label>
+                    <div className="input-unit-wrap">
                       <input 
                         type="number" 
                         min="1" 
@@ -1043,83 +1120,106 @@ export default function EvaluationView({ onBackHome }) {
                         value={workDaysWeek} 
                         onChange={(e) => setWorkDaysWeek(Number(e.target.value))} 
                       />
+                      <span className="unit-chip">jours/sem</span>
                     </div>
-                    <div>
-                      <span style={{ fontSize: '0.84rem', color: '#64748b' }}>Distance aller-retour (km) :</span>
+                  </div>
+
+                  <div className="form-group">
+                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>
+                      Distance quotidienne aller-retour :
+                    </label>
+                    <div className="input-unit-wrap">
                       <input 
                         type="number" 
                         className="eval-input" 
                         value={dailyCommuteKm} 
                         onChange={(e) => setDailyCommuteKm(Number(e.target.value))} 
                       />
+                      <span className="unit-chip">km/jour</span>
                     </div>
                   </div>
-                  <span style={{ fontSize: '0.82rem', color: '#059669', fontWeight: 700, marginTop: '8px', display: 'block' }}>
-                    Calcul du trajet domicile-travail : {(workDaysWeek * dailyCommuteKm * 46).toLocaleString()} km/an.
-                  </span>
                 </div>
 
-                <div className="form-group">
-                  <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>
-                    Kilométrage annuel total en véhicule : {kmCar.toLocaleString()} km
+                <div className="form-callout-banner">
+                  <Car size={18} className="form-callout-icon" />
+                  <div>
+                    <strong>Bilan Kilométrique :</strong> Vos trajets quotidiens génèrent environ <strong>{(workDaysWeek * dailyCommuteKm * 46).toLocaleString()} km/an</strong> de déplacements professionnels.
+                  </div>
+                </div>
+              </div>
+
+              {/* CARD GROUP 2: Véhicule & Flotte */}
+              <div className="form-card-group">
+                <div className="form-card-header">
+                  <div className="form-card-title">
+                    <div className="form-card-title-icon"><Truck size={18} /></div>
+                    <span>2. Véhicules &amp; Mode de Carburant</span>
+                  </div>
+                  <span className="form-card-badge">Flotte &amp; Autos</span>
+                </div>
+
+                <div className="form-group" style={{ marginBottom: '16px' }}>
+                  <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>
+                    Kilométrage annuel total du véhicule principal :
                   </label>
-                  <input 
-                    type="range" 
-                    min="0" 
-                    max="40000" 
-                    step="1000" 
-                    value={kmCar} 
-                    onChange={(e) => setKmCar(Number(e.target.value))} 
-                    style={{ width: '100%' }} 
-                  />
+                  <div className="input-unit-wrap">
+                    <input 
+                      type="number" 
+                      className="eval-input" 
+                      value={kmCar} 
+                      onChange={(e) => setKmCar(Number(e.target.value))} 
+                    />
+                    <span className="unit-chip">km/an</span>
+                  </div>
+                </div>
+
+                <div className="tile-option-grid">
+                  {[
+                    { id: 'gasoline', title: 'Essence / Diesel', subtitle: 'Standard fossile' },
+                    { id: 'hybrid', title: 'Hybride Rechargeable', subtitle: 'PHEV hybride' },
+                    { id: 'electric', title: '100% Électrique (VE)', subtitle: 'Zéro émission directe' },
+                    { id: 'bus', title: 'Transport en commun', subtitle: 'Autobus / Covoiturage' }
+                  ].map(opt => (
+                    <div 
+                      key={opt.id} 
+                      className={`tile-option-card ${carType === opt.id ? 'active' : ''}`}
+                      onClick={() => setCarType(opt.id)}
+                    >
+                      <span className="tile-option-title">{opt.title}</span>
+                      <span className="tile-option-subtitle">{opt.subtitle}</span>
+                    </div>
+                  ))}
                 </div>
 
                 {detailLevel !== 'level1' && profile !== 'citizen' && (
-                  <div className="form-group" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                    <div>
-                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>Flotte de véhicules (nombre) :</label>
-                      <input 
-                        type="number" 
-                        className="eval-input" 
-                        value={fleetCount} 
-                        onChange={(e) => setFleetCount(Number(e.target.value))} 
-                      />
-                    </div>
-                    <div>
-                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>Voyages d'affaires annuels :</label>
-                      <input 
-                        type="number" 
-                        className="eval-input" 
-                        value={staffTravelCount} 
-                        onChange={(e) => setStaffTravelCount(Number(e.target.value))} 
-                      />
-                    </div>
-                  </div>
-                )}
-
-                {detailLevel === 'level3' && (
-                  <div className="form-group" style={{ background: '#eef2ff', padding: '18px', borderRadius: '16px', border: '1px solid #c7d2fe' }}>
-                    <label style={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: '#3730a3' }}>
-                      <Truck size={18} /> Fret &amp; Logistique Niveau 3 (Expert)
-                    </label>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
-                      <div>
-                        <span style={{ fontSize: '0.84rem', color: '#4338ca' }}>Distance annuelle fret/livraison (km) :</span>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginTop: '16px' }}>
+                    <div className="form-group">
+                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>
+                        Taille de la flotte d'organisation :
+                      </label>
+                      <div className="input-unit-wrap">
                         <input 
                           type="number" 
                           className="eval-input" 
-                          value={freightKm} 
-                          onChange={(e) => setFreightKm(Number(e.target.value))} 
+                          value={fleetCount} 
+                          onChange={(e) => setFleetCount(Number(e.target.value))} 
                         />
+                        <span className="unit-chip">véhicules</span>
                       </div>
-                      <div>
-                        <span style={{ fontSize: '0.84rem', color: '#4338ca' }}>Kilomètres évités en télétravail :</span>
+                    </div>
+
+                    <div className="form-group">
+                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>
+                        Voyages d'affaires annuels :
+                      </label>
+                      <div className="input-unit-wrap">
                         <input 
                           type="number" 
                           className="eval-input" 
-                          value={teleworkKmSaved} 
-                          onChange={(e) => setTeleworkKmSaved(Number(e.target.value))} 
+                          value={staffTravelCount} 
+                          onChange={(e) => setStaffTravelCount(Number(e.target.value))} 
                         />
+                        <span className="unit-chip">voyages/an</span>
                       </div>
                     </div>
                   </div>
@@ -1137,30 +1237,45 @@ export default function EvaluationView({ onBackHome }) {
             </div>
           )}
 
-          {/* MODE FORMULAIRE (STEP 5: Consommation & Déchets) */}
+          {/* MODE FORMULAIRE ULTRA-RICHE (STEP 5: Consommation & Déchets) */}
           {evalMode === 'form' && step === 5 && (
             <div className="eval-step active">
               <div className="step-hero-illus">
                 <img src="/images/illus_consumption.png" alt="Consommation" className="illus-step-img" />
               </div>
-              <h2 className="step-question">Alimentation, consommables et gestion des déchets</h2>
-              <p className="step-hint">Mesurez l'empreinte de la chaîne d'approvisionnement et du recyclage.</p>
+              <h2 className="step-question">Alimentation, Achats &amp; Gestion des Déchets</h2>
+              <p className="step-hint">Chaîne d'approvisionnement locale et économie circulaire dans L'Érable.</p>
 
-              <div className="eval-form-fields" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                <div className="form-group">
-                  <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>Régime alimentaire / type de restauration :</label>
-                  <div className="select-wrapper">
-                    <select value={dietType} onChange={(e) => setDietType(e.target.value)} className="eval-select">
-                      <option value="balanced">Équilibré (Viande modérée &amp; produits locaux)</option>
-                      <option value="meat">Riche en viande rouge &amp; transformée</option>
-                      <option value="vegan">Végétarien / Végétalien</option>
-                    </select>
+              {/* CARD GROUP 1: Alimentation */}
+              <div className="form-card-group">
+                <div className="form-card-header">
+                  <div className="form-card-title">
+                    <div className="form-card-title-icon"><ShoppingBag size={18} /></div>
+                    <span>1. Profil d'Alimentation &amp; Restauration</span>
                   </div>
+                  <span className="form-card-badge">Scope 3</span>
+                </div>
+
+                <div className="tile-option-grid" style={{ marginBottom: '16px' }}>
+                  {[
+                    { id: 'balanced', title: 'Équilibré', subtitle: 'Viande modérée &amp; local' },
+                    { id: 'meat', title: 'Riche en viande', subtitle: 'Viande rouge fréquente' },
+                    { id: 'vegan', title: 'Végétarien / Végétalien', subtitle: 'Faible empreinte carbone' }
+                  ].map(opt => (
+                    <div 
+                      key={opt.id} 
+                      className={`tile-option-card ${dietType === opt.id ? 'active' : ''}`}
+                      onClick={() => setDietType(opt.id)}
+                    >
+                      <span className="tile-option-title">{opt.title}</span>
+                      <span className="tile-option-subtitle">{opt.subtitle}</span>
+                    </div>
+                  ))}
                 </div>
 
                 <div className="form-group">
-                  <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>
-                    Part d'aliments locaux (MRC de L'Érable / Québec) : {localFoodPct}%
+                  <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>
+                    Part d'aliments de circuits courts (MRC de L'Érable / Québec) : {localFoodPct}%
                   </label>
                   <input 
                     type="range" 
@@ -1172,30 +1287,52 @@ export default function EvaluationView({ onBackHome }) {
                     style={{ width: '100%' }} 
                   />
                 </div>
+              </div>
 
-                {detailLevel !== 'level1' && (
-                  <div className="form-group" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                    <div>
-                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>Matière compostée (kg/an) :</label>
-                      <input 
-                        type="number" 
-                        className="eval-input" 
-                        value={wasteCompostKg} 
-                        onChange={(e) => setWasteCompostKg(Number(e.target.value))} 
-                      />
+              {/* CARD GROUP 2: Recyclage & Compost */}
+              {detailLevel !== 'level1' && (
+                <div className="form-card-group">
+                  <div className="form-card-header">
+                    <div className="form-card-title">
+                      <div className="form-card-title-icon"><Leaf size={18} /></div>
+                      <span>2. Gestion des Déchets &amp; Matières</span>
                     </div>
-                    <div>
-                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>Consommation papier (ramettes/an) :</label>
-                      <input 
-                        type="number" 
-                        className="eval-input" 
-                        value={paperReams} 
-                        onChange={(e) => setPaperReams(Number(e.target.value))} 
-                      />
+                    <span className="form-card-badge">Économie Circulaire</span>
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                    <div className="form-group">
+                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>
+                        Matière compostée annuellement :
+                      </label>
+                      <div className="input-unit-wrap">
+                        <input 
+                          type="number" 
+                          className="eval-input" 
+                          value={wasteCompostKg} 
+                          onChange={(e) => setWasteCompostKg(Number(e.target.value))} 
+                        />
+                        <span className="unit-chip">kg/an</span>
+                      </div>
+                    </div>
+
+                    <div className="form-group">
+                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>
+                        Consommation de papier :
+                      </label>
+                      <div className="input-unit-wrap">
+                        <input 
+                          type="number" 
+                          className="eval-input" 
+                          value={paperReams} 
+                          onChange={(e) => setPaperReams(Number(e.target.value))} 
+                        />
+                        <span className="unit-chip">ramettes</span>
+                      </div>
                     </div>
                   </div>
-                )}
-              </div>
+                </div>
+              )}
 
               <div className="step-actions" style={{ marginTop: '28px' }}>
                 <button className="btn-eval-back-step" onClick={() => setStep(4)}>
@@ -1217,65 +1354,30 @@ export default function EvaluationView({ onBackHome }) {
               <h2 className="step-question">Données Spécifiques au Secteur ({sector.toUpperCase()}) — Niveau 3</h2>
               <p className="step-hint">Inégalée précision pour l’agriculture, les institutions et l’industrie de L'Érable.</p>
 
-              <div className="eval-form-fields" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                {sector === 'agriculture' ? (
-                  <div style={{ background: '#f0fdf4', padding: '20px', borderRadius: '18px', border: '1.5px solid #bbf7d0' }}>
-                    <h3 style={{ margin: '0 0 14px 0', color: '#065f46', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <Wheat size={20} /> Paramètres Agricoles &amp; Érablière
-                    </h3>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
-                      <div>
-                        <span style={{ fontSize: '0.84rem', color: '#047857' }}>Superficie cultivée (hectares) :</span>
-                        <input type="number" className="eval-input" value={agriHa} onChange={(e) => setAgriHa(Number(e.target.value))} />
-                      </div>
-                      <div>
-                        <span style={{ fontSize: '0.84rem', color: '#047857' }}>Consommation diesel machinerie (L/an) :</span>
-                        <input type="number" className="eval-input" value={agriDieselLiters} onChange={(e) => setAgriDieselLiters(Number(e.target.value))} />
-                      </div>
-                      <div>
-                        <span style={{ fontSize: '0.84rem', color: '#047857' }}>Engrais azotés N (kg/an) :</span>
-                        <input type="number" className="eval-input" value={agriFertilizerKg} onChange={(e) => setAgriFertilizerKg(Number(e.target.value))} />
-                      </div>
-                      <div>
-                        <span style={{ fontSize: '0.84rem', color: '#047857' }}>Entailles érablière (nombre) :</span>
-                        <input type="number" className="eval-input" value={agriTapsCount} onChange={(e) => setAgriTapsCount(Number(e.target.value))} />
-                      </div>
-                    </div>
+              <div className="form-card-group">
+                <div className="form-card-header">
+                  <div className="form-card-title">
+                    <div className="form-card-title-icon"><Wheat size={18} /></div>
+                    <span>Paramètres Agricoles &amp; Érablière</span>
                   </div>
-                ) : (
-                  <div style={{ background: '#f8fafc', padding: '20px', borderRadius: '18px', border: '1.5px solid #e2e8f0' }}>
-                    <h3 style={{ margin: '0 0 14px 0', color: '#0f172a', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <Factory size={20} /> Déchets Ultimes &amp; Durabilité du Matériel
-                    </h3>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
-                      <div>
-                        <span style={{ fontSize: '0.84rem', color: '#64748b' }}>Déchets ultimes enfouis (kg/an) :</span>
-                        <input type="number" className="eval-input" value={landfillWasteKg} onChange={(e) => setLandfillWasteKg(Number(e.target.value))} />
-                      </div>
-                      <div>
-                        <span style={{ fontSize: '0.84rem', color: '#64748b' }}>Cycle renouvellement informatique (ans) :</span>
-                        <input type="number" className="eval-input" value={equipmentRenewalYears} onChange={(e) => setEquipmentRenewalYears(Number(e.target.value))} />
-                      </div>
-                    </div>
-                  </div>
-                )}
+                  <span className="form-card-badge" style={{ background: '#f0fdf4', color: '#065f46' }}>MRC L'Érable</span>
+                </div>
 
-                <div style={{ background: '#f0fdf4', padding: '18px', borderRadius: '16px', border: '1px solid #bbf7d0' }}>
-                  <label style={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', color: '#065f46' }}>
-                    <Trees size={18} /> Arbres plantés / Reboisement géré : {treesPlanted} arbres
-                  </label>
-                  <input 
-                    type="range" 
-                    min="0" 
-                    max="200" 
-                    step="5" 
-                    value={treesPlanted} 
-                    onChange={(e) => setTreesPlanted(Number(e.target.value))} 
-                    style={{ width: '100%' }} 
-                  />
-                  <span style={{ fontSize: '0.82rem', color: '#047857', marginTop: '6px', display: 'block' }}>
-                    Séquestration estimée : -{(treesPlanted * 0.025).toFixed(2)} tCO₂e/an.
-                  </span>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                  <div className="form-group">
+                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Superficie cultivée :</label>
+                    <div className="input-unit-wrap">
+                      <input type="number" className="eval-input" value={agriHa} onChange={(e) => setAgriHa(Number(e.target.value))} />
+                      <span className="unit-chip">hectares</span>
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Consommation diesel machinerie :</label>
+                    <div className="input-unit-wrap">
+                      <input type="number" className="eval-input" value={agriDieselLiters} onChange={(e) => setAgriDieselLiters(Number(e.target.value))} />
+                      <span className="unit-chip">L/an</span>
+                    </div>
+                  </div>
                 </div>
               </div>
 
