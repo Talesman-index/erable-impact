@@ -1,5 +1,5 @@
 import React from 'react';
-import { Zap, Truck, ArrowUpRight, Sprout, BarChart3, Car } from 'lucide-react';
+import { Zap, Truck, ArrowUpRight, Sprout, Car } from 'lucide-react';
 
 export default function CategoriesSection({ onStartEval }) {
   return (
@@ -8,10 +8,6 @@ export default function CategoriesSection({ onStartEval }) {
         {/* Header Row */}
         <div className="measure-header-row">
           <div>
-            <div className="framer-tag-chip" style={{ marginBottom: '12px' }}>
-              <BarChart3 size={14} />
-              <span>AXES D'ÉVALUATION</span>
-            </div>
             <h2 className="measure-title">Secteurs d'évaluation environnementale</h2>
           </div>
 
@@ -61,7 +57,6 @@ export default function CategoriesSection({ onStartEval }) {
             </div>
 
             <div className="bento-agri-content">
-              <span className="bento-category-tag">SECTEUR PRIMAIRE &amp; ÉCOSYSTÈMES</span>
               <h3>Agriculture &amp; Foresterie</h3>
               <p>Mesurez l'empreinte de vos pratiques agricoles et forestières pour préserver la qualité des sols et les milieux naturels du territoire.</p>
               <button onClick={onStartEval} className="bento-white-btn">

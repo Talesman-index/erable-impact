@@ -24,11 +24,6 @@ export default function LoginModal({ isOpen, onClose }) {
 
         {/* Modal Header */}
         <div className="login-modal-header">
-          <div className="login-badge-chip">
-            <UserCheck size={13} />
-            <span>ESPACE MEMBRE</span>
-          </div>
-
           <h3 className="login-modal-title">Connexion à votre espace</h3>
           <p className="login-modal-subtitle">
             Accédez aux bilans et données environnementales de votre organisation.

@@ -86,10 +86,6 @@ export default function Navbar({ onOpenLogin, onStartEval }) {
         </div>
 
         <div className="mobile-drawer-body">
-          <div className="mobile-tag-chip">
-            <span>MENU PRINCIPAL</span>
-          </div>
-
           <nav className="mobile-drawer-links">
             <a href="#why" onClick={closeMobile} className="mobile-drawer-link">
               <span className="link-num">01</span>

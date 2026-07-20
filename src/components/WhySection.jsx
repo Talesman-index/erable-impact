@@ -1,5 +1,5 @@
 import React from 'react';
-import { Zap, Shield, ArrowUpRight, Compass, Layers, Activity } from 'lucide-react';
+import { Zap, Shield, ArrowUpRight, Layers, Activity } from 'lucide-react';
 
 export default function WhySection({ onStartEval }) {
   return (
@@ -48,11 +48,6 @@ export default function WhySection({ onStartEval }) {
 
         {/* Right Column: Webflow/Framer Editorial Content */}
         <div className="about-solarion-right">
-          <div className="framer-tag-chip">
-            <Compass size={14} className="sparkle-icon" />
-            <span>DÉMARCHE TERRITORIALE</span>
-          </div>
-
           <h2 className="about-title-solarion">
             Un outil participatif au service de la transition de la <span className="highlight-text-gradient">MRC de L'Érable</span>.
           </h2>

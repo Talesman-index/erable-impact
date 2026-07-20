@@ -1,5 +1,5 @@
 import React from 'react';
-import { Users, Layers, Home, MapPin, ArrowUpRight, TreePine, HeartHandshake } from 'lucide-react';
+import { Layers, Home, MapPin, ArrowUpRight, TreePine, HeartHandshake } from 'lucide-react';
 
 export default function AboutSection({ onStartEval }) {
   return (
@@ -7,11 +7,6 @@ export default function AboutSection({ onStartEval }) {
       <div className="container about-framer-container">
         {/* Section Header */}
         <div className="about-framer-header">
-          <div className="framer-tag-chip">
-            <Users size={14} />
-            <span>ENGAGEMENT &amp; MOBILISATION</span>
-          </div>
-
           <h2 className="about-framer-title">
             Une démarche collective ancrée dans les réalités de la <span className="highlight-text-gradient">MRC de L'Érable</span>.
           </h2>
@@ -47,7 +42,6 @@ export default function AboutSection({ onStartEval }) {
             {/* Partners Card */}
             <div className="about-partners-bento-card">
               <div className="partners-card-header">
-                <span className="partners-card-label">ACTEURS &amp; PARTENAIRES</span>
                 <h4>Gouvernance partagée du territoire</h4>
               </div>
 
