@@ -204,8 +204,7 @@ export default function EvaluationView({ onBackHome }) {
                   </label>
                   <input
                     type="text"
-                    className="eval-select"
-                    style={{ background: '#ffffff' }}
+                    className="eval-input"
                     placeholder="G6L 1A1"
                     value={postalCode}
                     onChange={(e) => setPostalCode(e.target.value.toUpperCase())}
