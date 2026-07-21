@@ -1,18 +1,14 @@
 import React from 'react';
 import { Phone, Mail, MapPin, Facebook } from 'lucide-react';
+import Logo from './Logo';
 
-export default function Footer({ onStartEval }) {
+export default function Footer({ onStartEval, onOpenMentions, onOpenConfidentialite, onOpenCharte, onOpenGuide }) {
   return (
     <footer className="main-footer">
       <div className="container footer-grid-new">
         <div className="footer-brand-new">
-          <a href="#" className="logo-new">
-            <div className="logo-icon-wrap-new">
-              <svg className="logo-leaf-new" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M 12,2 C 11.5,4 11.5,4.5 11,5.5 C 10.5,5 9.5,4 8,3 C 8,4.5 8.5,5.5 8.5,6 C 7.5,5.5 6,5 5,5 C 5.5,6 6,7 7,8 C 5,7.5 3.5,7 2,7 C 3,8 4.5,9.5 5.5,10 C 4.5,10 3.5,10.5 2.5,10.5 C 3.5,11.5 5,12 6,12 C 5,13 4,14 3,15 C 4.5,14.5 5.5,14 6.5,13.5 C 6,14.5 5.5,16 5.5,17 C 6.5,16 7.5,15 8,14 C 8.5,15.5 9,17 9.5,18.5 C 10.5,18 11.5,17.5 12,17.5 L 12,22 L 12.5,22 L 12.5,17.5 C 13,17.5 14,18 15,18.5 C 15.5,17 16,15.5 16.5,14 C 17,15 18,16 19,17 C 19,16 18.5,14.5 18,13.5 C 19,14 20,14.5 21.5,15 C 20.5,14 19.5,13 18.5,12 C 19.5,12 21,11.5 22,10.5 C 21,10.5 20,10 19,10 C 20,9.5 21.5,8 22.5,7 C 21,7 19.5,7.5 17.5,8 C 18.5,7 19,6 19.5,5 C 18.5,5 17,5.5 16,6 C 16,5.5 16.5,4.5 16.5,3 C 15,4 14,5 13.5,5.5 C 13,4.5 13,4 12.5,2 L 12,2 Z"/>
-              </svg>
-            </div>
-            <span>Erable</span>
+          <a href="#" style={{ textDecoration: 'none' }}>
+            <Logo lightText={true} />
           </a>
 
           <h4 className="newsletter-title-new">S'abonner à notre infolettre</h4>
@@ -23,24 +19,30 @@ export default function Footer({ onStartEval }) {
         </div>
 
         <div className="footer-links-new">
-          <h5 className="column-title-new">Pages</h5>
+          <h5 className="column-title-new">Pages &amp; Documents</h5>
           <div className="links-subgrid-new">
             <div className="links-col-new">
               <a href="#" className="active-link-new">Accueil</a>
               <a href="#why">Bénéfices</a>
               <a href="#measure">Indicateurs</a>
               <a href="#regional">Vision Régionale</a>
-              <a href="#impact">Bilan d'Impact</a>
               <button onClick={onStartEval} style={{ background: 'none', border: 'none', color: 'inherit', font: 'inherit', cursor: 'pointer', textAlign: 'left', padding: 0 }}>
                 Évaluation
               </button>
             </div>
             <div className="links-col-new">
-              <a href="#">Actualités</a>
-              <a href="#">Nous joindre</a>
-              <a href="#">Espace membre</a>
-              <a href="#">Confidentialité</a>
-              <a href="#">Mentions légales</a>
+              <button onClick={onOpenGuide} style={{ background: 'none', border: 'none', color: 'inherit', font: 'inherit', cursor: 'pointer', textAlign: 'left', padding: 0 }}>
+                Guide &amp; FAQ
+              </button>
+              <button onClick={onOpenCharte} style={{ background: 'none', border: 'none', color: 'inherit', font: 'inherit', cursor: 'pointer', textAlign: 'left', padding: 0 }}>
+                Charte d'engagement
+              </button>
+              <button onClick={onOpenConfidentialite} style={{ background: 'none', border: 'none', color: 'inherit', font: 'inherit', cursor: 'pointer', textAlign: 'left', padding: 0 }}>
+                Confidentialité (Loi 25)
+              </button>
+              <button onClick={onOpenMentions} style={{ background: 'none', border: 'none', color: 'inherit', font: 'inherit', cursor: 'pointer', textAlign: 'left', padding: 0 }}>
+                Mentions légales
+              </button>
             </div>
           </div>
         </div>

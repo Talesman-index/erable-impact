@@ -1,0 +1,170 @@
+Cahier des charges
+Outil d'évaluation d'impact environnemental — MRC de L'Érable
+Document adressé à l'équipe de développement — Projet de transition socioclimatique, CDC de L'Érable
+1. Contexte et objectifs
+Ce cahier des charges décrit les fonctionnalités attendues de l'outil d'évaluation d'impact environnemental développé dans le cadre du projet de transition socioclimatique de la MRC de L'Érable, porté par la CDC de L'Érable. Il s'adresse à l'équipe ou au prestataire chargé du développement logiciel. Le contexte détaillé (positionnement stratégique, méthodologie GES complète, formules de calcul par secteur, sources des facteurs d'émission) est documenté dans le rapport « Framework de l'outil GES — MRC de L'Érable » fourni en annexe et référencé tout au long de ce document ; il ne sera pas répété ici.
+1.1 Objectifs fonctionnels de l'outil
+	•	Communication — rendre visibles les efforts environnementaux de chaque acteur du territoire.
+	•	Connexion — faire apparaître les collaborations potentielles entre acteurs poursuivant des objectifs similaires.
+	•	Suivi — mesurer, année après année, la progression collective vers la vision coconstruite par les acteurs du territoire.
+1.2 Ce que ce document couvre
+	•	Les utilisateurs et profils de l'outil.
+	•	Le parcours utilisateur complet, écran par écran, avec maquettes basse fidélité.
+	•	Les spécifications fonctionnelles détaillées de chaque module.
+	•	Les exigences non fonctionnelles (accessibilité, sécurité, performance, évolutivité).
+	•	Des suggestions d'architecture technique, à titre indicatif — le choix final reste à la discrétion de l'équipe de développement.
+2. Utilisateurs et profils
+Profil
+Description
+Exemples
+Institution
+Statut public ou parapublic
+Municipalités, MRC, écoles publiques, CIUSSS
+Entreprise
+Statut privé, à but lucratif
+Fermes, restaurants, cliniques privées
+Organisme
+Statut OBNL / communautaire
+Organismes communautaires, groupes environnementaux
+Citoyen
+Individu ou ménage
+Résidents du territoire
+Administrateur (CDC)
+Gestion et validation centrale
+Équipe de la CDC de L'Érable
+
+Le statut (public / privé / OBNL), déclaré à l'étape de profilage, détermine à la fois le secteur pertinent parmi les onze secteurs déjà définis et la catégorie de recommandation applicable à cet acteur (voir 4.5).
+3. Parcours utilisateur
+Le parcours se déroule en sept étapes. Chaque étape correspond à un écran ou groupe d'écrans, illustré ci-dessous par une maquette basse fidélité (wireframe) destinée à communiquer l'intention fonctionnelle, non le design final.
+3.1 Écran 1 — Profilage de l'acteur
+
+Maquette basse fidélité — à des fins de communication fonctionnelle uniquement.
+Sélection du type d'acteur, du statut, du secteur d'activité (menu adaptatif parmi les onze secteurs), de la localisation et de la taille de l'organisation. Ces réponses déterminent le questionnaire GES présenté à l'étape 3 et pré-remplissent des valeurs par défaut intelligentes lorsque disponibles.
+3.2 Écran 2 — Boussole de la transition
+
+Maquette basse fidélité — à des fins de communication fonctionnelle uniquement.
+L'outil ne recrée pas la Boussole : il redirige l'utilisateur vers l'outil officiel de la Chaire de recherche sur la transition écologique (chairetransition.esg.uqam.ca). L'utilisateur y complète sa réflexion, puis revient téléverser son résultat (export PDF) dans l'outil, ou passe cette étape. Cette étape demeure facultative et non bloquante pour le reste du parcours.
+3.3 Écran 3 — Collecte de données GES (progressive)
+
+Maquette basse fidélité — à des fins de communication fonctionnelle uniquement.
+Questionnaire conversationnel adaptatif, en trois niveaux de profondeur (5-10 min / 30-45 min / 1h30-3h selon le secteur), avec sauvegarde partielle, exemples concrets pour chaque paramètre, tag de qualité de donnée (Mesurée / Facturée / Estimée) par réponse, et validations douces (alerte sans blocage en cas de valeur aberrante). Le contenu détaillé des questionnaires par secteur est fourni en annexe (document Framework).
+3.4 Écran 4 — Résultats
+
+Maquette basse fidélité — à des fins de communication fonctionnelle uniquement.
+Affichage du bilan GES brut (indicateur principal, mis en évidence) et des actions positives / réductions (indicateur complémentaire distinct, jamais soustrait du chiffre principal — voir 4.4). Graphiques de répartition par poste, comparaison à la moyenne régionale ou sectorielle, mise en contexte concrète (équivalences), et indice de fiabilité du bilan (Data Quality Index).
+3.5 Écran 5 — Alignement avec le plan d'action collectif
+
+Maquette basse fidélité — à des fins de communication fonctionnelle uniquement.
+Présentation de la couverture actuelle de l'acteur parmi les 41 actions du plan collectif, puis des recommandations personnalisées : des actions du plan non encore couvertes par cet acteur, sélectionnées selon son profil et traduites dans un langage adapté (réglementaire pour une institution, opérationnel pour une entreprise, mobilisateur pour un organisme, individuel pour un citoyen), accompagnées des collaborateurs potentiels déjà identifiés dans le plan.
+3.6 Écran 6 — Rapport et partage
+
+Maquette basse fidélité — à des fins de communication fonctionnelle uniquement.
+Génération d'un rapport consolidé (boussole, bilan, couverture du plan, recommandations), exportable en PDF et en CSV. Option de partage anonyme des données vers le portrait collectif régional. Rappel automatique pour refaire le bilan 6 à 12 mois plus tard (suivi dans le temps).
+3.7 Écran 7 — Tableau de bord régional (administrateur CDC)
+
+Maquette basse fidélité — à des fins de communication fonctionnelle uniquement.
+Vue agrégée pour l'équipe de la CDC : nombre d'acteurs inscrits, bilan GES agrégé brut, taux de couverture global du plan d'action, carte du territoire par secteur, identification des acteurs prioritaires à soutenir (logique Critical Path), connexions suggérées entre acteurs, validation des données en attente, export du portrait régional.
+
+4. Spécifications fonctionnelles détaillées par module
+4.1 Module Authentification et comptes
+	•	Création de compte par courriel (ou authentification simplifiée à définir avec l'équipe technique).
+	•	Un compte par acteur (organisation ou citoyen), avec historique des bilans réalisés dans le temps.
+	•	Gestion des accès : un acteur ne voit que ses propres données détaillées; seul l'administrateur CDC voit les données agrégées de tous les acteurs.
+	•	Conformité à la Loi 25 (Loi sur la protection des renseignements personnels dans le secteur privé, Québec) : consentement explicite à la collecte, droit d'accès et de suppression des données personnelles.
+4.2 Module Profilage et aiguillage sectoriel
+	•	Formulaire court (type, statut, secteur, localisation, taille).
+	•	Le secteur choisi détermine dynamiquement le contenu du questionnaire GES présenté à l'étape suivante (11 secteurs définis dans le document Framework).
+	•	Pré-remplissage de valeurs par défaut régionales ou sectorielles lorsque l'acteur ne peut fournir de données précises.
+4.3 Module Boussole
+	•	Lien externe vers chairetransition.esg.uqam.ca.
+	•	Fonction de téléversement du résultat (PDF) et extraction des six scores par pôle (traitement similaire à celui déjà réalisé manuellement pour ce projet — voir note technique 4.3.1).
+	•	Affichage de la position de l'acteur par rapport à la moyenne collective régionale déjà établie.
+	•	Étape facultative, non bloquante.
+4.3.1 Note technique — extraction automatisée des données de la Boussole
+Selon que l'outil de la Chaire expose ou non un mécanisme d'export structuré (API, webhook, ou export de données brutes), l'extraction pourra se faire soit automatiquement, soit par lecture du PDF exporté par l'utilisateur (extraction des valeurs numériques imprimées sur le graphique, comme cela a été fait manuellement pour la boussole collective de ce projet). Cette faisabilité technique doit être validée par l'équipe de développement directement auprès de la Chaire de recherche sur la transition écologique.
+4.4 Moteur de calcul GES
+	•	Implémente les formules détaillées par secteur du document Framework (section « Base de calcul »).
+	•	Affiche systématiquement le bilan brut (E_sources) comme indicateur principal; les actions positives et séquestration (S_séquestration + R_réductions) sont calculées et affichées séparément, jamais soustraites du chiffre principal affiché par défaut.
+	•	Applique le facteur d'émission électrique officiel du Québec (34,5 g éq. CO₂/kWh, base cycle de vie) et les autres facteurs documentés dans le Framework, avec la source et l'année de chaque facteur enregistrées.
+	•	Applique la règle de délimitation par contrôle opérationnel (norme ISO 14064-1) avant toute agrégation régionale, pour éviter le double comptage.
+	•	Calcule et affiche un Data Quality Index (0 à 1) par poste et un indice global de fiabilité du bilan.
+	•	Conserve une année de référence fixe par acteur et documente la version des facteurs d'émission utilisée à chaque calcul, pour permettre un suivi valide dans le temps.
+4.5 Module Plan d'action et recommandations
+	•	Base de données des 41 actions du plan collectif (catégorie, priorité, parties prenantes, collaborateurs potentiels — voir document « Plan d'action climatique du territoire »).
+	•	Interface permettant à l'acteur de cocher les actions auxquelles il contribue déjà (état actuel).
+	•	Calcul automatique du taux de couverture par catégorie et par niveau de priorité.
+	•	Moteur de recommandation : sélectionne, parmi les actions non couvertes, celles pertinentes au secteur et au profil de l'acteur, et les reformule selon 4 gabarits de langage (institution / entreprise / organisme / citoyen) plutôt que d'afficher le libellé brut de l'action.
+	•	Affichage des collaborateurs potentiels déjà identifiés dans le plan pour chaque action recommandée.
+4.6 Module Rapport et visualisations
+	•	Graphiques de répartition (camembert ou barres) par poste d'émission.
+	•	Comparaisons contextualisées (vs moyenne régionale, vs secteur, équivalences concrètes).
+	•	Export PDF (rapport complet mis en page) et CSV (données brutes).
+4.7 Module Suivi temporel
+	•	Historique des bilans par acteur, avec comparaison d'une année à l'autre.
+	•	Rappel automatique (courriel) pour renouveler le bilan après 6 à 12 mois.
+	•	Alerte si la méthodologie ou les facteurs d'émission ont changé entre deux bilans, pour ne pas fausser la comparaison.
+4.8 Module Agrégation régionale et tableau de bord CDC
+	•	Vue consolidée : nombre d'acteurs, bilan agrégé brut, couverture globale du plan d'action.
+	•	Carte ou vue territoriale des acteurs par secteur.
+	•	Identification des acteurs prioritaires à soutenir (logique Critical Path, réutilisant les données de maturité et de couverture).
+	•	Suggestions de connexions entre acteurs partageant une même action ou un même enjeu.
+	•	Anonymisation des données individuelles dans toute vue ou export public/partagé.
+4.9 Module Administration (CDC)
+	•	Validation centrale des bilans de niveau 3 (données expertes) avant intégration au portrait régional officiel.
+	•	Gestion des comptes acteurs (activation, support, correction de données).
+	•	Export global des données régionales.
+
+5. Exigences non fonctionnelles
+5.1 Accessibilité et expérience utilisateur
+	•	Questionnaire conversationnel plutôt que formulaire long; sauvegarde partielle et reprise possible.
+	•	Convertisseurs d'unités simples et exemples concrets intégrés à chaque question complexe.
+	•	Validations douces (alerte, non blocage) en cas de donnée apparemment aberrante.
+	•	Interface progressive : possibilité de compléter uniquement le niveau 1 sans pénalité, un utilisateur ayant complété 70 % du niveau 1 étant préférable à un abandon complet.
+5.2 Sécurité et protection des renseignements personnels
+	•	Conformité à la Loi 25 (Québec) pour toute donnée personnelle (citoyens notamment).
+	•	Chiffrement des données en transit et au repos.
+	•	Hébergement des données au Canada (préférence pour des services avec résidence des données au Québec ou au Canada, en cohérence avec les exigences applicables aux organismes publics et parapublics).
+5.3 Performance et charge attendue
+L'outil doit d'abord soutenir l'échelle de la MRC de L'Érable (environ 24 500 habitants, quelques dizaines d'organisations actives dans le projet), avec une architecture permettant une extension ultérieure à l'ensemble de la région Centre-du-Québec sans refonte majeure.
+5.4 Évolutivité
+	•	Ajout futur possible de nouveaux secteurs ou de nouvelles régions sans modification du cœur du moteur de calcul.
+	•	Mise à jour annuelle des facteurs d'émission sans perte de comparabilité historique (voir 4.4).
+	•	Possibilité d'intégration future d'un assistant conversationnel (IA) pour guider la saisie, mentionnée comme piste dans le document Framework, sans être un prérequis de la version initiale.
+6. Suggestions d'architecture technique (à titre indicatif)
+Ces suggestions visent à faciliter les échanges avec l'équipe de développement; elles ne constituent pas une exigence contractuelle et peuvent être remplacées par toute solution équivalente répondant aux exigences fonctionnelles et non fonctionnelles ci-dessus.
+Composant
+Suggestion
+Justification
+Frontend
+Application web responsive (ex. React ou équivalent)
+Questionnaire conversationnel, accessible sur mobile et ordinateur
+Backend / API
+API REST ou GraphQL (ex. Node.js ou Python/FastAPI)
+Sépare le moteur de calcul de l'interface, facilite l'évolutivité
+Base de données
+Base relationnelle (ex. PostgreSQL)
+Structure claire pour acteurs, secteurs, réponses, facteurs d'émission, actions du plan
+Génération de rapports
+Librairie de génération PDF côté serveur
+Export PDF/CSV du module Rapport
+Visualisation
+Librairie de graphiques (ex. Chart.js, Recharts, D3)
+Graphiques de répartition et de comparaison
+Hébergement
+Fournisseur infonuagique avec centre de données au Canada
+Conformité Loi 25 et résidence des données
+Authentification
+Service d'authentification géré (ex. Auth0, Firebase Auth, ou équivalent)
+Réduit la charge de sécurité pour une petite équipe
+
+Le choix technologique final relève de l'équipe de développement, en fonction des ressources, du budget et des compétences disponibles.
+7. Livrables attendus
+	•	Application fonctionnelle couvrant les 7 étapes du parcours utilisateur (section 3).
+	•	Documentation technique du moteur de calcul (traçabilité des formules et facteurs utilisés).
+	•	Guide d'administration à l'intention de l'équipe de la CDC de L'Érable.
+	•	Plan de maintenance pour la mise à jour annuelle des facteurs d'émission.
+8. Documents annexés
+	•	Framework de l'outil GES — MRC de L'Érable (méthodologie complète, formules par secteur, facteurs d'émission, références bibliographiques).
+	•	Plan d'action climatique du territoire (41 actions).
+	•	Boussole collective de la transition — synthèse des résultats.
+	•	Tableau des enjeux et Tableau des actions prioritaires — Atelier 4.

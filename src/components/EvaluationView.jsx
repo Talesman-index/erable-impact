@@ -1,80 +1,102 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import Logo from './Logo';
 import { 
   User, Users, Building, GraduationCap, MapPin, 
   Zap, BarChart2, Microscope, MessageSquare, Truck, ShoppingBag, Leaf, Award, 
-  ArrowLeft, ArrowRight, X, Send, Download, FileText, Info, ChevronRight, ChevronDown, CheckCircle2, RefreshCw, HelpCircle, Bot, Sparkles, Lightbulb, Car, Trees, Factory, Wheat, Cpu, ShieldCheck, Ticket, Calendar, HeartPulse, Palette, Utensils, Smile, Flag, Hotel, Gift
+  ArrowLeft, ArrowRight, X, Send, Download, FileText, Info, ChevronRight, ChevronDown, CheckCircle2, RefreshCw, HelpCircle, Bot, Sparkles, Lightbulb, Car, Trees, Factory, Wheat, Cpu, ShieldCheck, Ticket, Calendar, HeartPulse, Palette, Utensils, Smile, Flag, Compass, CheckSquare, Layers, Sun
 } from 'lucide-react';
 
 export default function EvaluationView({ onBackHome }) {
   // Navigation & Configuration State
   const [step, setStep] = useState(0); 
-  const [unitSystem, setUnitSystem] = useState('metric'); // 'metric' | 'imperial'
-  const [showDetailedInfo, setShowDetailedInfo] = useState(false);
-
-  // Target Scope State (Organisation vs Événement)
   const [evalTarget, setEvalTarget] = useState('organisation'); // 'organisation' | 'event'
 
-  // Profile & Location State
+  // Profile & Location State (Table acteurs)
   const [profile, setProfile] = useState('institution'); 
+  const [actorStatus, setActorStatus] = useState('public'); // 'public' | 'private' | 'obnl'
   const [location, setLocation] = useState('Région de L\'Érable');
   const [postalCode, setPostalCode] = useState('G6L 1A1');
   const [sector, setSector] = useState('education'); 
-  const [orgSize, setOrgSize] = useState('medium'); 
+  const [orgSize, setOrgSize] = useState('medium'); // 'small' | 'medium' | 'large'
   
-  // Level & Mode State (TogetherSense Framework)
-  const [detailLevel, setDetailLevel] = useState('level2'); 
-  const [evalMode, setEvalMode] = useState('form'); 
+  // Level & Mode State
+  const [detailLevel, setDetailLevel] = useState('level2'); // 'level1' | 'level2' | 'level3'
 
-  // =========================================================================
-  // DEDICATED EVENT EVALUATION STATE (ÉVÉNEMENT & ACTIVITÉ PONCTUELLE)
-  // =========================================================================
+  // Data Quality Index (DQI) tags for each section (Mesurée=1.0, Facturée=0.7, Estimée=0.4)
+  const [dqiQuality, setDqiQuality] = useState({
+    energy: 'facturee',
+    transport: 'facturee',
+    consumption: 'estimee',
+    specific: 'facturee'
+  });
+
+  // UQAM Boussole de la transition scores (6 Pôles : 0 à 8)
+  const [boussoleScores, setBoussoleScores] = useState({
+    global: 5.5,
+    carboneutralite: 6.2,
+    technocentre: 3.8,
+    local: 7.1,
+    justice_sociale: 6.8,
+    sociocentre: 5.9
+  });
+  const [hasCompletedBoussole, setHasCompletedBoussole] = useState(true);
+
+  // 41 Actions Plan Climatique Collectif (Couverture actuel)
+  const [coveredActions, setCoveredActions] = useState({
+    G1: true, // Plan d'action climat
+    G2: true, // Brigade verte
+    N1: true, // Protection berges
+    N3: true, // Reboisement local
+    H1: true, // Alimentation locale
+    H4: true, // Antigaspillage
+    E1: true, // Efficacité énergétique
+    E5: false, // Solaire/Autoproduction
+    E9: true  // Recyclage & Compost
+  });
+
+  // DEDICATED EVENT EVALUATION STATE
   const [eventType, setEventType] = useState('conference'); 
   const [eventParticipants, setEventParticipants] = useState(60);
   const [eventDays, setEventDays] = useState(2);
   const [eventVenueType, setEventVenueType] = useState('salle_communautaire'); 
   const [eventFormat, setEventFormat] = useState('presentiel'); 
-  
-  // Event Step 3: Energy & Venue
   const [eventVenueSurfaceM2, setEventVenueSurfaceM2] = useState(200);
   const [eventGeneratorFuelLiters, setEventGeneratorFuelLiters] = useState(45);
   const [eventStageLightingKwh, setEventStageLightingKwh] = useState(350);
-  const [eventHeatingSource, setEventHeatingSource] = useState('hydro');
-
-  // Event Step 4: Transport & Accommodation
   const [eventAvgDistanceKm, setEventAvgDistanceKm] = useState(40);
-  const [eventMainTransportMode, setEventMainTransportMode] = useState('car_solo'); // 'car_solo', 'carpool', 'bus', 'transit'
+  const [eventMainTransportMode, setEventMainTransportMode] = useState('car_solo');
   const [eventSpeakerCount, setEventSpeakerCount] = useState(5);
   const [eventHotelNightsCount, setEventHotelNightsCount] = useState(15);
-
-  // Event Step 5: Catering & Waste
   const [eventCateringType, setEventCateringType] = useState('traiteur_local'); 
   const [eventMealsCount, setEventMealsCount] = useState(120);
   const [eventLocalFoodPct, setEventLocalFoodPct] = useState(65);
   const [eventReusableTableware, setEventReusableTableware] = useState(true);
   const [eventCompostKg, setEventCompostKg] = useState(40);
   const [eventPrintReams, setEventPrintReams] = useState(5);
-
-  // Event Step 6: Scenography & Positive Actions
   const [eventScenographyReusePct, setEventScenographyReusePct] = useState(75);
-  const [eventGoodiesType, setEventGoodiesType] = useState('eco'); // 'none', 'eco', 'standard'
   const [eventTreesOffset, setEventTreesOffset] = useState(15);
 
-  // =========================================================================
   // ORGANISATIONAL EVALUATION STATE (12 SECTORS)
-  // =========================================================================
-
-  // 1. SECTEUR ÉDUCATION
   const [eduType, setEduType] = useState('secondaire'); 
   const [studentCount, setStudentCount] = useState(850);
+  const [staffCount, setStaffCount] = useState(65);
   const [schoolBusCount, setSchoolBusCount] = useState(8);
   const [schoolBusKmAnnual, setSchoolBusKmAnnual] = useState(48000);
   const [cafeteriaType, setCafeteriaType] = useState('interne'); 
+
+  // SMART CALCULATION ASSISTANTS (JOURNALIER / MENSUEL / HEBDOMADAIRE)
+  const [mealsInputMode, setMealsInputMode] = useState('daily'); // 'annual' | 'daily'
+  const [dailyMealsCount, setDailyMealsCount] = useState(200);
+  const [activeDaysPerYear, setActiveDaysPerYear] = useState(225);
   const [annualMealsCount, setAnnualMealsCount] = useState(45000);
 
-  // 2. SECTEUR ENVIRONNEMENT & FORESTERIE
-  const [interventionSurfaceHa, setInterventionSurfaceHa] = useState(250);
+  const [energyInputMode, setEnergyInputMode] = useState('monthly'); // 'annual' | 'monthly'
+  const [monthlyEnergyBill, setMonthlyEnergyBill] = useState(350);
 
-  // 3. SECTEUR AGRICULTURE & ÉRABLIÈRE (43% L'Érable)
+  const [wasteInputMode, setWasteInputMode] = useState('weekly'); // 'annual' | 'weekly'
+  const [weeklyWasteKg, setWeeklyWasteKg] = useState(7);
+
+  const [interventionSurfaceHa, setInterventionSurfaceHa] = useState(250);
   const [agriHa, setAgriHa] = useState(65);
   const [agriLivestockCount, setAgriLivestockCount] = useState(55);
   const [agriDieselLiters, setAgriDieselLiters] = useState(3200);
@@ -82,21 +104,13 @@ export default function EvaluationView({ onBackHome }) {
   const [manureType, setManureType] = useState('lisier'); 
   const [agriTapsCount, setAgriTapsCount] = useState(3500); 
 
-  // 4. SECTEUR SANTÉ & SERVICES SOCIAUX
-  const [healthInstType, setHealthInstType] = useState('clinique'); 
   const [biomedicalWasteKg, setBiomedicalWasteKg] = useState(450);
   const [ambulancesCount, setAmbulancesCount] = useState(2);
   const [ambulanceKmAnnual, setAmbulanceKmAnnual] = useState(24000);
 
-  // 5. SECTEUR COMMUNAUTAIRE & AIDE ALIMENTAIRE
   const [foodSavedKgPerYear, setFoodSavedKgPerYear] = useState(12000);
-  const [refrigeratorsCount, setRefrigeratorsCount] = useState(6);
-
-  // 6. SECTEUR POLITIQUE & MUNICIPALITÉS
   const [publicLightingKwh, setPublicLightingKwh] = useState(45000);
   const [snowPlowDieselLiters, setSnowPlowDieselLiters] = useState(12500);
-
-  // 7. SECTEUR PME & INDUSTRIE
   const [industrialProcessKwh, setIndustrialProcessKwh] = useState(85000);
 
   // COMMON BUILDINGS & ENERGY FIELDS (STEP 3 ORGANISATION)
@@ -121,50 +135,41 @@ export default function EvaluationView({ onBackHome }) {
   const [paperReams, setPaperReams] = useState(22);
   const [wasteCompostKg, setWasteCompostKg] = useState(350);
 
-  // Actions Positives State
+  // Actions Positives & Séquestration
   const [treesPlanted, setTreesPlanted] = useState(30);
-  const [actions, setActions] = useState({
-    ledLighting: true,
-    heatPump: true,
-    compost: true,
-    localFood: true,
-    treePlanting: true,
-    solar: false,
-    smartThermostats: true
-  });
+
+  // CALCUL DES INDICATEURS & DQI
+  const calcDqiValue = (tag) => {
+    if (tag === 'mesuree') return 1.0;
+    if (tag === 'facturee') return 0.7;
+    return 0.4; // estimée
+  };
+
+  const globalDqiPct = Math.round(
+    ((calcDqiValue(dqiQuality.energy) + calcDqiValue(dqiQuality.transport) + calcDqiValue(dqiQuality.consumption) + calcDqiValue(dqiQuality.specific)) / 4) * 100
+  );
 
   // RIGOROUS DEDICATED CALCULATION MODELS
   const calcEventEmissionsDetailed = () => {
     if (eventFormat === 'virtuel') {
       return {
         total: parseFloat((eventParticipants * eventDays * 0.0008).toFixed(2)),
-        transport: 0,
-        venue: parseFloat((eventParticipants * eventDays * 0.0005).toFixed(2)),
-        catering: 0,
-        waste: parseFloat((eventParticipants * eventDays * 0.0003).toFixed(2))
+        gross: parseFloat((eventParticipants * eventDays * 0.0008).toFixed(2)),
+        offset: 0,
+        perParticipantPerDay: parseFloat(((eventParticipants * eventDays * 0.8) / Math.max(1, eventParticipants * eventDays)).toFixed(2))
       };
     }
 
-    // 1. Transport Participants & Speakers
-    let transportModeFactor = 0.00019; // car_solo
+    let transportModeFactor = 0.00019; 
     if (eventMainTransportMode === 'carpool') transportModeFactor = 0.00009;
     else if (eventMainTransportMode === 'bus') transportModeFactor = 0.00005;
-    else if (eventMainTransportMode === 'transit') transportModeFactor = 0.00004;
 
     let transportTotal = (eventParticipants * eventAvgDistanceKm * transportModeFactor) + (eventSpeakerCount * 180 * 0.00018);
-
-    // 2. Venue Energy & Generators
     let venueTotal = (eventVenueSurfaceM2 * eventDays * 0.0018) + (eventGeneratorFuelLiters * 0.0027) + (eventStageLightingKwh * 0.0013 / 1000);
-
-    // 3. Catering & Meals
-    let mealFactor = eventCateringType === 'traiteur_local' ? 0.0018 : 0.0032;
-    mealFactor *= (1 - (eventLocalFoodPct * 0.003));
+    let mealFactor = (eventCateringType === 'traiteur_local' ? 0.0018 : 0.0032) * (1 - (eventLocalFoodPct * 0.003));
     if (eventReusableTableware) mealFactor *= 0.75;
     let cateringTotal = (eventMealsCount * mealFactor);
-
-    // 4. Hotel & Waste
     let wasteTotal = (eventHotelNightsCount * 0.015) + (eventPrintReams * 0.004) - (eventCompostKg * 0.0005);
-    if (eventGoodiesType === 'standard') wasteTotal += (eventParticipants * 0.0012);
 
     const gross = parseFloat((transportTotal + venueTotal + cateringTotal + wasteTotal).toFixed(2));
     const offset = parseFloat((eventTreesOffset * 0.025).toFixed(2));
@@ -173,10 +178,6 @@ export default function EvaluationView({ onBackHome }) {
       total: Math.max(0.05, parseFloat((gross - offset).toFixed(2))),
       gross: gross,
       offset: offset,
-      transport: parseFloat(transportTotal.toFixed(2)),
-      venue: parseFloat(venueTotal.toFixed(2)),
-      catering: parseFloat(cateringTotal.toFixed(2)),
-      waste: parseFloat(wasteTotal.toFixed(2)),
       perParticipantPerDay: parseFloat(((gross * 1000) / Math.max(1, eventParticipants * eventDays)).toFixed(2))
     };
   };
@@ -217,8 +218,6 @@ export default function EvaluationView({ onBackHome }) {
     let seq = treesPlanted * 0.025;
     if (sector === 'environnement') seq += (interventionSurfaceHa * 0.3);
     if (sector === 'agriculture') seq += (agriHa * 0.15);
-    if (actions.heatPump) seq += 1.8;
-    if (actions.compost) seq += (wasteCompostKg * 0.0005);
     return parseFloat(seq.toFixed(2));
   };
 
@@ -231,43 +230,50 @@ export default function EvaluationView({ onBackHome }) {
   const grossTotal = evalTarget === 'event' ? eventCalcResults.gross : parseFloat((scope1Val + scope2Val + scope3Val).toFixed(2));
   const netTotal = evalTarget === 'event' ? eventCalcResults.total : Math.max(0.1, parseFloat((grossTotal - sequestrationVal).toFixed(2)));
 
+  // Taux de couverture plan collectif
+  const coveredCount = Object.values(coveredActions).filter(Boolean).length;
+  const coveragePct = Math.round((coveredCount / 9) * 100);
+
+  // Normalized per unit
+  const perPersonVal = sector === 'education' 
+    ? (grossTotal / Math.max(1, studentCount)).toFixed(3)
+    : (grossTotal / Math.max(1, staffCount)).toFixed(2);
+
+  const exportCSV = () => {
+    const csvContent = `data:text/csv;charset=utf-8,Parametre,Valeur,Unite\nActeur,${profile},Enum\nSecteur,${sector},Enum\nTotal Brut,${grossTotal},tCO2e\nSequestration,${sequestrationVal},tCO2e\nNet,${netTotal},tCO2e\nDQI,${globalDqiPct},%\nCouverture Plan,${coveragePct},%\n`;
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', `bilan_ges_${sector}_${new Date().toISOString().slice(0,10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div style={{ backgroundColor: 'var(--color-surface)', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       {/* Header */}
       <header className="eval-header">
         <div className="eval-header-inner">
-          <button onClick={onBackHome} className="eval-logo" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M 12,2 C 11.5,4 11.5,4.5 11,5.5 C 10.5,5 9.5,4 8,3 C 8,4.5 8.5,5.5 8.5,6 C 7.5,5.5 6,5 5,5 C 5.5,6 6,7 7,8 C 5,7.5 3.5,7 2,7 C 3,8 4.5,9.5 5.5,10 C 4.5,10 3.5,10.5 2.5,10.5 C 3.5,11.5 5,12 6,12 C 5,13 4,14 3,15 C 4.5,14.5 5.5,14 6.5,13.5 C 6,14.5 5.5,16 5.5,17 C 6.5,16 7.5,15 8,14 C 8.5,15.5 9,17 9.5,18.5 C 10.5,18 11.5,17.5 12,17.5 L 12,22 L 12.5,22 L 12.5,17.5 C 13,17.5 14,18 15,18.5 C 15.5,17 16,15.5 16.5,14 C 17,15 18,16 19,17 C 19,16 18.5,14.5 18,13.5 C 19,14 20,14.5 21.5,15 C 20.5,14 19.5,13 18.5,12 C 19.5,12 21,11.5 22,10.5 C 21,10.5 20,10 19,10 C 20,9.5 21.5,8 22.5,7 C 21,7 19.5,7.5 16.5,3 C 15,4 14,5 13.5,5.5 C 13,4.5 13,4 12.5,2 L 12,2 Z"/>
-            </svg>
-            <span>ERABLE <strong>GES</strong></span>
-          </button>
+          <div onClick={onBackHome} style={{ cursor: 'pointer' }}>
+            <Logo />
+          </div>
 
           <div className="eval-header-progress">
             <div className="header-step-pills">
               <span className={`step-pill ${step === 0 ? 'active' : step > 0 ? 'done' : ''}`} onClick={() => setStep(0)}>Accueil</span>
               <span className="step-pill-sep">→</span>
-              <span className={`step-pill ${step === 1 ? 'active' : step > 1 ? 'done' : ''}`} onClick={() => setStep(1)}>
-                {evalTarget === 'event' ? 'Événement' : 'Profil & Secteur'}
-              </span>
+              <span className={`step-pill ${step === 1 ? 'active' : step > 1 ? 'done' : ''}`} onClick={() => setStep(1)}>Profil</span>
               <span className="step-pill-sep">→</span>
-              <span className={`step-pill ${step === 2 ? 'active' : step > 2 ? 'done' : ''}`} onClick={() => setStep(2)}>Détail &amp; Mode</span>
+              <span className={`step-pill ${step === 2 ? 'active' : step > 2 ? 'done' : ''}`} onClick={() => setStep(2)}>Boussole</span>
               <span className="step-pill-sep">→</span>
-              <span className={`step-pill ${step === 3 ? 'active' : step > 3 ? 'done' : ''}`} onClick={() => setStep(3)}>
-                {evalTarget === 'event' ? 'Lieu & Énergie' : 'Énergie'}
-              </span>
+              <span className={`step-pill ${step === 3 ? 'active' : step > 3 ? 'done' : ''}`} onClick={() => setStep(3)}>Énergie</span>
               <span className="step-pill-sep">→</span>
-              <span className={`step-pill ${step === 4 ? 'active' : step > 4 ? 'done' : ''}`} onClick={() => setStep(4)}>
-                {evalTarget === 'event' ? 'Transports' : 'Transports'}
-              </span>
+              <span className={`step-pill ${step === 4 ? 'active' : step > 4 ? 'done' : ''}`} onClick={() => setStep(4)}>Transports</span>
               <span className="step-pill-sep">→</span>
-              <span className={`step-pill ${step === 5 ? 'active' : step > 5 ? 'done' : ''}`} onClick={() => setStep(5)}>
-                {evalTarget === 'event' ? 'Restauration' : 'Consommation'}
-              </span>
+              <span className={`step-pill ${step === 5 ? 'active' : step > 5 ? 'done' : ''}`} onClick={() => setStep(5)}>Consommation</span>
               <span className="step-pill-sep">→</span>
-              <span className={`step-pill ${step === 6 ? 'active' : step > 6 ? 'done' : ''}`} onClick={() => setStep(6)}>
-                {evalTarget === 'event' ? 'Scénographie' : 'Spécificités'}
-              </span>
+              <span className={`step-pill ${step === 6 ? 'active' : step > 6 ? 'done' : ''}`} onClick={() => setStep(6)}>Plan Climat</span>
               <span className="step-pill-sep">→</span>
               <span className={`step-pill ${step === 7 ? 'active' : ''}`} onClick={() => setStep(7)}>Résultats</span>
             </div>
@@ -276,30 +282,25 @@ export default function EvaluationView({ onBackHome }) {
 
           <div className="eval-header-actions">
             <span className="eval-user-badge" style={{ background: '#f0fdf4', color: '#059669', border: '1px solid #bbf7d0', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-              {evalTarget === 'event' ? <Ticket size={14} /> : <Building size={14} />}
-              {evalTarget === 'event' ? '🎪 Événement' : sector.toUpperCase()} • {detailLevel === 'level1' ? 'Rapide' : 'Détaillé'}
+              <ShieldCheck size={14} /> DQI: {globalDqiPct}%
             </span>
             <button onClick={onBackHome} className="btn-eval-back">
               <X size={16} /> Quitter
             </button>
           </div>
         </div>
-
-        <div className="eval-global-progress">
-          <div className="eval-global-fill" style={{ width: `${(step / 7) * 100}%` }} />
-        </div>
       </header>
 
       {/* Main Layout */}
-      <main className={`eval-main ${step === 0 || evalMode === 'conversational' ? 'onboarding-main' : ''}`}>
+      <main className="eval-main">
         <div className="eval-wizard-panel" style={{ width: '100%' }}>
           
           {/* STEP 0: Onboarding */}
           {step === 0 && (
             <div className="eval-step active onboarding-step-view">
               <div className="onboarding-header">
-                <h2>Évaluation de l'empreinte carbone</h2>
-                <p>Choisissez le périmètre d'analyse : Organisation annuelle ou Événement ponctuel</p>
+                <h2>Évaluation de l'empreinte carbone (L'Érable)</h2>
+                <p>Choisissez le périmètre d'analyse selon les spécifications du Cahier de collecte</p>
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
@@ -336,211 +337,237 @@ export default function EvaluationView({ onBackHome }) {
             </div>
           )}
 
-          {/* STEP 1: CARACTÉRISTIQUES (ÉVÉNEMENT VS ORGANISATION) */}
-          {step === 1 && evalTarget === 'event' && (
+          {/* STEP 1: PROFILAGE (Table acteurs) — SEPARATION PAR CARTES VISUELLES */}
+          {step === 1 && (
+            <div className="eval-step active" style={{ maxWidth: '950px', margin: '0 auto' }}>
+              <div className="onboarding-header" style={{ textAlign: 'center', marginBottom: '28px' }}>
+                <h2 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#0f172a', fontFamily: 'var(--font-heading)' }}>
+                  Étape 1/7 : Choix de votre Profil &amp; Secteur d'Activité
+                </h2>
+                <p style={{ color: '#64748b', fontSize: '1rem', maxWidth: '650px', margin: '8px auto 0' }}>
+                  Sélectionnez les cartes correspondant à votre organisation ou statut pour adapter le questionnaire et les recommandations du Plan Climat.
+                </p>
+              </div>
+
+              {/* SECTION 1: TYPE D'ACTEUR (4 CARTES VISUELLES) */}
+              <div style={{ marginBottom: '32px' }}>
+                <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--color-secondary)', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ width: '28px', height: '28px', borderRadius: '50%', background: '#f0fdf4', color: 'var(--color-primary)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.9rem', fontWeight: 800 }}>1</span>
+                  1. Quel est votre type d'acteur ?
+                </h3>
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '14px' }}>
+                  {[
+                    { id: 'institution', title: 'Institution', desc: 'Écoles, Municipalités, CIUSSS, MRC', icon: GraduationCap, defaultStatus: 'public' },
+                    { id: 'company', title: 'Entreprise / PME', desc: 'Commerces, Érablières, Usines, Fermes', icon: Factory, defaultStatus: 'private' },
+                    { id: 'organisation', title: 'Organisme / OBNL', desc: 'CDC L\'Érable, Banques alimentaires, Associations', icon: Users, defaultStatus: 'obnl' },
+                    { id: 'citizen', title: 'Citoyen / Ménage', desc: 'Résidents du territoire, Familles, Individus', icon: User, defaultStatus: 'private' }
+                  ].map((act) => {
+                    const IconComp = act.icon;
+                    const isSelected = profile === act.id;
+                    return (
+                      <div
+                        key={act.id}
+                        onClick={() => {
+                          setProfile(act.id);
+                          setActorStatus(act.defaultStatus);
+                        }}
+                        style={{
+                          background: isSelected ? '#f0fdf4' : '#ffffff',
+                          border: isSelected ? '2px solid var(--color-primary)' : '1px solid #e2e8f0',
+                          borderRadius: '16px',
+                          padding: '18px',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s ease',
+                          boxShadow: isSelected ? '0 6px 16px rgba(5, 150, 105, 0.15)' : '0 2px 6px rgba(0,0,0,0.02)',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: '8px'
+                        }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                          <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: isSelected ? 'var(--color-primary)' : '#f1f5f9', color: isSelected ? '#ffffff' : '#475569', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <IconComp size={20} />
+                          </div>
+                          {isSelected && <CheckCircle2 size={18} style={{ color: 'var(--color-primary)' }} />}
+                        </div>
+                        <h4 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--color-secondary)', margin: 0 }}>{act.title}</h4>
+                        <p style={{ fontSize: '0.82rem', color: '#64748b', margin: 0, lineHeight: 1.4 }}>{act.desc}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* SECTION 2: STATUT JURIDIQUE & CATEGORIE (3 CARTES) */}
+              <div style={{ marginBottom: '32px' }}>
+                <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--color-secondary)', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ width: '28px', height: '28px', borderRadius: '50%', background: '#f0fdf4', color: 'var(--color-primary)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.9rem', fontWeight: 800 }}>2</span>
+                  2. Statut &amp; Catégorie de recommandation
+                </h3>
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '14px' }}>
+                  {[
+                    { id: 'public', title: 'Public / Parapublic', badge: 'Réglementaire & Exemplarité', desc: 'Recommandations axées sur les politiques publiques et la gouvernance' },
+                    { id: 'private', title: 'Privé à but lucratif', badge: 'Procédés & Énergie', desc: 'Recommandations axées sur l\'efficacité opérationnelle et les coûts' },
+                    { id: 'obnl', title: 'OBNL / Communautaire', badge: 'Mobilisation & Social', desc: 'Recommandations axées sur l\'entraide, la sensibilisation et l\'équité' }
+                  ].map((st) => {
+                    const isSelected = actorStatus === st.id;
+                    return (
+                      <div
+                        key={st.id}
+                        onClick={() => setActorStatus(st.id)}
+                        style={{
+                          background: isSelected ? '#ecfdf5' : '#ffffff',
+                          border: isSelected ? '2px solid var(--color-primary)' : '1px solid #e2e8f0',
+                          borderRadius: '14px',
+                          padding: '16px',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s ease'
+                        }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
+                          <span style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-secondary)' }}>{st.title}</span>
+                          {isSelected && <CheckCircle2 size={16} style={{ color: 'var(--color-primary)' }} />}
+                        </div>
+                        <span style={{ display: 'inline-block', fontSize: '0.75rem', fontWeight: 700, color: '#065f46', background: '#dcfce7', padding: '2px 8px', borderRadius: '6px', marginBottom: '6px' }}>
+                          {st.badge}
+                        </span>
+                        <p style={{ fontSize: '0.8rem', color: '#64748b', margin: 0 }}>{st.desc}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* SECTION 3: SECTEUR D'ACTIVITE (GRILLE DE CARTES SECTORIELLES) */}
+              <div style={{ marginBottom: '32px' }}>
+                <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--color-secondary)', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ width: '28px', height: '28px', borderRadius: '50%', background: '#f0fdf4', color: 'var(--color-primary)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.9rem', fontWeight: 800 }}>3</span>
+                  3. Votre secteur d'activité dans L'Érable
+                </h3>
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '12px' }}>
+                  {[
+                    { id: 'education', name: 'Éducation & Scolaire', icon: GraduationCap, badge: '5-10 min' },
+                    { id: 'environnement', name: 'Environnement & Foresterie', icon: Trees, badge: 'Conservation' },
+                    { id: 'agriculture', name: 'Agriculture & Érablières', icon: Wheat, badge: '43% Emplois' },
+                    { id: 'sante', name: 'Santé & Services Sociaux', icon: HeartPulse, badge: 'CIUSSS & Cliniques' },
+                    { id: 'jeunesse', name: 'Jeunesse & Loisirs', icon: Smile, badge: 'Camps & Sports' },
+                    { id: 'communautaire', name: 'Communautaire & OBNL', icon: Users, badge: 'CDC L\'Érable' },
+                    { id: 'aide_alimentaire', name: 'Aide Alimentaire', icon: Utensils, badge: 'Antigaspillage' },
+                    { id: 'restauration', name: 'Restauration & Commerce', icon: ShoppingBag, badge: 'Alimentation' },
+                    { id: 'art', name: 'Art, Culture & Spectacles', icon: Palette, badge: 'Événements' },
+                    { id: 'politique', name: 'Politique & Municipalités', icon: Building, badge: 'Infrastructures' },
+                    { id: 'pme', name: 'PME & Industrie', icon: Factory, badge: 'Transformation' }
+                  ].map((sec) => {
+                    const SecIcon = sec.icon;
+                    const isSelected = sector === sec.id;
+                    return (
+                      <div
+                        key={sec.id}
+                        onClick={() => setSector(sec.id)}
+                        style={{
+                          background: isSelected ? 'var(--color-primary)' : '#ffffff',
+                          color: isSelected ? '#ffffff' : 'var(--color-secondary)',
+                          border: isSelected ? '2px solid var(--color-primary-hover)' : '1px solid #e2e8f0',
+                          borderRadius: '14px',
+                          padding: '14px',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s ease',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '12px',
+                          boxShadow: isSelected ? '0 4px 12px rgba(5, 150, 105, 0.25)' : 'none'
+                        }}
+                      >
+                        <div style={{ width: '34px', height: '34px', borderRadius: '8px', background: isSelected ? 'rgba(255,255,255,0.2)' : '#f1f5f9', color: isSelected ? '#ffffff' : 'var(--color-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                          <SecIcon size={18} />
+                        </div>
+                        <div style={{ flex: 1, overflow: 'hidden' }}>
+                          <div style={{ fontSize: '0.88rem', fontWeight: 700, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{sec.name}</div>
+                          <div style={{ fontSize: '0.72rem', opacity: isSelected ? 0.9 : 0.6 }}>{sec.badge}</div>
+                        </div>
+                        {isSelected && <CheckCircle2 size={16} style={{ color: '#ffffff', flexShrink: 0 }} />}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* SECTION 4: LOCALISATION DANS LA MRC DE L'ÉRABLE */}
+              <div style={{ background: '#f8fafc', padding: '24px', borderRadius: '18px', border: '1px solid #e2e8f0', marginBottom: '32px' }}>
+                <h3 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#0f172a', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <MapPin size={18} style={{ color: '#059669' }} />
+                  4. Localisation &amp; Ancrage territorial (MRC de L'Érable)
+                </h3>
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                  <div>
+                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '6px', fontSize: '0.9rem' }}>Municipalité de L'Érable :</label>
+                    <select value={location} onChange={(e) => setLocation(e.target.value)} className="eval-select">
+                      <option value="Région de L'Érable">Région de L'Érable (Globale)</option>
+                      <option value="Ville de Plessisville">Ville de Plessisville</option>
+                      <option value="Ville de Princeville">Ville de Princeville</option>
+                      <option value="Notre-Dame-de-Lourdes">Notre-Dame-de-Lourdes</option>
+                      <option value="Saint-Ferdinand">Saint-Ferdinand</option>
+                      <option value="Sainte-Sophie-d'Halifax">Sainte-Sophie-d'Halifax</option>
+                      <option value="Inverness">Inverness</option>
+                      <option value="Laurierville">Laurierville</option>
+                      <option value="Lyster">Lyster</option>
+                      <option value="Villeroy">Villeroy</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '6px', fontSize: '0.9rem' }}>Code postal :</label>
+                    <input type="text" className="eval-input" value={postalCode} onChange={(e) => setPostalCode(e.target.value.toUpperCase())} placeholder="ex. G6L 1A1" />
+                  </div>
+                </div>
+              </div>
+
+              {/* ACTION BUTTONS */}
+              <div className="step-actions" style={{ marginTop: '28px', display: 'flex', justifyContent: 'space-between' }}>
+                <button className="btn-eval-back-step" onClick={() => setStep(0)}>
+                  <ArrowLeft size={16} /> Retour à l'accueil
+                </button>
+                <button className="btn-eval-next" onClick={() => setStep(2)} style={{ background: '#059669', color: '#ffffff' }}>
+                  Continuer vers la Boussole UQAM <ArrowRight size={18} />
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* STEP 2: BOUSSOLE DE LA TRANSITION (UQAM) */}
+          {step === 2 && (
             <div className="eval-step active">
               <div className="onboarding-header" style={{ textAlign: 'center', marginBottom: '24px' }}>
                 <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#f0fdf4', border: '1px solid #bbf7d0', color: '#059669', padding: '6px 16px', borderRadius: '9999px', fontWeight: 700, fontSize: '0.88rem', marginBottom: '12px' }}>
-                  <Ticket size={18} />
-                  Évaluation d'empreinte carbone d'un événement
+                  <Compass size={18} />
+                  Partenariat Chaire de Recherche UQAM
                 </div>
-                <h2>Étape 1/7 : Caractéristiques de l'Événement</h2>
-                <p>Adapté à tout type d'organisation : réunions, conférences, ateliers, formations, festivals, etc.</p>
+                <h2>Étape 2/7 : La Boussole de la transition</h2>
+                <p>Évaluez vos 6 pôles de maturité socioclimatique (Étape facultative)</p>
               </div>
 
               <div className="form-card-group">
-                <div className="form-group" style={{ marginBottom: '16px' }}>
-                  <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>
-                    Type d'événement <span style={{ color: '#e11d48' }}>*</span>
-                  </label>
-                  <select value={eventType} onChange={(e) => setEventType(e.target.value)} className="eval-select">
-                    <option value="conference">Conférence / Forum / Congrès</option>
-                    <option value="reunion">Réunion d'affaires / Concertation</option>
-                    <option value="festival">Festival / Événement culturel / Spectacle</option>
-                    <option value="atelier">Atelier / Formation / Séminaire</option>
-                    <option value="concert">Concert / Rassemblement communautaire</option>
-                  </select>
-                </div>
-
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
-                  <div className="form-group">
-                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>
-                      Nombre de participants <span style={{ color: '#e11d48' }}>*</span>
-                    </label>
-                    <div className="input-unit-wrap">
-                      <input type="number" className="eval-input" value={eventParticipants} onChange={(e) => setEventParticipants(Number(e.target.value))} />
-                      <span className="unit-chip">pers</span>
-                    </div>
+                  <div>
+                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '4px' }}>Pôle Global (0-8) : {boussoleScores.global}</label>
+                    <input type="range" min="0" max="8" step="0.1" value={boussoleScores.global} onChange={(e) => setBoussoleScores({...boussoleScores, global: parseFloat(e.target.value)})} style={{ width: '100%' }} />
                   </div>
-
-                  <div className="form-group">
-                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>
-                      Nombre de jours de l'événement <span style={{ color: '#e11d48' }}>*</span>
-                    </label>
-                    <div className="input-unit-wrap">
-                      <input type="number" className="eval-input" value={eventDays} onChange={(e) => setEventDays(Number(e.target.value))} />
-                      <span className="unit-chip">jour(s)</span>
-                    </div>
+                  <div>
+                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '4px' }}>Pôle Carboneutralité : {boussoleScores.carboneutralite}</label>
+                    <input type="range" min="0" max="8" step="0.1" value={boussoleScores.carboneutralite} onChange={(e) => setBoussoleScores({...boussoleScores, carboneutralite: parseFloat(e.target.value)})} style={{ width: '100%' }} />
+                  </div>
+                  <div>
+                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '4px' }}>Pôle Local : {boussoleScores.local}</label>
+                    <input type="range" min="0" max="8" step="0.1" value={boussoleScores.local} onChange={(e) => setBoussoleScores({...boussoleScores, local: parseFloat(e.target.value)})} style={{ width: '100%' }} />
+                  </div>
+                  <div>
+                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '4px' }}>Pôle Justice Sociale : {boussoleScores.justice_sociale}</label>
+                    <input type="range" min="0" max="8" step="0.1" value={boussoleScores.justice_sociale} onChange={(e) => setBoussoleScores({...boussoleScores, justice_sociale: parseFloat(e.target.value)})} style={{ width: '100%' }} />
                   </div>
                 </div>
-
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                  <div className="form-group">
-                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>
-                      Type de lieu <span style={{ color: '#e11d48' }}>*</span>
-                    </label>
-                    <select value={eventVenueType} onChange={(e) => setEventVenueType(e.target.value)} className="eval-select">
-                      <option value="salle_communautaire">Salle communautaire / Municipale</option>
-                      <option value="centre_congres">Centre de congrès / Hôtel</option>
-                      <option value="plein_air">Site plein air / Parc naturel</option>
-                      <option value="ecole">Établissement scolaire / Cégep</option>
-                    </select>
-                  </div>
-
-                  <div className="form-group">
-                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>
-                      Format <span style={{ color: '#e11d48' }}>*</span>
-                    </label>
-                    <select value={eventFormat} onChange={(e) => setEventFormat(e.target.value)} className="eval-select">
-                      <option value="presentiel">Présentiel</option>
-                      <option value="hybride">Hybride (Présentiel + Virtuel)</option>
-                      <option value="virtuel">100% Virtuel (Vidéoconférence)</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              <div className="step-actions" style={{ marginTop: '28px' }}>
-                <button className="btn-eval-back-step" onClick={() => setStep(0)}>
-                  <ArrowLeft size={16} /> Retour
-                </button>
-                <button className="btn-eval-next" onClick={() => setStep(2)}>
-                  Continuer vers le Niveau &amp; Mode <ArrowRight size={18} />
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* STEP 1: ORGANISATION */}
-          {step === 1 && evalTarget === 'organisation' && (
-            <div className="eval-step active">
-              <div className="step-hero-illus">
-                <img src="/images/illus_profile.png" alt="Profil" className="illus-step-img" />
-              </div>
-              <h2 className="step-question">Étape 1/7 : Profil Organisationnel &amp; Secteur</h2>
-              <p className="step-hint">Sélectionnez le secteur d'activité de votre organisation dans L'Érable.</p>
-
-              <div className="form-section-title">1. Type d'acteur</div>
-              <div className="profile-choice-grid select-5-columns">
-                {[
-                  { id: 'citizen', title: 'Citoyen', desc: 'Ménage.', icon: User },
-                  { id: 'organisation', title: 'Organisation', desc: 'OBNL.', icon: Users },
-                  { id: 'company', title: 'Entreprise', desc: 'PME.', icon: Building },
-                  { id: 'institution', title: 'Institution', desc: 'Écoles, hôpitaux.', icon: GraduationCap },
-                  { id: 'municipality', title: 'Collectivité', desc: 'Villes & MRC.', icon: MapPin }
-                ].map(item => {
-                  const Icon = item.icon;
-                  return (
-                    <label key={item.id} className="profile-choice">
-                      <input 
-                        type="radio" 
-                        name="eval-profile" 
-                        value={item.id} 
-                        checked={profile === item.id} 
-                        onChange={() => setProfile(item.id)} 
-                      />
-                      <div className="profile-choice-card">
-                        <div className="choice-icon"><Icon size={24} /></div>
-                        <h4>{item.title}</h4>
-                        <p>{item.desc}</p>
-                      </div>
-                    </label>
-                  );
-                })}
-              </div>
-
-              <div className="form-section-title" style={{ marginTop: '24px' }}>2. Secteur d'activité (12 Secteurs Structurés)</div>
-              <div className="eval-field" style={{ marginTop: '12px' }}>
-                <div className="select-wrapper">
-                  <select value={sector} onChange={(e) => setSector(e.target.value)} className="eval-select">
-                    <option value="education">1. Éducation (Primaires, Secondaires, Cégeps, Universités)</option>
-                    <option value="environnement">2. Environnement &amp; Foresterie (Bassin versant, Conservation, Reforestation)</option>
-                    <option value="agriculture">3. Agriculture &amp; Agroalimentaire (43% emplois L'Érable, Érablières, Bovins)</option>
-                    <option value="sante">4. Santé &amp; Services sociaux (Hôpitaux, Cliniques, Urgences)</option>
-                    <option value="jeunesse">5. Jeunesse &amp; Loisirs (Camps de jour, Équipements sportifs)</option>
-                    <option value="communautaire">6. Communautaire &amp; OBNL (CDC de L'Érable, Bénévoles)</option>
-                    <option value="aide_alimentaire">7. Aide Alimentaire &amp; Banques alimentaires (Frigos, Antigaspillage)</option>
-                    <option value="restauration">8. Restauration &amp; Commerce (Cuisines, Aliments locaux)</option>
-                    <option value="art">9. Art, Culture &amp; Spectacles (Scénographie, Audio, Expositions)</option>
-                    <option value="politique">10. Politique &amp; Municipalités (Bâtiments publics, Éclairage)</option>
-                    <option value="pme">11. PME, Transformation &amp; Industrie (Procédés, Fret, Serveurs)</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="step-actions" style={{ marginTop: '32px' }}>
-                <button className="btn-eval-back-step" onClick={() => setStep(0)}>
-                  <ArrowLeft size={16} /> Retour
-                </button>
-                <button className="btn-eval-next" onClick={() => setStep(2)}>
-                  Continuer <ArrowRight size={18} />
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* STEP 2: NIVEAU & MODE */}
-          {step === 2 && (
-            <div className="eval-step active detail-level-step-view">
-              <div className="onboarding-header">
-                <h2>Étape 2/7 : Niveau de détail ({evalTarget === 'event' ? 'Événement' : sector.toUpperCase()})</h2>
-                <p>Choisissez le degré de précision souhaité pour l'évaluation.</p>
-              </div>
-
-              <div className="detail-level-grid">
-                {[
-                  {
-                    id: 'level1',
-                    title: 'Niveau 1 - Rapide (5 min)',
-                    duration: 'Estimation express',
-                    desc: 'Grandes lignes et ordres de grandeur',
-                    icon: Zap,
-                    color: '#f59e0b'
-                  },
-                  {
-                    id: 'level2',
-                    title: 'Niveau 2 - Détaillé (15 min)',
-                    duration: 'Précision recommandée',
-                    desc: 'Surfaces, kilomètres, traiteur, déchets et énergie',
-                    icon: BarChart2,
-                    color: '#059669'
-                  },
-                  {
-                    id: 'level3',
-                    title: 'Niveau 3 - Expert (30 min)',
-                    duration: 'Certification Carbone',
-                    desc: 'Bilan complet certifié conforme ISO 20121 / ISO 14064',
-                    icon: Microscope,
-                    color: '#6366f1'
-                  }
-                ].map((item) => {
-                  const Icon = item.icon;
-                  const isSelected = detailLevel === item.id;
-                  return (
-                    <div 
-                      key={item.id} 
-                      className={`detail-level-card ${isSelected ? 'active' : ''}`}
-                      onClick={() => setDetailLevel(item.id)}
-                    >
-                      <div className="level-card-icon" style={{ color: item.color }}>
-                        <Icon size={28} />
-                      </div>
-                      <h3>{item.title}</h3>
-                      <span className="level-duration-tag">{item.duration}</span>
-                      <p>{item.desc}</p>
-                    </div>
-                  );
-                })}
               </div>
 
               <div className="step-actions" style={{ marginTop: '28px' }}>
@@ -548,92 +575,44 @@ export default function EvaluationView({ onBackHome }) {
                   <ArrowLeft size={16} /> Retour
                 </button>
                 <button className="btn-eval-next" onClick={() => setStep(3)}>
-                  Continuer vers Lieu &amp; Énergie <ArrowRight size={18} />
+                  Continuer vers l'Énergie (Niveau 2) <ArrowRight size={18} />
                 </button>
               </div>
             </div>
           )}
 
-          {/* STEP 3: LIEU & ÉNERGIE (DÉDIÉ ÉVÉNEMENT OU ORGANISATION) */}
+          {/* STEP 3: ÉNERGIE & QUALITÉ DE DONNÉE (DQI) */}
           {step === 3 && (
             <div className="eval-step active">
-              <div className="step-hero-illus">
-                <img src="/images/illus_energy.png" alt="Énergie" className="illus-step-img" />
-              </div>
-              <h2 className="step-question">
-                Étape 3/7 : {evalTarget === 'event' ? "Lieu & Énergie de l'Événement" : "Énergie & Bâtiments de l'Organisation"}
-              </h2>
-              <p className="step-hint">
-                {evalTarget === 'event' 
-                  ? "Consommations électriques de la salle, éclairage scénique et groupes électrogènes." 
-                  : "Superficie des locaux et source de chauffage principale."}
-              </p>
+              <h2 className="step-question">Étape 3/7 : Énergie &amp; Qualité de Donnée</h2>
+              
+              <div className="form-card-group">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                  <span style={{ fontWeight: 700 }}>Qualité de cette donnée (DQI) :</span>
+                  <select value={dqiQuality.energy} onChange={(e) => setDqiQuality({...dqiQuality, energy: e.target.value})} className="eval-select" style={{ width: 'auto' }}>
+                    <option value="mesuree">Mesurée (DQI = 100%)</option>
+                    <option value="facturee">Facturée (DQI = 70%)</option>
+                    <option value="estimee">Estimée (DQI = 40%)</option>
+                  </select>
+                </div>
 
-              {evalTarget === 'event' ? (
-                <div className="form-card-group">
-                  <div className="form-card-header">
-                    <div className="form-card-title">
-                      <div className="form-card-title-icon"><Zap size={18} /></div>
-                      <span>1. Énergie du Lieu &amp; Équipements Temporaires</span>
-                    </div>
-                    <span className="form-card-badge">Lieu Événementiel</span>
-                  </div>
-
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
-                    <div className="form-group">
-                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Superficie de la salle / du site :</label>
-                      <div className="input-unit-wrap">
-                        <input type="number" className="eval-input" value={eventVenueSurfaceM2} onChange={(e) => setEventVenueSurfaceM2(Number(e.target.value))} />
-                        <span className="unit-chip">m²</span>
-                      </div>
-                    </div>
-
-                    <div className="form-group">
-                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Génératrices temporaires (Diesel) :</label>
-                      <div className="input-unit-wrap">
-                        <input type="number" className="eval-input" value={eventGeneratorFuelLiters} onChange={(e) => setEventGeneratorFuelLiters(Number(e.target.value))} />
-                        <span className="unit-chip">Litres</span>
-                      </div>
-                    </div>
-                  </div>
-
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                   <div className="form-group">
-                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Éclairage scénique &amp; Régie audiovisuelle estimée :</label>
+                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>Consommation électricité (kWh) :</label>
                     <div className="input-unit-wrap">
-                      <input type="number" className="eval-input" value={eventStageLightingKwh} onChange={(e) => setEventStageLightingKwh(Number(e.target.value))} />
-                      <span className="unit-chip">kWh</span>
+                      <input type="number" className="eval-input" value={energyKwh} onChange={(e) => setEnergyKwh(Number(e.target.value))} />
+                      <span className="unit-chip">kWh/an</span>
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>Facture annuelle ($ CAD) :</label>
+                    <div className="input-unit-wrap">
+                      <input type="number" className="eval-input" value={energyBillDollars} onChange={(e) => setEnergyBillDollars(Number(e.target.value))} />
+                      <span className="unit-chip">$ CAD</span>
                     </div>
                   </div>
                 </div>
-              ) : (
-                <div className="form-card-group">
-                  <div className="form-card-header">
-                    <div className="form-card-title">
-                      <div className="form-card-title-icon"><Building size={18} /></div>
-                      <span>1. Bâtiments &amp; Consommation Électrique</span>
-                    </div>
-                    <span className="form-card-badge">Infrastructure</span>
-                  </div>
-
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
-                    <div className="form-group">
-                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Superficie totale occupée :</label>
-                      <div className="input-unit-wrap">
-                        <input type="number" className="eval-input" value={surfaceM2} onChange={(e) => setSurfaceM2(Number(e.target.value))} />
-                        <span className="unit-chip">m²</span>
-                      </div>
-                    </div>
-
-                    <div className="form-group">
-                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Consommation électricité annuelle :</label>
-                      <div className="input-unit-wrap">
-                        <input type="number" className="eval-input" value={energyKwh} onChange={(e) => setEnergyKwh(Number(e.target.value))} />
-                        <span className="unit-chip">kWh/an</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
+              </div>
 
               <div className="step-actions" style={{ marginTop: '28px' }}>
                 <button className="btn-eval-back-step" onClick={() => setStep(2)}>
@@ -646,318 +625,287 @@ export default function EvaluationView({ onBackHome }) {
             </div>
           )}
 
-          {/* STEP 4: TRANSPORTS & DÉPLACEMENTS (DÉDIÉ ÉVÉNEMENT OU ORGANISATION) */}
+          {/* STEP 4: TRANSPORTS */}
           {step === 4 && (
             <div className="eval-step active">
-              <div className="step-hero-illus">
-                <img src="/images/illus_mobility.png" alt="Mobilité" className="illus-step-img" />
+              <h2 className="step-question">Étape 4/7 : Transports &amp; Mobilité</h2>
+
+              <div className="form-card-group">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                  <span style={{ fontWeight: 700 }}>Qualité des données Transports (DQI) :</span>
+                  <select value={dqiQuality.transport} onChange={(e) => setDqiQuality({...dqiQuality, transport: e.target.value})} className="eval-select" style={{ width: 'auto' }}>
+                    <option value="mesuree">Mesurée (100%)</option>
+                    <option value="facturee">Facturée (70%)</option>
+                    <option value="estimee">Estimée (40%)</option>
+                  </select>
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                  <div className="form-group">
+                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>Kilométrage annuel auto/flotte :</label>
+                    <div className="input-unit-wrap">
+                      <input type="number" className="eval-input" value={kmCar} onChange={(e) => setKmCar(Number(e.target.value))} />
+                      <span className="unit-chip">km/an</span>
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>Type de carburant :</label>
+                    <select value={carType} onChange={(e) => setCarType(e.target.value)} className="eval-select">
+                      <option value="gasoline">Essence ordinaire</option>
+                      <option value="hybrid">Hybride</option>
+                      <option value="electric">Électrique (Hydro-Québec)</option>
+                    </select>
+                  </div>
+                </div>
               </div>
-              <h2 className="step-question">
-                Étape 4/7 : {evalTarget === 'event' ? "Transports des Participants & Conférenciers" : "Transports & Flotte de l'Organisation"}
-              </h2>
-              <p className="step-hint">
-                {evalTarget === 'event' 
-                  ? "Distances parcourues par les participants et mode de transport majoritaire." 
-                  : "Véhicules d'entreprise et kilomètres domicile-travail."}
-              </p>
-
-              {evalTarget === 'event' ? (
-                <div className="form-card-group">
-                  <div className="form-card-header">
-                    <div className="form-card-title">
-                      <div className="form-card-title-icon"><Car size={18} /></div>
-                      <span>1. Déplacements des Participants &amp; Hébergement</span>
-                    </div>
-                    <span className="form-card-badge">Transports Événement</span>
-                  </div>
-
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
-                    <div className="form-group">
-                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Distance moyenne aller-retour :</label>
-                      <div className="input-unit-wrap">
-                        <input type="number" className="eval-input" value={eventAvgDistanceKm} onChange={(e) => setEventAvgDistanceKm(Number(e.target.value))} />
-                        <span className="unit-chip">km aller-retour</span>
-                      </div>
-                    </div>
-
-                    <div className="form-group">
-                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Mode de transport majoritaire :</label>
-                      <select value={eventMainTransportMode} onChange={(e) => setEventMainTransportMode(e.target.value)} className="eval-select">
-                        <option value="car_solo">Voiture solo (1-2 pers)</option>
-                        <option value="carpool">Covoiturage (3+ pers)</option>
-                        <option value="bus">Autobus charter / Navette</option>
-                        <option value="transit">Transport en commun</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                    <div className="form-group">
-                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Conférenciers &amp; Invités spéciaux :</label>
-                      <div className="input-unit-wrap">
-                        <input type="number" className="eval-input" value={eventSpeakerCount} onChange={(e) => setEventSpeakerCount(Number(e.target.value))} />
-                        <span className="unit-chip">invités</span>
-                      </div>
-                    </div>
-
-                    <div className="form-group">
-                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Nuitées d'hôtel réservées dans L'Érable :</label>
-                      <div className="input-unit-wrap">
-                        <input type="number" className="eval-input" value={eventHotelNightsCount} onChange={(e) => setEventHotelNightsCount(Number(e.target.value))} />
-                        <span className="unit-chip">nuitées</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <div className="form-card-group">
-                  <div className="form-card-header">
-                    <div className="form-card-title">
-                      <div className="form-card-title-icon"><Truck size={18} /></div>
-                      <span>1. Flotte de Véhicules &amp; Trajets</span>
-                    </div>
-                    <span className="form-card-badge">Flotte</span>
-                  </div>
-
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                    <div className="form-group">
-                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Nombre de véhicules :</label>
-                      <div className="input-unit-wrap">
-                        <input type="number" className="eval-input" value={fleetCount} onChange={(e) => setFleetCount(Number(e.target.value))} />
-                        <span className="unit-chip">autos</span>
-                      </div>
-                    </div>
-                    <div className="form-group">
-                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Kilométrage annuel :</label>
-                      <div className="input-unit-wrap">
-                        <input type="number" className="eval-input" value={kmCar} onChange={(e) => setKmCar(Number(e.target.value))} />
-                        <span className="unit-chip">km/an</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
 
               <div className="step-actions" style={{ marginTop: '28px' }}>
                 <button className="btn-eval-back-step" onClick={() => setStep(3)}>
                   <ArrowLeft size={16} /> Retour
                 </button>
                 <button className="btn-eval-next" onClick={() => setStep(5)}>
-                  Continuer vers Restauration &amp; Traiteur <ArrowRight size={18} />
+                  Continuer vers Consommation <ArrowRight size={18} />
                 </button>
               </div>
             </div>
           )}
 
-          {/* STEP 5: RESTAURATION & TRAITEUR (DÉDIÉ ÉVÉNEMENT OU ORGANISATION) */}
+          {/* STEP 5: CONSOMMATION & RESTAURATION */}
           {step === 5 && (
             <div className="eval-step active">
-              <div className="step-hero-illus">
-                <img src="/images/illus_consumption.png" alt="Consommation" className="illus-step-img" />
-              </div>
-              <h2 className="step-question">
-                Étape 5/7 : {evalTarget === 'event' ? "Restauration, Traiteur & Déchets de l'Événement" : "Alimentation & Déchets de l'Organisation"}
-              </h2>
-              <p className="step-hint">
-                {evalTarget === 'event' 
-                  ? "Repas servis, traiteur local de L'Érable et vaisselle réutilisable." 
-                  : "Achats alimentaires et gestion des déchets."}
-              </p>
+              <h2 className="step-question">Étape 5/7 : Alimentation &amp; Consommation</h2>
+              <p className="step-hint">Calcul simplifié des repas et de l'approvisionnement (Assistant journalier disponible)</p>
 
-              {evalTarget === 'event' ? (
-                <div className="form-card-group">
-                  <div className="form-card-header">
-                    <div className="form-card-title">
-                      <div className="form-card-title-icon"><Utensils size={18} /></div>
-                      <span>1. Service de Restauration &amp; Traiteur Local</span>
+              <div className="form-card-group">
+                {/* Repas Mode Selector */}
+                <div style={{ marginBottom: '20px', background: '#f8fafc', padding: '16px', borderRadius: '16px', border: '1px solid #e2e8f0' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                    <label style={{ fontWeight: 700, color: 'var(--color-secondary)', fontSize: '0.95rem' }}>
+                      1. Cantine &amp; Restauration — Mode de calcul :
+                    </label>
+                    <div style={{ display: 'flex', gap: '6px', background: '#e2e8f0', padding: '3px', borderRadius: '10px' }}>
+                      <button 
+                        type="button"
+                        onClick={() => setMealsInputMode('daily')}
+                        style={{ 
+                          padding: '6px 14px', 
+                          borderRadius: '8px', 
+                          border: 'none', 
+                          fontWeight: 700, 
+                          fontSize: '0.82rem', 
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '6px',
+                          background: mealsInputMode === 'daily' ? 'var(--color-primary)' : 'transparent',
+                          color: mealsInputMode === 'daily' ? '#ffffff' : '#64748b'
+                        }}
+                      >
+                        <Sun size={14} /> Par jour (Journalier)
+                      </button>
+                      <button 
+                        type="button"
+                        onClick={() => setMealsInputMode('annual')}
+                        style={{ 
+                          padding: '6px 14px', 
+                          borderRadius: '8px', 
+                          border: 'none', 
+                          fontWeight: 700, 
+                          fontSize: '0.82rem', 
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '6px',
+                          background: mealsInputMode === 'annual' ? 'var(--color-primary)' : 'transparent',
+                          color: mealsInputMode === 'annual' ? '#ffffff' : '#64748b'
+                        }}
+                      >
+                        <Calendar size={14} /> Total Annuel Direct
+                      </button>
                     </div>
-                    <span className="form-card-badge">Traiteur &amp; Repas</span>
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
-                    <div className="form-group">
-                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Type de traiteur :</label>
-                      <select value={eventCateringType} onChange={(e) => setEventCateringType(e.target.value)} className="eval-select">
-                        <option value="traiteur_local">Traiteur local &amp; Produits de L'Érable</option>
-                        <option value="buffet">Buffet traditionnel</option>
-                        <option value="pauses_cafe">Pauses-café uniquement</option>
-                        <option value="aucun">Aucun repas servi</option>
-                      </select>
-                    </div>
+                  {mealsInputMode === 'daily' ? (
+                    <div>
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '12px' }}>
+                        <div>
+                          <label style={{ fontWeight: 600, display: 'block', marginBottom: '6px', fontSize: '0.88rem' }}>
+                            Repas moyens par jour :
+                          </label>
+                          <div className="input-unit-wrap">
+                            <input 
+                              type="number" 
+                              className="eval-input" 
+                              value={dailyMealsCount} 
+                              onChange={(e) => {
+                                const val = Number(e.target.value);
+                                setDailyMealsCount(val);
+                                setAnnualMealsCount(val * activeDaysPerYear);
+                              }} 
+                            />
+                            <span className="unit-chip">repas/jour</span>
+                          </div>
+                        </div>
 
-                    <div className="form-group">
-                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Nombre total de repas servis :</label>
-                      <div className="input-unit-wrap">
-                        <input type="number" className="eval-input" value={eventMealsCount} onChange={(e) => setEventMealsCount(Number(e.target.value))} />
-                        <span className="unit-chip">repas</span>
+                        <div>
+                          <label style={{ fontWeight: 600, display: 'block', marginBottom: '6px', fontSize: '0.88rem' }}>
+                            Jours d'activité par an :
+                          </label>
+                          <div className="input-unit-wrap">
+                            <input 
+                              type="number" 
+                              className="eval-input" 
+                              value={activeDaysPerYear} 
+                              onChange={(e) => {
+                                const val = Number(e.target.value);
+                                setActiveDaysPerYear(val);
+                                setAnnualMealsCount(dailyMealsCount * val);
+                              }} 
+                            />
+                            <span className="unit-chip">jours/an</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Calculation Badge */}
+                      <div style={{ background: '#ecfdf5', border: '1px solid #bbf7d0', color: '#065f46', padding: '10px 14px', borderRadius: '10px', fontSize: '0.88rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <Sparkles size={16} style={{ color: '#059669' }} />
+                        <span>Calcul automatique : {dailyMealsCount} repas/jour × {activeDaysPerYear} jours = <strong>{annualMealsCount.toLocaleString()} repas/an</strong></span>
                       </div>
                     </div>
-                  </div>
-
-                  <div className="form-group">
-                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>
-                      Part de nourriture de circuits courts (MRC de L'Érable) : {eventLocalFoodPct}%
-                    </label>
-                    <input type="range" min="0" max="100" step="5" value={eventLocalFoodPct} onChange={(e) => setEventLocalFoodPct(Number(e.target.value))} style={{ width: '100%' }} />
-                  </div>
-                </div>
-              ) : (
-                <div className="form-card-group">
-                  <div className="form-card-header">
-                    <div className="form-card-title">
-                      <div className="form-card-title-icon"><ShoppingBag size={18} /></div>
-                      <span>1. Cantine &amp; Consommation</span>
-                    </div>
-                    <span className="form-card-badge">Scope 3</span>
-                  </div>
-
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                    <div className="form-group">
-                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Repas annuels :</label>
+                  ) : (
+                    <div>
+                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '6px', fontSize: '0.88rem' }}>Repas annuels servis :</label>
                       <div className="input-unit-wrap">
-                        <input type="number" className="eval-input" value={annualMealsCount} onChange={(e) => setAnnualMealsCount(Number(e.target.value))} />
+                        <input 
+                          type="number" 
+                          className="eval-input" 
+                          value={annualMealsCount} 
+                          onChange={(e) => setAnnualMealsCount(Number(e.target.value))} 
+                        />
                         <span className="unit-chip">repas/an</span>
                       </div>
                     </div>
-                    <div className="form-group">
-                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Compost annuel :</label>
-                      <div className="input-unit-wrap">
-                        <input type="number" className="eval-input" value={wasteCompostKg} onChange={(e) => setWasteCompostKg(Number(e.target.value))} />
-                        <span className="unit-chip">kg/an</span>
-                      </div>
-                    </div>
-                  </div>
+                  )}
                 </div>
-              )}
+
+                {/* Local Food slider */}
+                <div style={{ background: '#ffffff', padding: '16px', borderRadius: '16px', border: '1px solid #e2e8f0' }}>
+                  <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px' }}>
+                    Part d'approvisionnement local (MRC de L'Érable) : <strong style={{ color: 'var(--color-primary)' }}>{localFoodPct}%</strong>
+                  </label>
+                  <input type="range" min="0" max="100" value={localFoodPct} onChange={(e) => setLocalFoodPct(Number(e.target.value))} style={{ width: '100%' }} />
+                </div>
+              </div>
 
               <div className="step-actions" style={{ marginTop: '28px' }}>
                 <button className="btn-eval-back-step" onClick={() => setStep(4)}>
                   <ArrowLeft size={16} /> Retour
                 </button>
                 <button className="btn-eval-next" onClick={() => setStep(6)}>
-                  Continuer vers Scénographie &amp; Actions <ArrowRight size={18} />
+                  Continuer vers le Plan Climat <ArrowRight size={18} />
                 </button>
               </div>
             </div>
           )}
 
-          {/* STEP 6: SCÉNOGRAPHIE & ACTIONS ÉCORESPONSABLES */}
+          {/* STEP 6: ALIGNEMENT PLAN CLIMATIQUE COLLECTIF (41 ACTIONS) */}
           {step === 6 && (
             <div className="eval-step active">
-              <div className="step-hero-illus">
-                <img src="/images/illus_actions.png" alt="Actions" className="illus-step-img" />
+              <div className="onboarding-header" style={{ textAlign: 'center', marginBottom: '24px' }}>
+                <h2>Étape 6/7 : Alignement avec le Plan d'Action Climatique (41 Actions)</h2>
+                <p>Cochez les actions du territoire auxquelles vous contribuez déjà</p>
               </div>
-              <h2 className="step-question">
-                Étape 6/7 : {evalTarget === 'event' ? "Scénographie, Goodies & Compensation Événementielle" : `Spécificités du Secteur ${sector.toUpperCase()}`}
-              </h2>
-              <p className="step-hint">
-                {evalTarget === 'event' 
-                  ? "Réemploi des décors, cadeaux promotionnels et reboisement dans L'Érable." 
-                  : "Ajustements sectoriels et bilan des actions écologiques."}
-              </p>
 
-              {evalTarget === 'event' ? (
-                <div className="form-card-group">
-                  <div className="form-card-header">
-                    <div className="form-card-title">
-                      <div className="form-card-title-icon"><Palette size={18} /></div>
-                      <span>1. Scénographie &amp; Offset Écoresponsable</span>
-                    </div>
-                    <span className="form-card-badge">Actions Événement</span>
-                  </div>
-
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
-                    <div className="form-group">
-                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Taux de réemploi des décors :</label>
-                      <div className="input-unit-wrap">
-                        <input type="number" className="eval-input" value={eventScenographyReusePct} onChange={(e) => setEventScenographyReusePct(Number(e.target.value))} />
-                        <span className="unit-chip">%</span>
-                      </div>
-                    </div>
-
-                    <div className="form-group">
-                      <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Arbres plantés en compensation :</label>
-                      <div className="input-unit-wrap">
-                        <input type="number" className="eval-input" value={eventTreesOffset} onChange={(e) => setEventTreesOffset(Number(e.target.value))} />
-                        <span className="unit-chip">arbres</span>
-                      </div>
-                    </div>
-                  </div>
+              <div className="form-card-group">
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                  {[
+                    { id: 'G1', label: 'G1 — Plan d\'action climat formalisé dans l\'organisation' },
+                    { id: 'G2', label: 'G2 — Équipe / Comité vert interne' },
+                    { id: 'N1', label: 'N1 — Protection des cours d\'eau et des berges' },
+                    { id: 'N3', label: 'N3 — Reboisement et conservation forestière dans L\'Érable' },
+                    { id: 'H1', label: 'H1 — Approvisionnement alimentaire en circuits courts' },
+                    { id: 'H4', label: 'H4 — Programme de réduction du gaspillage alimentaire' },
+                    { id: 'E1', label: 'E1 — Rénovation d\'efficacité énergétique et isolation' },
+                    { id: 'E5', label: 'E5 — Installation de panneaux solaires ou géothermie' },
+                    { id: 'E9', label: 'E9 — Tri sélectif et compostage systématique' }
+                  ].map(act => (
+                    <label key={act.id} style={{ display: 'flex', alignItems: 'center', gap: '10px', background: '#f8fafc', padding: '12px', borderRadius: '12px', cursor: 'pointer', border: '1px solid #e2e8f0' }}>
+                      <input 
+                        type="checkbox" 
+                        checked={!!coveredActions[act.id]} 
+                        onChange={(e) => setCoveredActions({...coveredActions, [act.id]: e.target.checked})} 
+                      />
+                      <span style={{ fontSize: '0.9rem', fontWeight: 600, color: '#0f172a' }}>{act.label}</span>
+                    </label>
+                  ))}
                 </div>
-              ) : (
-                <div className="form-card-group">
-                  <div className="form-card-header">
-                    <div className="form-card-title">
-                      <div className="form-card-title-icon"><Trees size={18} /></div>
-                      <span>1. Actions Positives &amp; Reboisement</span>
-                    </div>
-                    <span className="form-card-badge">Séquestration</span>
-                  </div>
-
-                  <div className="form-group">
-                    <label style={{ fontWeight: 600, display: 'block', marginBottom: '8px', color: '#0f172a' }}>Nombre d'arbres plantés dans L'Érable :</label>
-                    <div className="input-unit-wrap">
-                      <input type="number" className="eval-input" value={treesPlanted} onChange={(e) => setTreesPlanted(Number(e.target.value))} />
-                      <span className="unit-chip">arbres</span>
-                    </div>
-                  </div>
-                </div>
-              )}
+              </div>
 
               <div className="step-actions" style={{ marginTop: '28px' }}>
                 <button className="btn-eval-back-step" onClick={() => setStep(5)}>
                   <ArrowLeft size={16} /> Retour
                 </button>
                 <button className="btn-eval-calculate" onClick={() => setStep(7)}>
-                  Calculer mon Bilan GES &amp; Obtenir la Certification <ArrowRight size={18} />
+                  Générer le Bilan Certifié &amp; Recommandations <ArrowRight size={18} />
                 </button>
               </div>
             </div>
           )}
 
-          {/* STEP 7: RÉSULTATS & CERTIFICATION */}
+          {/* STEP 7: RÉSULTATS DÉTAILLÉS & PLAN DE GOVERNANCE */}
           {step === 7 && (
             <div className="eval-step active">
-              <div className="step-hero-illus">
-                <img src="/images/illus_results.png" alt="Résultats" className="illus-step-img" />
+              <div className="results-header-text" style={{ textAlign: 'center', marginBottom: '24px' }}>
+                <h2 className="step-question">Bilan Certifié &amp; Plan d'Action — {sector.toUpperCase()}</h2>
+                <p className="step-hint">Structure conforme ISO 14064 &amp; Cahier de collecte CDC L'Érable</p>
               </div>
 
-              <div className="results-header-text">
-                <h2 className="step-question">
-                  {evalTarget === 'event' ? 'Bilan Carbone de l\'Événement Certifié' : `Bilan GES — ${sector.toUpperCase()}`}
-                </h2>
-                <p className="step-hint">
-                  {evalTarget === 'event' 
-                    ? `Résultats pour l'événement (${eventParticipants} participants sur ${eventDays} jours)` 
-                    : "Analyse certifiée selon le cadre de la MRC de L'Érable."}
-                </p>
+              {/* DQI & Coverage Header Stats */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px', marginBottom: '24px' }}>
+                <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '20px', borderRadius: '18px', textAlign: 'center' }}>
+                  <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', color: '#059669', fontWeight: 800 }}>ÉMISS. BRUTES (E_SOURCES)</div>
+                  <div style={{ fontSize: '2.2rem', fontWeight: 900, color: '#065f46' }}>{grossTotal} <span style={{ fontSize: '1rem' }}>tCO₂e</span></div>
+                </div>
+
+                <div style={{ background: '#eff6ff', border: '1px solid #bfdbfe', padding: '20px', borderRadius: '18px', textAlign: 'center' }}>
+                  <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', color: '#2563eb', fontWeight: 800 }}>INDICE DQI QUALITÉ</div>
+                  <div style={{ fontSize: '2.2rem', fontWeight: 900, color: '#1e40af' }}>{globalDqiPct}%</div>
+                </div>
+
+                <div style={{ background: '#fef3c7', border: '1px solid #fde68a', padding: '20px', borderRadius: '18px', textAlign: 'center' }}>
+                  <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', color: '#d97706', fontWeight: 800 }}>COUVERTURE PLAN CLIMAT</div>
+                  <div style={{ fontSize: '2.2rem', fontWeight: 900, color: '#92400e' }}>{coveragePct}%</div>
+                </div>
               </div>
 
               <div className="results-summary-card" style={{ background: '#0f172a', color: '#ffffff', padding: '28px', borderRadius: '24px', marginBottom: '24px' }}>
                 <div style={{ fontSize: '0.82rem', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#34d399', fontWeight: 800 }}>
-                  {evalTarget === 'event' ? 'EMPREINTE CARBONE TOTALE NETTE DE L\'ÉVÉNEMENT' : 'EMPREINTE TOTALE NETTE ESTIMÉE'}
+                  EMPREINTE NETTE ESTIMÉE (E_NET)
                 </div>
                 <div style={{ fontSize: '3.2rem', fontWeight: 800, margin: '8px 0', fontFamily: 'var(--font-heading)', color: '#ffffff', display: 'flex', alignItems: 'baseline', gap: '8px' }}>
-                  {netTotal} <span style={{ fontSize: '1.2rem', fontWeight: 600, color: '#94a3b8' }}>tCO₂e</span>
+                  {netTotal} <span style={{ fontSize: '1.2rem', fontWeight: 600, color: '#94a3b8' }}>tCO₂e / an</span>
                 </div>
-
-                {evalTarget === 'event' && (
-                  <div style={{ color: '#a7f3d0', fontSize: '1.05rem', fontWeight: 700, marginTop: '8px' }}>
-                    ➔ Ratio spécifique : <strong>{eventCalcResults.perParticipantPerDay} kg CO₂e / participant / jour</strong>
-                  </div>
-                )}
+                <div style={{ display: 'flex', gap: '16px', fontSize: '0.88rem', color: '#cbd5e1', marginTop: '12px' }}>
+                  <span>Brut (E_sources) : <strong>{grossTotal} tCO₂e</strong></span>
+                  <span>•</span>
+                  <span style={{ color: '#a7f3d0' }}>Séquestration/Actions (S) : <strong>-{sequestrationVal} tCO₂e</strong></span>
+                  <span>•</span>
+                  <span>Ratio : <strong>{perPersonVal} tCO₂e / pers</strong></span>
+                </div>
               </div>
 
               <div className="results-actions" style={{ marginTop: '28px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                <button className="btn-eval-back-step" onClick={() => setStep(0)}>
-                  <ArrowLeft size={16} /> Nouvelle Évaluation
+                <button className="btn-eval-back-step" onClick={exportCSV} style={{ background: '#0f172a', color: '#ffffff' }}>
+                  <Download size={16} /> Exporter Rapport (CSV)
                 </button>
                 <button className="btn-results-home" onClick={onBackHome} style={{ background: '#059669', color: '#ffffff', border: 'none', borderRadius: '12px', padding: '12px 24px', fontWeight: 700, cursor: 'pointer' }}>
-                  Terminer et Sauvegarder
+                  Sauvegarder dans le Portrait Régional
                 </button>
               </div>
             </div>
           )}
+
         </div>
       </main>
     </div>

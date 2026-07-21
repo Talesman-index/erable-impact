@@ -1,0 +1,55 @@
+Politique de confidentialité
+Outil d'évaluation d'impact environnemental — MRC de L'Érable
+CDC de L'Érable — Projet de transition socioclimatique
+Version 1.0 — Date d'entrée en vigueur : à déterminer
+Avis important : ce document est un projet préparé à des fins de conception. Il n'est pas rédigé par un professionnel du droit et doit être révisé par un conseiller juridique avant toute adoption ou publication officielle, afin de confirmer sa pleine conformité à la Loi 25 et à toute autre obligation applicable à la CDC de L'Érable.
+1. Identification du responsable
+La présente politique de confidentialité s'applique à l'outil d'évaluation d'impact environnemental développé dans le cadre du projet de transition socioclimatique porté par la Corporation de développement communautaire (CDC) de L'Érable (ci-après « la CDC », « nous »). La CDC est responsable de la collecte, de l'utilisation et de la protection des renseignements personnels traités par cet outil, conformément à la Loi sur la protection des renseignements personnels dans le secteur privé (RLRQ, c. P-39.1), telle que modifiée par la Loi modernisant des dispositions législatives en matière de protection des renseignements personnels (« Loi 25 »).
+2. Objet et champ d'application
+Cette politique décrit les renseignements personnels que nous collectons auprès des utilisateurs de l'outil (institutions, entreprises, organismes et citoyennes et citoyens du territoire), les raisons pour lesquelles nous les collectons, la façon dont nous les utilisons, les protégeons et les conservons, ainsi que les droits dont vous disposez à leur égard.
+3. Renseignements personnels collectés
+Catégorie
+Exemples
+Identification et profil
+Nom, courriel, type d'acteur, statut, secteur d'activité, localisation, taille de l'organisation
+Données environnementales déclarées
+Consommation d'énergie, déplacements, alimentation, biens, déchets et autres données saisies dans le questionnaire, selon le niveau choisi
+Données de participation
+Résultat de la Boussole de la transition (si téléversé), actions du plan collectif cochées, historique des bilans
+Données techniques
+Journal de connexion, horodatage des soumissions (aux fins de sécurité et de suivi du service)
+Pour les citoyennes et citoyens, certaines données (ex. type de logement, habitudes de consommation) constituent des renseignements personnels au sens de la loi et bénéficient à ce titre d'une protection renforcée. Pour les organisations, les données déclarées concernent l'organisation elle-même, sauf lorsqu'elles permettent d'identifier une personne physique (ex. nom d'une personne-ressource).
+4. Finalités de la collecte
+	•	Produire votre bilan d'impact environnemental et vous permettre de suivre son évolution dans le temps.
+	•	Vous présenter des recommandations personnalisées en lien avec le plan d'action climatique collectif du territoire.
+	•	Vous permettre de comparer votre situation à des moyennes régionales ou sectorielles, toujours de façon agrégée et anonymisée pour les données des autres acteurs.
+	•	Construire un portrait collectif, agrégé et anonymisé, de la progression du territoire, à l'intention de la CDC de L'Érable et des partenaires du projet.
+	•	Assurer le soutien technique, la validation des données de niveau expert, et la sécurité de l'outil.
+Nous ne collectons pas de renseignements personnels au-delà de ce qui est nécessaire à ces finalités.
+5. Consentement
+La création d'un compte et la soumission de données à l'outil se font sur une base volontaire. Votre consentement à la collecte et à l'utilisation de vos renseignements, aux finalités décrites à la section 4, est demandé au moment de la création de votre compte. Vous pouvez retirer votre consentement en tout temps, sous réserve des obligations légales ou contractuelles qui pourraient justifier la conservation de certaines données malgré ce retrait (voir section 8).
+6. Communication à des tiers et partage des données
+	•	Vos données détaillées ne sont accessibles qu'à vous-même et au personnel autorisé de la CDC de L'Érable, aux fins de soutien et de validation.
+	•	Les données partagées au portrait collectif régional le sont uniquement sous forme agrégée et anonymisée; aucune donnée individuelle identifiable n'est publiée sans votre consentement exprès.
+	•	Nous ne vendons ni ne louons vos renseignements personnels à des tiers à des fins commerciales.
+	•	Si l'hébergement technique de l'outil implique le recours à un fournisseur infonuagique, celui-ci agit à titre de sous-traitant lié par contrat, et toute conservation de données hors Québec fera l'objet d'une évaluation des facteurs relatifs à la vie privée, conformément à la Loi 25.
+7. Conservation des renseignements
+Vos renseignements sont conservés pendant la durée de votre participation active au projet, et pour une période additionnelle raisonnable permettant le suivi historique de vos bilans (utile pour mesurer votre progression d'une année à l'autre). Vous pouvez demander la suppression de votre compte et de vos données en tout temps (voir section 9); certaines données agrégées et anonymisées, ne permettant plus de vous identifier, peuvent être conservées à des fins de portrait historique du territoire.
+8. Mesures de sécurité
+	•	Chiffrement des données en transit et au repos.
+	•	Accès limité aux données selon le principe du moindre privilège (un acteur ne voit que ses propres données détaillées).
+	•	Hébergement des données au Canada, avec préférence pour une résidence au Québec lorsque possible.
+	•	Procédure de gestion des incidents de confidentialité : en cas d'incident présentant un risque de préjudice sérieux, la CDC de L'Érable en avisera la Commission d'accès à l'information du Québec et les personnes concernées, conformément à la Loi 25.
+9. Vos droits
+	•	Droit d'accès : obtenir communication des renseignements personnels que nous détenons à votre sujet.
+	•	Droit de rectification : faire corriger tout renseignement inexact, incomplet ou périmé.
+	•	Droit au retrait du consentement : cesser de participer à l'outil en tout temps.
+	•	Droit à la portabilité : demander que vos renseignements informatisés nous soient communiqués dans un format technologique structuré et couramment utilisé, ou soient transmis directement à un tiers que vous désignez, dans la mesure où la loi le permet.
+	•	Droit de déposer une plainte auprès de la Commission d'accès à l'information du Québec si vous estimez que vos droits n'ont pas été respectés.
+Pour exercer l'un de ces droits, communiquez avec la personne responsable de la protection des renseignements personnels identifiée à la section 11.
+10. Décisions et recommandations automatisées
+L'outil génère des recommandations personnalisées et un indice de couverture du plan d'action à partir d'un traitement automatisé de vos données (voir le document Framework méthodologique, section « Module Plan d'action et recommandations »). Conformément à l'article 12.1 de la loi, nous vous informons que : ces recommandations sont générées à partir de votre secteur, de votre profil d'acteur et des données que vous avez déclarées; elles n'entraînent aucune décision ayant un effet juridique ou financier direct sur vous; et vous pouvez en tout temps demander à la personne responsable identifiée à la section 11 des renseignements supplémentaires sur les critères utilisés, ou faire réviser une recommandation qui vous semblerait erronée.
+11. Personne responsable de la protection des renseignements personnels
+Conformément à la Loi 25, la CDC de L'Érable a désigné une personne responsable de la protection des renseignements personnels, dont le titre relève par défaut de la personne exerçant la plus haute autorité au sein de l'organisation, sauf délégation formelle à une autre personne. [Nom, titre et coordonnées à compléter par la CDC de L'Érable avant publication.]
+12. Modifications de la présente politique
+Cette politique peut être mise à jour pour refléter des changements dans l'outil, dans nos pratiques ou dans la loi applicable. Toute modification substantielle vous sera communiquée avant son entrée en vigueur, et la version en vigueur sera toujours accessible directement dans l'outil.

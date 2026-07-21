@@ -1,0 +1,71 @@
+Guide de l'utilisateur
+Outil d'évaluation d'impact environnemental — MRC de L'Érable
+Un projet de la CDC de L'Érable — Transition socioclimatique
+Bienvenue
+Cet outil vous permet d'estimer l'impact environnemental de votre organisation ou de votre ménage, de voir où vous vous situez par rapport aux autres acteurs du territoire, et de découvrir comment contribuer concrètement au plan d'action climatique collectif de la MRC de L'Érable. Il sert aussi à faire connaître vos efforts aux autres, et à découvrir des collaborations possibles avec des acteurs qui poursuivent des objectifs semblables aux vôtres.
+💡 Vous n'avez pas besoin d'être un expert en environnement pour commencer. L'outil vous guide, accepte les estimations, et vous permet d'aller aussi loin que vous le souhaitez.
+Avant de commencer
+Ce qu'il est utile d'avoir sous la main
+	•	Pour une estimation rapide (10 minutes) : le nombre de personnes dans votre organisation ou votre foyer, une idée générale de votre facture d'électricité et de chauffage, et votre mode de transport principal.
+	•	Pour aller plus loin (30-45 minutes) : vos factures d'électricité et de chauffage des 12 derniers mois, une estimation de votre kilométrage annuel, et un ordre de grandeur de vos achats principaux.
+	•	Pour un bilan expert (1h30 à 3h) : des données mensuelles, un inventaire plus détaillé de vos activités, et possiblement l'aide d'une personne responsable de vos données internes.
+💡 Vous pouvez commencer par le niveau rapide et revenir plus tard pour approfondir — rien n'est perdu.
+Vos renseignements sont protégés
+	•	Vos données détaillées ne sont visibles que par vous et par l'équipe de la CDC de L'Érable, qui vous accompagne.
+	•	Rien de ce qui vous concerne n'est publié individuellement sans votre accord; le portrait régional est toujours présenté de façon agrégée et anonyme.
+	•	Conformément à la Loi 25 du Québec, vous pouvez en tout temps consulter, corriger ou faire supprimer vos données en contactant la CDC de L'Érable.
+Les résultats produits par cet outil sont des estimations utiles pour se situer, suivre ses progrès et prioriser ses actions — ce ne sont pas des bilans officiels au sens réglementaire. Leur précision dépend de la qualité des données que vous fournissez, indiquée à chaque étape.
+
+Votre parcours, étape par étape
+Étape 1 — Créer votre profil
+
+Aperçu de l'écran de profilage
+Indiquez si vous représentez une institution, une entreprise, un organisme ou si vous participez à titre de citoyen, ainsi que votre secteur d'activité, votre localisation et la taille de votre organisation. Ces réponses permettent d'adapter automatiquement les questions qui suivent à votre réalité — un agriculteur et un citoyen urbain ne verront pas le même questionnaire.
+Étape 2 — La Boussole de la transition
+
+Aperçu de l'écran de la Boussole
+Cette étape vous amène vers la Boussole de la transition, un outil distinct développé par la Chaire de recherche sur la transition écologique de l'UQAM. Elle vous aide à réfléchir à votre vision de la transition — ce n'est pas un test à réussir, mais un exercice de réflexion. Une fois complétée, vous pouvez revenir téléverser votre résultat, ou passer cette étape si vous préférez.
+Étape 3 — Répondre au questionnaire
+
+Aperçu du questionnaire progressif
+Choisissez votre niveau de participation (rapide, intermédiaire ou expert), puis répondez aux questions à votre rythme. Pour chaque réponse, indiquez si la donnée est mesurée précisément, tirée d'une facture, ou simplement estimée — cela n'affecte pas votre capacité à continuer, mais permet d'indiquer la fiabilité de votre bilan. Vous pouvez enregistrer votre progression et revenir plus tard.
+💡 Si vous ne connaissez pas un chiffre exact, une fourchette ou une estimation approximative suffit — l'outil est conçu pour ça.
+Étape 4 — Comprendre vos résultats
+
+Aperçu de l'écran de résultats
+Votre bilan est présenté en deux parties distinctes : vos émissions brutes (le chiffre principal), et vos actions positives (efforts de réduction ou de compensation), affichées séparément plutôt que soustraites l'une de l'autre. Cette distinction, exigée par les normes reconnues, garantit que votre bilan reste comparable et crédible. Des graphiques et des comparaisons contextualisées (par exemple, l'équivalent en trajets ou en mois de chauffage) vous aident à interpréter vos résultats.
+Étape 5 — Votre contribution au plan collectif
+
+Aperçu de l'écran du plan d'action
+L'outil vous montre parmi les actions du plan climatique collectif du territoire celles auxquelles vous contribuez déjà, puis vous propose des recommandations pour aller plus loin — formulées selon votre réalité (une institution recevra des suggestions réglementaires, une entreprise des suggestions opérationnelles, un organisme des pistes de mobilisation, un citoyen des gestes concrets). Chaque recommandation indique aussi les collaborateurs potentiels déjà identifiés pour cette action.
+Étape 6 — Télécharger et partager votre rapport
+
+Aperçu de l'écran de rapport
+Exportez votre rapport en PDF ou en CSV, et choisissez si vous souhaitez contribuer, de façon anonyme, au portrait collectif régional. Ce portrait aide la CDC de L'Érable et l'ensemble des acteurs à suivre la progression du territoire.
+Étape 7 — Revenir l'an prochain
+L'outil vous rappellera de refaire votre bilan dans 6 à 12 mois. Vous pourrez alors comparer votre évolution d'une année à l'autre — c'est là que l'outil devient le plus utile, en vous permettant de voir concrètement les effets de vos actions dans le temps.
+
+Conseils selon votre profil
+Profil
+Ce qui vous sera utile
+Institution
+Vos factures d'énergie municipales ou publiques, votre schéma d'aménagement ou plan climatique existant, et les coordonnées d'une personne-ressource pour les données plus détaillées.
+Entreprise
+Vos factures d'exploitation, votre inventaire d'équipements ou de véhicules, et vos données de production ou de vente si vous visez un bilan détaillé.
+Organisme
+Le nombre de personnes rejointes par vos activités, vos heures de bénévolat, et vos déplacements liés à votre mission.
+Citoyen
+Vos factures d'électricité et de chauffage, votre kilométrage annuel approximatif, et un aperçu de vos habitudes alimentaires.
+Foire aux questions
+Que signifie « bilan brut » et « actions positives » ?
+Le bilan brut représente l'ensemble de vos émissions, sans tenir compte de vos efforts de réduction. Les actions positives (recyclage, plantations, énergie renouvelable, etc.) sont présentées à côté, séparément, plutôt que soustraites du bilan principal. Cette façon de faire suit les normes reconnues de comptabilité carbone et évite qu'un bilan paraisse meilleur qu'il ne l'est réellement.
+Dois-je remplir le niveau expert dès la première fois ?
+Non. Commencer par le niveau rapide est encouragé — il vaut mieux compléter une estimation simple que d'abandonner devant un formulaire trop long. Vous pourrez approfondir plus tard, à votre rythme.
+Que se passe-t-il si je n'ai pas de chiffres exacts ?
+Indiquez une estimation ou une fourchette, et signalez que la donnée est « estimée » plutôt que « mesurée ». L'outil en tiendra compte dans l'indice de fiabilité de votre bilan, sans vous empêcher de continuer.
+Qui voit mes résultats ?
+Vous, et l'équipe de la CDC de L'Érable qui vous accompagne. Le portrait régional partagé publiquement ne présente que des données agrégées et anonymisées, sauf si vous choisissez explicitement de rendre vos résultats visibles.
+Pourquoi mes recommandations sont-elles différentes de celles d'un autre acteur ?
+Parce qu'elles sont traduites selon votre profil et votre secteur. Le plan d'action collectif est le même pour tout le territoire, mais la façon d'y contribuer diffère selon que vous êtes une institution, une entreprise, un organisme ou un citoyen.
+Besoin d'aide ?
+L'équipe de la CDC de L'Érable est disponible pour vous accompagner à toute étape de votre bilan, notamment pour les niveaux intermédiaire et expert. N'hésitez pas à les contacter directement.

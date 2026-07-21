@@ -1,0 +1,35 @@
+Mentions légales
+Outil d'évaluation d'impact environnemental — MRC de L'Érable
+CDC de L'Érable — Projet de transition socioclimatique
+Version 1.0 — Date d'entrée en vigueur : à déterminer
+Avis important : ce document est un projet préparé à des fins de conception et doit être révisé par un conseiller juridique avant toute publication officielle. Les champs surlignés en jaune doivent être complétés par la CDC de L'Érable avant la mise en ligne de l'outil.
+1. Éditeur de l'outil
+L'outil d'évaluation d'impact environnemental est édité par :
+Corporation de développement communautaire (CDC) de L'Érable
+Adresse : [à compléter]
+Numéro d'entreprise du Québec (NEQ) : [à compléter]
+Courriel : [à compléter]
+Téléphone : [à compléter]
+2. Responsable de la publication
+La personne exerçant la plus haute autorité au sein de la CDC de L'Érable, ou toute personne à qui cette responsabilité est formellement déléguée, agit à titre de responsable de la publication de l'outil. [Nom et titre à compléter.]
+3. Hébergement
+L'outil est hébergé par : [nom de l'hébergeur, adresse et coordonnées à compléter selon le choix technique retenu par l'équipe de développement — voir le Cahier des charges, section 6, Architecture technique suggérée]. Conformément à la Loi 25, une préférence est accordée à un hébergement dont les serveurs se trouvent au Canada.
+4. Propriété intellectuelle
+Le contenu de l'outil (textes, méthodologie, formules de calcul, mises en page, visuels et logo du projet) est la propriété de la CDC de L'Érable, sauf mention contraire, et ne peut être reproduit, distribué ou modifié sans autorisation écrite préalable, hormis pour un usage personnel et non commercial dans le cadre de votre participation au projet.
+Les méthodologies et facteurs d'émission cités dans l'outil proviennent de sources tierces (notamment le ministère de l'Environnement, de la Lutte contre les changements climatiques, de la Faune et des Parcs du Québec, Hydro-Québec, et l'Organisation internationale de normalisation), dont les droits demeurent la propriété de leurs auteurs respectifs. La liste complète des sources est disponible dans le document Framework méthodologique de l'outil, section Références bibliographiques.
+La Boussole de la transition, à laquelle l'outil renvoie, est un outil distinct développé par la Chaire de recherche sur la transition écologique de l'UQAM et le Campus de la transition écologique, dont les droits leur appartiennent.
+5. Liens externes
+L'outil peut contenir des liens vers des sites tiers, notamment celui de la Boussole de la transition (chairetransition.esg.uqam.ca). La CDC de L'Érable n'exerce aucun contrôle sur le contenu de ces sites externes et décline toute responsabilité quant à leur disponibilité, leur exactitude ou leurs propres pratiques de confidentialité, qui relèvent de leurs éditeurs respectifs.
+6. Limitation de responsabilité
+	•	Les résultats produits par l'outil sont des estimations à des fins de sensibilisation, de suivi et de priorisation collective. Ils ne constituent pas un bilan de gaz à effet de serre officiel au sens réglementaire et ne remplacent pas une vérification par un tiers indépendant lorsque celle-ci est requise (ex. déclarations obligatoires, démarches de certification).
+	•	La précision des résultats dépend directement de la qualité et de l'exactitude des données fournies par chaque utilisateur; la CDC de L'Érable ne peut garantir l'exactitude des données déclarées par les utilisateurs de l'outil.
+	•	Les recommandations générées par l'outil sont fournies à titre indicatif et ne constituent pas un avis professionnel, juridique, financier ou technique; toute décision prise sur la base de ces recommandations relève de la responsabilité de l'utilisateur.
+	•	La CDC de L'Érable met en œuvre des mesures raisonnables pour assurer la disponibilité et le bon fonctionnement de l'outil, sans toutefois garantir un accès continu ou exempt d'erreurs.
+7. Protection des renseignements personnels
+Le traitement des renseignements personnels collectés par l'outil est décrit dans un document distinct : la Politique de confidentialité de l'outil d'évaluation d'impact environnemental, disponible directement dans l'outil et qui fait partie intégrante des présentes mentions légales.
+8. Droit applicable et juridiction
+Les présentes mentions légales sont régies par les lois applicables dans la province de Québec et les lois du Canada qui y sont applicables. Tout différend relatif à l'utilisation de l'outil relève de la compétence exclusive des tribunaux compétents du district judiciaire où la CDC de L'Érable a son siège.
+9. Modification des présentes mentions légales
+La CDC de L'Érable peut modifier les présentes mentions légales en tout temps, notamment pour refléter un changement d'hébergeur, de structure organisationnelle ou d'obligation légale. La version en vigueur est toujours accessible directement dans l'outil.
+10. Contact
+Pour toute question relative aux présentes mentions légales, communiquez avec la CDC de L'Érable aux coordonnées indiquées à la section 1.

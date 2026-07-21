@@ -1,0 +1,250 @@
+Cahier de collecte et de gestion des données
+Base de données de l'outil d'évaluation d'impact environnemental — MRC de L'Érable
+Document adressé à la personne responsable de la conception et de la gestion de la base de données
+1. Objectif du document
+Ce document décrit, à l'intention de la personne responsable de la conception et de la gestion de la base de données, l'ensemble des données à collecter, les calculs à effectuer à partir de ces données, les analyses attendues, et les critères permettant de vérifier que les données collectées répondent aux standards reconnus de comptabilité carbone (ISO 14064, GHG Protocol, Guide de quantification du MELCCFP). Il complète le Cahier des charges fonctionnel et le document Framework méthodologique déjà produits pour ce projet, qui restent les références pour le détail des formules par secteur et des 111 paramètres de collecte propres à chacun des onze secteurs.
+2. Vue d'ensemble du modèle de données
+Le modèle de données proposé est relationnel et s'articule autour de neuf entités principales. Chaque bilan soumis par un acteur est traité comme un enregistrement distinct et daté, ce qui permet le suivi dans le temps (section 4) sans jamais écraser les données d'une année antérieure.
+Entité
+Rôle
+acteurs
+Un enregistrement par organisation ou citoyen inscrit à l'outil
+secteurs
+Référentiel des 11 secteurs d'activité
+bilans
+Un enregistrement par bilan soumis (acteur, année de référence, niveau de collecte)
+reponses_donnees
+Chaque réponse individuelle au questionnaire, avec sa qualité et son unité
+facteurs_emission
+Référentiel des facteurs d'émission (valeur, source, année de publication)
+resultats_calcules
+Résultats du moteur de calcul par poste, pour chaque bilan
+boussole_resultats
+Scores des six pôles de la Boussole, importés par acteur
+actions_plan
+Référentiel des 41 actions du plan d'action collectif
+couverture_plan
+Association acteur ↔ action (couverte, recommandée, ignorée)
+
+3. Données à collecter — dictionnaire détaillé
+3.1 Table acteurs
+Champ
+Type
+Description
+id_acteur
+Identifiant unique
+Clé primaire
+nom
+Texte
+Nom de l'organisation ou pseudonyme du citoyen
+type_acteur
+Enum
+Institution / Entreprise / Organisme / Citoyen
+statut
+Enum
+Public / Privé / OBNL (détermine la catégorie de recommandation, voir Cahier des charges 4.5)
+id_secteur
+Clé étrangère
+Référence à la table secteurs (11 valeurs possibles)
+code_postal
+Texte
+Localisation, pour rattachement territorial (MRC de L'Érable / Centre-du-Québec)
+taille
+Enum
+Petite / Moyenne / Grande — pour les valeurs par défaut
+date_creation_compte
+Date
+Horodatage de création
+3.2 Table bilans
+Champ
+Type
+Description
+id_bilan
+Identifiant unique
+Clé primaire
+id_acteur
+Clé étrangère
+Référence à l'acteur
+annee_reference
+Année
+Année de référence (baseline) ou année de collecte courante
+niveau_collecte
+Enum
+1, 2 ou 3, selon la profondeur choisie par l'acteur
+date_soumission
+Date
+Date de complétion du bilan
+version_facteurs_emission
+Texte
+Référence à la version des facteurs d'émission utilisée (traçabilité, voir 3.5)
+statut_validation
+Enum
+Auto-déclaré / Validé CDC (pertinent surtout pour le niveau 3, voir Cahier des charges 4.9)
+3.3 Table reponses_donnees
+Champ
+Type
+Description
+id_reponse
+Identifiant unique
+Clé primaire
+id_bilan
+Clé étrangère
+Référence au bilan
+code_champ
+Texte
+Identifiant du paramètre (ex. elec_kwh, transport_km_essence — voir Framework, section 6, par secteur)
+valeur
+Numérique ou texte
+Valeur saisie par l'utilisateur
+unite
+Texte
+kWh, L, m³, km, kg, %, etc.
+qualite_donnee
+Enum
+Mesurée / Facturée / Estimée (alimente le Data Quality Index, voir 4.2)
+Cette table est volontairement générique (modèle clé-valeur) plutôt qu'une colonne par paramètre, étant donné le nombre élevé de paramètres distincts selon les 11 secteurs et 3 niveaux (plusieurs centaines au total). Le code_champ renvoie au dictionnaire complet des paramètres par secteur fourni dans le document Framework, section 6.
+3.4 Table facteurs_emission
+Champ
+Type
+Description
+id_facteur
+Identifiant unique
+Clé primaire
+code_poste
+Texte
+Ex. electricite_qc, essence_auto, viande_bovine
+valeur
+Numérique
+Valeur du facteur (ex. 34,5 g éq. CO₂/kWh)
+unite
+Texte
+g CO₂e/kWh, kg CO₂e/L, kg CO₂e/kg, etc.
+source
+Texte
+MELCCFP, Hydro-Québec, ADEME, GHG Protocol, etc. (voir Framework, Références)
+annee_publication
+Année
+Année de la donnée source
+date_maj_interne
+Date
+Date d'intégration dans la base de l'outil
+Cette table doit être révisée annuellement (les facteurs d'Hydro-Québec et du MELCCFP sont mis à jour chaque année), sans jamais modifier rétroactivement les résultats déjà calculés pour les années antérieures — voir la justification en section 6.
+3.5 Table resultats_calcules
+Champ
+Type
+Description
+id_resultat
+Identifiant unique
+Clé primaire
+id_bilan
+Clé étrangère
+Référence au bilan
+poste
+Texte
+Ex. énergie, chauffage, mobilité, alimentation, biens, déchets, infrastructures
+type_valeur
+Enum
+Brut (E_sources) / Séquestration (S) / Réduction (R)
+valeur_kgco2e
+Numérique
+Résultat du calcul, en kg CO₂-équivalent
+dqi_poste
+Numérique (0 à 1)
+Data Quality Index du poste
+3.6 Table boussole_resultats
+Champ
+Type
+Description
+id_boussole
+Identifiant unique
+Clé primaire
+id_acteur
+Clé étrangère
+Référence à l'acteur
+global_
+Numérique (0-8)
+Score du pôle Global
+carboneutralite
+Numérique (0-8)
+Score du pôle Carboneutralité
+technocentre
+Numérique (0-8)
+Score du pôle Technocentré
+local_
+Numérique (0-8)
+Score du pôle Local
+justice_sociale
+Numérique (0-8)
+Score du pôle Justice sociale
+sociocentre
+Numérique (0-8)
+Score du pôle Sociocentré
+date_import
+Date
+Date de téléversement du résultat
+3.7 Tables actions_plan et couverture_plan
+Champ
+Type
+Description
+no_action
+Texte
+Identifiant (ex. G1, N3, H10, E5 — voir Plan d'action climatique du territoire)
+categorie
+Enum
+Gouvernance / Environnement-Eau / Santé-Communautés / Économie-Agriculture
+priorite
+Enum
+TP-I / TP / P / M
+parties_prenantes
+Texte
+Collaborateurs potentiels déjà identifiés dans le plan
+id_acteur (dans couverture_plan)
+Clé étrangère
+Acteur concerné
+statut_couverture
+Enum
+Couverte / Recommandée / Ignorée
+
+4. Calculs à effectuer
+4.1 Bilan brut, séquestration et réductions
+Pour chaque bilan, le moteur applique les formules détaillées par secteur du document Framework (section « Base de calcul ») afin de produire, poste par poste : E_sources (émissions brutes), S_séquestration et R_réductions. Ces trois valeurs sont stockées séparément dans resultats_calcules et ne sont jamais fusionnées en base de données : le calcul de E_net = E_sources − S_séquestration − R_réductions est effectué à l'affichage seulement, jamais stocké comme valeur unique remplaçant les composantes brutes.
+4.2 Data Quality Index (DQI)
+Un DQI de 0 à 1 est calculé pour chaque poste à partir de la qualité déclarée des réponses sous-jacentes (Mesurée = 1, Facturée = 0,7, Estimée = 0,4, à titre de barème indicatif ajustable). Le DQI global d'un bilan est la moyenne pondérée des DQI par poste, pondérée par le poids relatif de chaque poste dans le bilan brut total.
+4.3 Normalisations
+Selon le secteur, le moteur calcule des indicateurs normalisés déjà définis dans le Framework (ex. E/élève, E/employé, E/m², E/repas, E/hectare, E/personne du ménage), pour permettre les comparaisons entre acteurs de tailles différentes.
+4.4 Agrégation régionale
+L'agrégation régionale (tableau de bord CDC) applique la règle de délimitation par contrôle opérationnel (norme ISO 14064-1, voir Framework, Principes méthodologiques transversaux) avant de sommer les bilans individuels, afin d'éviter le double comptage entre acteurs liés (ex. employé et employeur, donateur et organisme d'aide alimentaire).
+4.5 Couverture du plan d'action
+Pour chaque acteur : taux de couverture = nombre d'actions au statut « Couverte » ÷ nombre total d'actions pertinentes à son secteur, calculé globalement et par catégorie/priorité. Le moteur de recommandation sélectionne, parmi les actions non couvertes de priorité TP-I ou TP correspondant au secteur et au profil de l'acteur, celles à afficher comme recommandations (voir Cahier des charges, module 4.5).
+5. Analyses attendues
+	•	Bilan individuel : synthèse brute + actions positives, comparée à la moyenne régionale et sectorielle.
+	•	Suivi temporel : évolution du bilan d'un acteur d'une année à l'autre, avec alerte si les facteurs d'émission ont changé entre les deux mesures (voir Cahier des charges 4.7).
+	•	Priorisation régionale (logique Critical Path / matrice BCG) : croisement du DQI, du taux de couverture du plan et du bilan brut pour identifier les acteurs à soutenir en priorité.
+	•	Portrait collectif régional : bilan agrégé, répartition sectorielle, taux de couverture global du plan d'action, évolution annuelle.
+	•	Recoupement avec la Boussole : position individuelle vs collective sur les six pôles, mise en parallèle avec le bilan GES et la couverture du plan.
+
+6. Vérification de conformité aux standards reconnus
+Le tableau suivant fait correspondre chaque exigence des standards de comptabilité carbone retenus pour ce projet (voir Framework, Références bibliographiques) à l'élément du modèle de données qui y répond, afin de vérifier que la collecte prévue est suffisante.
+Exigence du standard
+Norme / guide
+Élément du modèle de données
+Délimitation organisationnelle claire (contrôle opérationnel)
+ISO 14064-1
+type_acteur, statut, règle de délimitation appliquée en 4.4
+Facteurs d'émission documentés (source, année)
+MELCCFP, GHG Protocol
+Table facteurs_emission (source, annee_publication)
+Qualité des données déclarée
+ISO 14064-1
+Champ qualite_donnee dans reponses_donnees, DQI calculé en 4.2
+Séparation des émissions et des réductions/compensations
+Directives MELCCFP sur la quantification des réductions
+type_valeur (Brut / Séquestration / Réduction) dans resultats_calcules, jamais fusionné
+Traçabilité méthodologique dans le temps
+ISO 14064-1
+Champ version_facteurs_emission dans bilans
+Compétence de la personne responsable de la quantification (niveaux avancés)
+Directives MELCCFP
+statut_validation dans bilans (validation CDC pour le niveau 3)
+7. Justification de la structure retenue
+Cette structure de données répond à un enjeu de crédibilité qui dépasse la simple faisabilité technique. Un outil de bilan environnemental destiné à être présenté à des bailleurs, à des partenaires institutionnels et à l'ensemble des acteurs d'un territoire doit pouvoir démontrer, à tout moment, non seulement un résultat, mais la façon dont ce résultat a été obtenu. C'est pourquoi chaque donnée saisie conserve sa qualité déclarée (mesurée, facturée ou estimée), chaque facteur d'émission conserve sa source et son année de publication, chaque bilan conserve la version méthodologique utilisée au moment de son calcul, et les émissions brutes ne sont jamais fusionnées avec les réductions revendiquées. Cette rigueur, qui peut sembler exigeante pour un outil territorial de cette taille, est précisément ce qui distingue un instrument de gouvernance crédible d'un simple calculateur grand public : elle permet de résister à un examen externe, de comparer les bilans d'une année à l'autre sans biais méthodologique caché, et de protéger autant les acteurs qui l'utilisent que la CDC de L'Érable qui le porte contre tout doute quant à l'exactitude ou à la bonne foi des chiffres avancés. La structure proposée n'ajoute donc pas de complexité superflue : elle inscrit dans la base de données elle-même les garanties méthodologiques déjà établies dans le document Framework, plutôt que de les laisser reposer uniquement sur la bonne volonté des personnes qui utiliseront l'outil au fil des années.

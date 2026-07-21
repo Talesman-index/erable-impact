@@ -1,0 +1,1956 @@
+
+
+
+
+
+
+
+
+
+Proposition de cadre de conception pour un outil d’évaluation de l’impact environnemental dans la région de L’Érable, au Centre-du-Québec.
+Proposition de cadre de conception pour un outil d’évaluation de l’impact environnemental dans la région de L’Érable, au Centre-du-Québec.
+
+
+
+
+
+
+Réalisé par : Oba Haniel Pasqua AGOSSOU
+« Bilan territorial de la transition » — Framework méthodologique complet, MRC de L'Érable
+Version 1.0
+Ce document supersede et remplace la version préliminaire « Structuration en 3 niveaux de collecte » ; seule la présente version fait foi.
+
+
+
+
+
+
+Table des matières
+1.	Contexte de réalisation de l’outil	3
+2.	Localisation de la région d’étude	5
+3.	Différents secteurs des parties prenantes	6
+4.	Exemple Outil (référence à améliorer)	7
+5.	Framework de notre Outils	10
+5.1.	Principes fondamentaux	10
+5.2.	Accessibilités	10
+5.3.	Forces	10
+5.4.	Structure de l'interface	11
+5.5.	Gestion de la Collecte des données	12
+5.6.	Recommandations pour l'accessibilité de la collecte	13
+6.	Type de données par secteur	14
+6.1.	Secteur éducation	14
+6.2.	Secteur environnement	16
+6.3.	Secteur agriculture	18
+6.4.	Secteur santé	21
+6.5.	Secteur jeunesse	23
+6.6.	Secteur communautaire	25
+6.7.	Secteur aide alimentaire	27
+6.8.	Secteur restauration	29
+6.9.	Secteur art et culture	31
+6.10.	Secteur politique	33
+6.11.	Secteur citoyen (Individus et ménages)	35
+7.	Avantages pour la région de l'Érable	38
+8.	Base de calcul	39
+9.	Évaluation de l'empreinte carbone d’une activités précise	64
+10.	Facteurs d’émission	77
+
+
+	•	Contexte de réalisation de l’outil
+Dans le cadre du projet de transition socioclimatique initié par la Corporation de développement communautaire (CDC) de L’Érable, les parties prenantes du territoire : citoyens, organisations communautaires, entreprises, institutions publiques et acteurs agricoles ont exprimé le besoin de disposer d’un outil commun d’évaluation des impacts environnementaux. Cet outil s’inscrit dans la logique participative et systémique de la transition socioclimatique et vise à les accompagner dans leurs démarches de transition en leur permettant d’identifier, de mesurer et de suivre les effets environnementaux de leurs activités, tout en favorisant une culture de durabilité, de responsabilité et d’apprentissage collectif.
+Le présent document constitue un cadre de conception préliminaire de cet outil. Il décrit les grandes orientations, la structure envisagée et les fonctionnalités souhaitées, sans aborder pour l’instant la faisabilité technique, les contraintes budgétaires ou les considérations technologiques. Ces aspects seront analysés ultérieurement, en fonction des réalités pratiques et des ressources disponibles pour la mise en œuvre.
+L’outil proposé se structure autour de deux grandes composantes complémentaires :
+	•	L’évaluation des impacts environnementaux par secteur d’activité, afin d’offrir une vision d’ensemble des dynamiques régionales et des enjeux prioritaires (agriculture, foresterie, transport, industrie, milieu communautaire, etc.) ;
+	•	L’évaluation spécifique d’activités ponctuelles, telles que les formations, les campagnes de sensibilisation, les concertations, les événements communautaires ou autres…, permettant d’analyser leurs retombées environnementales et sociales dans le cadre du processus de transition.
+Au-delà de la simple évaluation, l’outil a pour vocation d’être informatif, pédagogique et évolutif. Il recueillera un ensemble de données qualitatives et quantitatives permettant non seulement de renseigner sur l’empreinte environnementale, mais également de produire des projections, d’évaluer les progrès et de formuler des recommandations concrètes. Cette approche vise à en faire un instrument d’aide à la décision et de mobilisation collective, accessible à tous les acteurs du territoire.
+Pensé dans une logique d’inclusivité et d’accessibilité, l’outil sera conçu pour être utilisé aussi bien par les organismes que par les entreprises, les institutions ou les citoyens intéressés. À terme, chaque organisation pourrait disposer d’un compte personnalisé, facilitant la mise à jour des données et la comparaison des résultats dans le temps. Les utilisateurs pourraient ainsi suivre l’évolution de leurs pratiques, identifier leurs points d’amélioration et valoriser leurs actions positives.
+Enfin, l’intégration éventuelle d’un assistant virtuel ou agent intelligent (IA) permettrait de simplifier la saisie et la mise à jour des informations, tout en guidant les utilisateurs dans leur processus d’évaluation. L’outil ambitionne ainsi de devenir une plateforme dynamique, participative et évolutive, au service de la transition socioclimatique régionale et de la gouvernance environnementale partagée.
+Positionnement de l'outil dans le projet de transition socioclimatique
+Ce document ne décrit pas un outil isolé, mais l'un des cinq livrables interreliés du projet de transition socioclimatique de la MRC de L'Érable, porté par la CDC de L'Érable : la Boussole collective de la transition, le Tableau des enjeux, le Tableau des actions prioritaires, le Plan d'action climatique du territoire (41 actions), et l'outil décrit ici. Sa pertinence tient précisément à ce qu'il relie ces éléments entre eux plutôt qu'il ne les duplique.
+Pourquoi cet outil, et pourquoi maintenant
+La démarche participative menée jusqu'ici (ateliers, boussole, priorisation des enjeux et des actions) a produit une vision et un plan collectifs. Ce qui manquait était un mécanisme permettant à chaque acteur du territoire de répondre concrètement à deux questions : où en suis-je personnellement par rapport à cette vision collective, et que puis-je faire, à partir de ma position propre (institution, entreprise, organisme ou citoyen), pour y contribuer. L'outil répond à ces deux questions, ce qui en fait la pièce manquante entre la planification collective et l'action individuelle.
+Lien avec le cadre stratégique du projet (facteurs critiques de succès)
+Le cadre stratégique du projet (Framework Proposal, structuré en huit facteurs critiques de succès inspirés des travaux du National Audit Office britannique sur la durabilité environnementale) identifie trois facteurs relevant directement de la conception et de la mise en œuvre des interventions : la planification proactive des ressources (FCS 5), le soutien ciblé aux acteurs (FCS 6), et la collecte, l'utilisation et l'évaluation de l'information (FCS 8). Ces trois facteurs demeuraient, jusqu'ici, décrits de façon principielle dans le cadre stratégique, sans dispositif concret pour les mettre en œuvre. Cet outil constitue ce dispositif :
+• FCS 5 — le profil de maturité GES et de couverture du plan d'action de chaque acteur alimente une lecture stratégique de type matrice BCG, permettant de situer les initiatives selon leur potentiel et les ressources requises.
+• FCS 6 — l'agrégation régionale des profils individuels permet d'identifier les acteurs prioritaires à soutenir et les connexions à faciliter entre eux.
+• FCS 8 — l'outil est littéralement le dispositif de collecte, de suivi et d'évaluation décrit par ce facteur : méthodologie documentée, année de référence, gouvernance par auto-évaluation et validation centrale.
+Lien avec la Boussole de la transition
+L'outil ne recrée pas la Boussole de la transition (Chaire de recherche sur la transition écologique, ESG UQAM) : il y renvoie directement l'utilisateur par un lien, et n'en récupère le résultat que si l'acteur choisit de le partager. La Boussole conserve ainsi sa fonction première, pédagogique et didactique — aider l'acteur à réfléchir à sa posture face aux grands courants de la transition — plutôt que d'être réduite à une dimension de notation dans un tableau de bord.
+Lien avec le Plan d'action climatique du territoire
+L'outil s'appuie sur les 41 actions du Plan d'action climatique du territoire de deux façons distinctes. D'abord, en reflétant l'état actuel : l'acteur indique parmi ces actions celles auxquelles il contribue déjà, ce qui permet de calculer sa couverture du plan par catégorie (gouvernance, environnement et eau, santé et communautés, économie et agriculture) et par niveau de priorité. Ensuite, en formulant des recommandations futures : non pas le plan recopié tel quel, mais des suggestions traduites selon le type d'acteur — réglementaires pour une institution, opérationnelles pour une entreprise, de mobilisation pour un organisme communautaire, individuelles pour un citoyen — accompagnées des collaborateurs potentiels déjà identifiés dans le plan pour l'action concernée.
+Pertinence pour le territoire
+Pour la CDC de L'Érable, l'outil remplit trois fonctions distinctes mais complémentaires : un outil de communication (rendre visibles les efforts de chaque acteur), un outil de connexion (faire apparaître les collaborations potentielles entre acteurs poursuivant des objectifs similaires), et un outil de suivi (mesurer, année après année, si le territoire progresse collectivement vers la vision coconstruite lors des ateliers). Cette triple fonction, plutôt qu'un simple calculateur d'empreinte carbone, est ce qui distingue cet outil des calculateurs génériques cités en exemple plus loin dans ce document.
+
+	•	Localisation de la région d’étude
+Figure 1: Localisation de la région (MRC DE L’ERABLE)
+Figure 1: Localisation de la région (MRC DE L’ERABLE)
+L’économie régionale repose principalement sur l’agriculture, qui représente environ 43 % des emplois, ainsi que sur la foresterie, la transformation agroalimentaire, le commerce local et la petite industrie manufacturière (MAPAQ, 2022). La forêt couvre plus de 60 % du territoire, tandis qu’environ 31 % de la superficie est dédiée aux activités agricoles (MRC de L’Érable, 2022). La région est également traversée par un réseau hydrographique dense, dominé par la rivière Bécancour et ses affluents, qui alimentent plusieurs milieux humides et écosystèmes sensibles d’importance écologique.
+Sur le plan environnemental, la MRC de L’Érable est confrontée à des enjeux climatiques croissants, tels que la sécheresse estivale récurrente, l’érosion des sols agricoles, la perte de biodiversité, ainsi que la fréquence accrue des événements météorologiques extrêmes (Ouranos, 2023). Ces phénomènes accentuent la vulnérabilité des écosystèmes et des communautés locales, tout en renforçant la nécessité d’une transition socioclimatique concertée et territorialisée.
+Socialement, la région se distingue par un tissu communautaire dynamique, animé par de nombreux organismes de concertation et de développement local. Les citoyens manifestent un intérêt croissant pour les initiatives de durabilité, d’économie circulaire et de résilience communautaire. Enfin, la MRC de L’Érable s’inscrit dans un contexte énergétique à faibles émissions, le mix québécois étant dominé à 95 % par l’hydroélectricité (≈ 15–20 g CO₂/kWh), bien que la dépendance au transport routier demeure un facteur important d’émissions régionales (≈ 8–9 tonnes CO₂/an par habitant).
+
+
+Note méthodologique — précision sur le facteur d'émission électrique
+La valeur de 15 à 20 g CO₂/kWh mentionnée ci-dessus correspond aux émissions directes de production d'Hydro-Québec (dégazage des réservoirs), telle que rapportée dans les inventaires d'Hydro-Québec. Pour la comptabilisation des émissions de GES d'une organisation (portée 2), le facteur officiel à utiliser est plutôt de 34,5 g éq. CO₂/kWh (base cycle de vie, incluant la construction et l'entretien des infrastructures), publié par Hydro-Québec et repris dans le Guide de quantification des émissions de gaz à effet de serre du MELCCFP (2025). C'est cette dernière valeur que l'outil doit utiliser par défaut pour tout calcul de bilan GES corporatif, la première valeur ne servant qu'au contexte régional descriptif. Voir la section Références en fin de document.
+
+	•	Différents secteurs des parties prenantes
+Figure 1 : Présentation de l’échantillon (Secteurs d'activité des différents acteurs acteurs)
+Communautaire
+Figure 1 : Présentation de l’échantillon (Secteurs d'activité des différents acteurs acteurs)
+Communautaire
+
+	•	Exemple Outil (référence à améliorer)
+Exemple de site :
+1- https://www.elf.agency/news/tag/reporting
+2- https://www.carbonfootprint.com/  
+Commence par une page informative sur l’empreinte Carbone 
+ 
+
+
+
+
+
+
+
+
+
+
+
+Ensuite mettre l’outil de mesure de l’empreinte Carbone (Exemple ELF)
+Critère :
+• la taille de votre foyer
+• l'efficacité énergétique de vos appareils électroménagers
+• votre fréquence de déplacement en voiture ou en avion
+• votre alimentation
+• votre taux de recyclage
+
+
+
+
+
+
+
+	•	Framework de notre Outils
+	•	Principes fondamentaux
+Trois principes fondamentaux axée sur le dynamisme et l’interaction de l’outil : 
+1. Progressive complexity : proposez un chemin simple pour les novices (niveau rapide) avec la possibilité d'approfondir. 
+2. l'engagement progressif : mieux vaut que quelqu'un remplisse 70% des données du niveau 1 que d'abandonner en chemin. 
+3. Intégrer les valeurs par défaut intelligentes : utiliser des données régionales, sectorielles ou publiques pour pré-remplir ce que vous pouvez, permettant même aux petites organisations sans données détaillées de participer.
+	•	Accessibilités
+Pour l’accessibilité de l’outil :
+1. Créer un questionnaire conversationnel plutôt que des formulaires longs
+2. Fournir des convertisseurs d'unités simples (litres ↔ kWh, km ↔ tonnes CO₂) et aussi des exemples simples pour les permettre de comparer et de se situer pas forcément des chiffres Exemple : nombre je jours de travail dans la semaine multiplier par la distance de la maison au travail peut nous permettre de calculer de façon dynamique la distance parcourue en Km pour travail trouver des exemples basiques pour collecter des données complexes (très important). 
+3. Intégrer des validations douces (alerter sans bloquer si les données semblent aberrantes)
+4. Proposer des résultats contextualisés avec graphe dynamique : pas juste "5 tonnes CO₂" mais "équivalent à un trajet Paris-Berlin en voiture, ou 2 mois de chauffage pour 4 personnes"
+	•	Forces
+Trois forces de l’outil pour notre contexte régional :
+Spécificité sectorielle : Chaque secteur aura ses propres critères pertinents. Un agriculteur et un citoyen urbain n'ont pas les mêmes paramètres, mais l'outil parlera leur langage.
+Progressivité : Les gens peuvent commencer simple (10 minutes) et approfondir. Ça maximise la participation.
+Valorisation du territoire : L'outil intègrera les forces de l'Érable : hydroélectricité propre, ressources forestières, agriculture, patrimoine culturel. Si possible montrer comment ces atouts jouent en faveur du climat régional.
+
+	•	Structure de l'interface 
+Phase 1 : Sélection de profil
+	•	Type : Citoyen / Entreprise / Organisation / Collectivité
+	•	Secteur (si applicable) : Éducation, Environnement, Agriculture, Santé, Jeunesse, Communautaire, Aide alimentaire, Restauration, Art, Politique
+	•	Localisation/ Région
+	•	Code Postale :
+	•	Taille : Petite / Moyenne / Grande (pour pré-remplir des valeurs par défaut)
+Et en fonction du profil le questionnaire s’ajuste/s’adapte 
+Phase 2 : Questions progressives
+	•	Niveau 1 (5-10 min) : Questions minimales pour une empreinte initiale
+	•	Niveau 2 (30-45 min) : Détails supplémentaires pour affinage
+	•	Niveau 3 (expert, 1-2h) : Données exhaustives pour stratégie détaillée
+Phase 3 : Résultats et visualisations
+	•	Graphiques : Répartition par source (énergie, transport, alimentation, biens)
+	•	Comparaisons : Votre empreinte vs moyenne régionale / nationale
+	•	Benchmarks sectoriels : Où se situe votre secteur
+	•	Potentiel de réduction : Gisements d'économies identifiés (je trouve que ce serai intéressant d’informer sur le potentiel de réduction également grâce aux données collecter)
+	•	Recommandations : Fournir des recommandations sur la base des données pour améliorer l’impact environnemental.
+Phase 4 : Actions et partage
+	•	Plan d'action personnalisé : Réductions rapides, moyen terme, long terme
+	•	Export : Rapport PDF, données CSV
+	•	Suivi : Refaire le test en 6-12 mois
+Partage régional : Anonyme, contribuer à l'empreinte collective régionale
+	•	Gestion de la Collecte des données
+Niveaux de collecte adaptés par profil utilisateur
+Niveau 1 : Rapide et minimal (15-20 minutes)
+Pour une estimation initiale sans effort majeur.
+	•	Nombre de personnes/employés
+	•	Consommation énergétique annuelle totale (facture)
+	•	Mode de transport principal et kilométrage annuel
+	•	Régime alimentaire ou type de restauration
+	•	Estimation simple du gaspillage (peu/moyen/beaucoup)
+Niveau 2 : Détaillé standard (45-60 minutes)
+Pour une meilleure compréhension et comparaison.
+	•	Tous les éléments du niveau 1 + détails
+Niveau 3 : Exhaustif (2-3 heures)
+Pour les organisations souhaitant affiner leurs stratégies.
+	•	Tous les éléments précédents
+	•	Données par mois ou trimestre
+	•	Inventaire détaillé des achats
+	•	Émissions de scope 3
+	•	Facteurs d'émission spécifiques à leurs opérations
+	•	Données sur la fin de vie
+
+	•	Recommandations pour l'accessibilité de la collecte
+Pour la collecte de données :
+	•	Proposer des valeurs par défaut par région ou secteur
+	•	Permettre l'estimation approximative quand les données exactes ne sont pas disponibles
+	•	Offrir des fourchettes (ex: "50-100 kg de viande par mois")
+	•	Intégrer des imports de données automatisées (factures, données publiques)
+Pour la compréhension :
+	•	Expliciter chaque paramètre avec des exemples concrets
+	•	Proposer des explications sur le calcul (transparence)
+	•	Fournir des benchmarks régionaux ou sectoriels pour contextualiser
+Pour l'usabilité :
+	•	Interface simple et progressive (niveau 1 → 3)
+	•	Possibilité de remplir partiellement et reprendre plus tard
+	•	Résultats visuels et comparables (graphiques, historique)
+	•	Export de résultats en formats simples (PDF, CSV)
+
+Modules transversaux de collecte (architecture recommandée)
+Les onze secteurs qui suivent partagent plusieurs catégories de données (énergie, mobilité, eau, déchets, biens et infrastructures). Plutôt que de dupliquer ces paramètres et leurs facteurs d'émission dans chacun des onze secteurs — ce qui multiplie le risque d'incohérence lors des mises à jour futures —, ils sont définis une seule fois ici comme modules transversaux, puis référencés par chaque secteur. Cette section intègre également les données identifiées comme manquantes lors de la revue experte du modèle de collecte.
+Module Énergie et chauffage
+E_énergie = Élec_kWh × EF_élec + Chauff_unité × EF_chauff (gaz, mazout, électrique ou biomasse). Ajout — pour le chauffage à la biomasse (bois, granules), le CO₂ est comptabilisé séparément comme biogénique (hors bilan GES principal, conformément au Guide de quantification du MELCCFP), tandis que le CH₄ et le N₂O associés à la combustion demeurent comptabilisés dans le bilan brut.
+Module Mobilité (professionnelle, bénévole et domicile-travail)
+E_mobilité = Σ(véhicules × km × EF_véhicule) + Σ(personnes × km × EF_mode). Ajout — les déplacements des bénévoles sont désormais un champ explicite de ce module (nombre de bénévoles, heures ou kilomètres annuels), applicable à tout secteur qui en dépend (Environnement, Jeunesse, Communautaire, Art et culture, Aide alimentaire), et non plus seulement à ce dernier.
+Module Eau
+E_eau = Eau_m³ × EF_eau_production + EauUsée_m³ × EF_traitement. Aucun ajout requis à ce stade; voir toutefois la section « Lien avec la vulnérabilité territoriale » ci-dessous pour la mise en contexte des résultats.
+Module Déchets
+E_déchets = Σ(quantité_flux × EF_traitement), le recyclage et le compostage réduisant l'émission par rapport à l'enfouissement ou l'incinération. Aucun ajout requis à ce stade.
+Module Gaz frigorigènes et climatisation (nouveau module)
+Module absent de la version précédente, sauf pour le secteur Santé. Or la réfrigération et la climatisation sont significatives dans plusieurs autres secteurs (Restauration, Aide alimentaire, Environnement, Éducation, Art et culture, Agriculture — réfrigération du lait). Formule : E_frigo = Fuite_kg × PRG_gaz, où Fuite_kg est la quantité de gaz frigorigène perdue annuellement (mesurée ou estimée à partir d'un taux de fuite typique par type de système) et PRG_gaz son pouvoir de réchauffement global. Champs à collecter : type de gaz frigorigène, capacité du système (kg), âge de l'équipement, taux de fuite estimé (%/an).
+Module Biens, infrastructures et actifs loués
+E_biens = Σ(GHG_incorporé / durée_amortissement). Ajout — un champ « possédé / loué » est désormais requis pour chaque bâtiment ou équipement significatif. Pour un actif loué, les émissions incorporées sont réparties selon la durée du bail plutôt que la durée de vie complète du bien, et sont signalées séparément (catégorie 8 du GHG Protocol) pour éviter un double comptage avec le bailleur.
+Module Portée 3 avancée (Niveau 3 uniquement)
+Trois ajouts, disponibles uniquement au Niveau 3 (expert), applicables à tous les secteurs :
+• Émissions amont des combustibles et de l'électricité (« well-to-tank ») — émissions liées à l'extraction, au raffinage et au transport des combustibles avant leur combustion, distinctes des émissions de combustion déjà couvertes par les modules Énergie et Mobilité.
+• Traitement en fin de vie des produits distribués ou vendus — pertinent pour l'Agriculture, la Restauration et l'Aide alimentaire (emballages remis aux consommateurs finaux).
+• Émissions financées (placements et investissements) — champ optionnel, pertinent surtout pour les institutions et grandes entreprises disposant de fonds de pension ou de placement; déjà présent pour le secteur Citoyen, désormais offert en option aux autres secteurs.
+Lien avec la vulnérabilité territoriale
+Lorsque la localisation déclarée par l'acteur correspond à un territoire identifié comme prioritaire dans le Tableau des enjeux (ex. stress hydrique estival, score d'urgence rouge), l'outil affiche un signalement contextuel à côté du module concerné (ex. Module Eau), reliant ainsi la donnée individuelle au diagnostic territorial collectif déjà établi, sans dupliquer cette information dans le questionnaire.
+Correspondance secteurs × modules transversaux
+Éducation : Énergie, Mobilité, Eau, Déchets, Frigorigènes (labos/cantine), Biens. — Environnement : Énergie, Mobilité (incl. bénévoles), Frigorigènes (véhicules), Biens/actifs loués. — Agriculture : Énergie, Mobilité, Eau, Frigorigènes (réfrigération lait), biogénique/fossile (biomasse, fumier). — Santé : module Frigorigènes et gaz anesthésiques déjà détaillé au secteur (voir plus loin). — Jeunesse : Énergie, Mobilité (incl. bénévoles/animateurs), Eau, Frigorigènes (cuisine). — Communautaire : Énergie, Mobilité (incl. bénévoles), Eau. — Aide alimentaire : Énergie, Mobilité (incl. bénévoles), Frigorigènes, Portée 3 avancée (fin de vie des emballages). — Restauration : Énergie, Mobilité, Déchets, Frigorigènes, Portée 3 avancée (fin de vie des emballages). — Art et culture : Énergie, Mobilité (incl. bénévoles), Frigorigènes, Biens. — Politique : Énergie, Mobilité, Eau, Déchets, Biens/actifs loués, lien vulnérabilité territoriale. — Citoyen : Énergie, Mobilité, Eau, Déchets, Portée 3 avancée (émissions financées déjà incluses, well-to-tank en option).
+
+Vérification de matérialité par secteur
+Un bilan environnemental crédible ne doit pas se concentrer sur le poste le plus facile à documenter (souvent la mobilité, car un kilométrage se déclare simplement) au détriment de postes plus lourds mais plus difficiles à estimer (énergie des bâtiments, alimentation, intrants). Cette section définit des ordres de grandeur indicatifs par secteur, utilisés par l'outil pour signaler, sans jamais bloquer la soumission, qu'un bilan semble anormalement concentré sur un seul poste.
+Limite importante : aucune donnée de répartition sectorielle propre au Québec n'a été trouvée pour l'ensemble des onze secteurs. Les repères ci-dessous sont adaptés de données françaises et internationales (ADEME, données 2021 pour les ménages), dont le contexte électrique est, comme le Québec, largement décarboné — ce qui en fait une analogie raisonnable, mais approximative. Ces repères devront être révisés dès que des données régionales deviendront disponibles.
+Secteur (regroupement)
+Poste habituellement dominant
+Part indicative attendue
+Mobilité — part indicative attendue
+Citoyen (ménages)
+Alimentation et transport, à parts proches
+20-30 %
+20-30 %
+Institutions / bâtiments (Éducation, Santé, Politique)
+Énergie et chauffage
+40-55 %
+15-25 %
+Agriculture
+Intrants, enteric et fumier
+50-70 %
+5-15 %
+Restauration / Aide alimentaire
+Approvisionnement alimentaire
+40-60 %
+5-15 %
+Organismes (Communautaire, Jeunesse, Art et culture, Environnement)
+Énergie des locaux ou mobilité (variable selon la mission)
+30-50 %
+20-35 %
+
+Règle d'alerte : si, pour un bilan donné, un poste représente moins de la moitié ou plus du double de sa part indicative attendue (par exemple, un institutionnel dont l'énergie ne représente que 10 % du bilan alors que 40-55 % est attendu), l'outil affiche un message d'encouragement à revalider les postes probablement sous-estimés — jamais un blocage, conformément au principe des validations douces déjà retenu pour l'ensemble de l'outil (voir « Structure de l'interface »).
+
+	•	Type de données par secteur
+	•	Secteur éducation
+→ Ce secteur utilise les modules transversaux Énergie, Mobilité, Eau, Déchets, Biens (voir section « Modules transversaux »). Ajout recommandé : gaz frigorigènes (laboratoires, réfrigération de la cafétéria).
+Niveau simplifié (15 min)
+	•	Nombre d'élèves et d'employés
+	•	Facture énergétique totale annuelle
+	•	Transport scolaire : nombre d'autobus, km annuels
+	•	Type de restauration
+Niveau détaillé (1h)
+	•	Tous les éléments ci-dessous avec détails
+Institutions couvertes
+Écoles primaires, secondaires, cégeps, centres de formation professionnelle, universités, écoles privées, organismes de formation.
+Données essentielles à collecter
+Infrastructure immobilière
+	•	Nombre d'élèves/étudiants et d'employés
+	•	Surface totale des bâtiments (m²)
+	•	Année de construction (pour estimer l'efficacité énergétique)
+	•	Nombre de bâtiments
+	•	Type de chauffage (gaz, électrique, autres)
+Consommation énergétique
+	•	Électricité annuelle (kWh) — détailler si possible : éclairage, chauffage, équipements
+	•	Chauffage (source et volume) : gaz naturel (m³), électricité, huile, biomasse
+	•	Eau chaude sanitaire (source)
+	•	Climatisation (si applicable)
+Mobilité des occupants
+	•	Flotte de transport scolaire : nombre de véhicules, carburant, distance annuelle
+	•	Trajets domicile-école : modes de transport des élèves et employés
+	•	Déplacements professionnels des enseignants/personnel (formations, congrès)
+Alimentation (cantines/cafétérias)
+	•	Nombre de repas servis annuellement
+	•	Part d'aliments locaux, régionaux, bio
+	•	Types de régimes proposés
+	•	Gaspillage alimentaire estimé (% des repas)
+	•	Source d'approvisionnement
+Consommation de biens et déchets
+	•	Papier et fournitures scolaires (quantité annuelle) (peut être faire par individus et multiplier par le nombre d’individus)
+	•	Équipements informatiques et mobilier (fréquence d'achat)
+	•	Gestion des déchets : recyclage, compostage, incinération
+	•	Programmes de réduction en place
+Données spécifiques à la région de l'Érable
+	•	Utilisation de ressources forestières locales (si applicable)
+	•	Partenariats avec organismes régionaux
+
+	•	Secteur environnement
+→ Utilise les modules Énergie, Mobilité et Biens/actifs loués. Ajouts recommandés : déplacements des bénévoles (module Mobilité) et gaz frigorigènes des véhicules climatisés.
+Organisations couvertes
+Organismes de conservation, comités de bassin versant, coopératives environnementales, associations de protection de la nature, groupes d'action environnementale.
+Données essentielles à collecter
+Base organisationnelle
+	•	Nombre d'employés et de bénévoles
+	•	Locaux : surface, énergie utilisée
+	•	Secteurs d'intervention (forêts, cours d'eau, biodiversité, qualité de l'air, etc.)
+Opérations environnementales
+	•	Terrain/zone d'intervention : surface gérée (ha)
+	•	Véhicules utilisés : 4x4, tracteurs, bateaux (type, carburant, utilisation annuelle)
+	•	Équipements spécialisés
+	•	Trajets de monitoring/surveillance
+Mobilité et terrain
+	•	Kilométrage annuel des déplacements professionnels
+	•	Trajets d'intervention sur le terrain
+Projets et interventions
+	•	Types de projets (restauration, monitoring, sensibilisation)
+	•	Matériaux utilisés (si applicable)
+	•	Énergie consommée pour les interventions
+Restauration et séquestration carbone
+	•	Initiatives de plantation/reforestation (nombre d'arbres, espèces)
+	•	Projets de séquestration carbone (si quantifiés)
+	•	Zones restaurées (surface)
+Donnée clé pour l'Érable
+La région comptabiliser les projets de foresterie durable et régénération pour montrer l'impact positif net potentiel du secteur.
+
+	•	Secteur agriculture
+→ Utilise les modules Énergie, Mobilité, Eau. Ajouts recommandés : distinction biogénique/fossile pour le chauffage à la biomasse, et gaz frigorigènes pour la réfrigération du lait.
+Niveau simplifié (20 min)
+	•	Type de production
+	•	Superficie/taille du cheptel
+	•	Carburant annuel total
+	•	Engrais utilisé : type et quantité
+	•	Gestion du fumier
+Niveau détaillé (1-2h)
+	•	Tous les éléments ci-dessous
+Exploitations couvertes
+Fermes laitières, cultures (grains, légumes), élevage (volaille, porc), arboriculture, apiculture, agritourisme, coopératives agricoles.
+Données essentielles à collecter
+Activité agricole principale
+	•	Type de production (laitière, céréale, légume, viande, etc.)
+	•	Superficie cultivée ou pâturée (ha)
+	•	Taille du cheptel (nombre d’animaux) si applicable
+	•	Rendement (tonnes/an, litres/an, etc.)
+Énergie et carburant
+	•	Diesel ou essence pour tracteurs et machines (litres/an) — détailler par activité
+	•	Électricité (kWh) : traite, réfrigération, irrigation, bâtiments
+	•	Chauffage : type et volume
+	•	Gaz naturel (si applicable)
+Intrants agricoles
+	•	Engrais (azotés surtout) : type, quantité (tonnes/an)
+	•	Pesticides et herbicides : volume et type
+	•	Semences : volume et provenance
+	•	Aliments pour animaux : type, volume, provenance
+Gestion du bétail (si applicable)
+	•	Nombre d'animaux par catégorie (vaches laitières, génisses, etc.)
+	•	Système d'alimentation (pâturage, fourrage, ensilage, concentrés)
+	•	Gestion du fumier : stockage, épandage, traitement
+	•	Type de fumier produit
+Sols et matière organique
+	•	Pratiques de travail du sol (conventionnel, labour réduit, sans labour)
+	•	Couverture hivernale
+	•	Rotation des cultures
+	•	Matière organique estimée des sols
+Eau
+	•	Système d'irrigation (si applicable)
+	•	Source d'eau
+	•	Volume utilisé annuellement
+Transports et logistique
+	•	Transport des produits vers le marché : distance, carburant
+	•	Fréquence de récolte/livraison
+	•	Emballage utilisé
+Certification et pratiques durables
+	•	Agriculture biologique (certifiée ou en transition)
+	•	Certification éco-responsable
+	•	Autres certifications
+Données spécifiques à la région de l'Érable
+	•	Sylvopastoralisme (forêts + pâturage) si applicable
+	•	Ressources forestières exploitées
+	•	Proximité des marchés régionaux (circuits courts)
+
+	•	Secteur santé
+→ Ce secteur définit déjà son propre module de gaz frigorigènes et anesthésiques (voir ci-dessous); il sert de référence pour les autres secteurs.
+Institutions couvertes
+Cliniques, hôpitaux, centres d'urgence, cliniques vétérinaires, centres de soins palliatifs, pharmacies, cabinets privés.
+Données essentielles à collecter
+Infrastructure
+	•	Surface des locaux (m²)
+	•	Nombre de lits (si applicable)
+	•	Nombre d'employés, patients/visiteurs annuels
+	•	Nombre de bâtiments
+Consommation énergétique
+	•	Électricité (kWh)  (très important pour les services de santé)
+	•	Chauffage (source, volume)
+	•	Climatisation/refroidissement
+	•	Eau chaude
+	•	Générateur de secours (si applicable) : type de carburant, utilisation
+Eau
+	•	Consommation d'eau (m³) — usages médicaux, sanitaires, lessive
+	•	Gestion de l'eau usée
+Déchets médicaux et spécialisés
+	•	Déchets biomédicaux : volume, traitement (incinération, désinfection)
+	•	Déchets généraux : recyclage, compostage, mise en décharge
+	•	Gestion de la stérilisation (vapeur = électricité)
+Transports et ambulances
+	•	Nombre d'ambulances et véhicules
+	•	Kilométrage annuel
+	•	Carburant utilisé (essence, diesel)
+	•	Trajets d'urgence vs transport non urgent
+
+Produits pharmaceutiques et matériel médical
+	•	Fournisseurs et localisation (local, régional, national, importé)
+	•	Emballages utilisés
+	•	Stockage de produits réfrigérés
+Approvisionnement et alimentation
+	•	Restauration sur place (si applicable)
+	•	Type de menus
+	•	Gaspillage alimentaire
+Donnée clé pour l'Érable
+Identifier les pratiques de santé préventive qui réduisent les transports/déplacements (télésanté, consultations à distance).
+
+
+	•	Secteur jeunesse
+→ Utilise les modules Énergie, Mobilité, Eau. Ajouts recommandés : déplacements des animateurs et bénévoles (module Mobilité), gaz frigorigènes (cuisine).
+Organisations couvertes
+Maisons des jeunes, organismes d'insertion professionnelle, associations jeunesse, camps d'été, centres d'activités, clubs de loisirs, organismes d'engagement civique.
+Données essentielles à collecter
+Base organisationnelle
+	•	Nombre de jeunes servis annuellement
+	•	Nombre d'animateurs et d'employés
+	•	Locaux : surface, type (intérieur, extérieur, mixte)
+	•	Nombre de sites opérés
+Énergie des locaux
+	•	Électricité (kWh)
+	•	Chauffage (source, volume)
+	•	Eau
+	•	Installations spécifiques (cuisine, douches, etc.)
+Activités et mobilité
+	•	Types d'activités (sports, arts, nature, éducation)
+	•	Déplacements pour sorties : transport utilisé, km annuels
+	•	Trajets avec accompagnement (animateurs/personnel)
+	•	Camps résidentiels : fréquence et durée
+Alimentation
+	•	Repas/collations servis annuellement
+	•	Gestion de la cafétéria
+	•	Approvisionnement local vs externe
+Équipements et loisirs
+	•	Équipements de sport/activité
+	•	Véhicules (minibus, fourgonnettes) : nombre et utilisation
+	•	Biens durables (vélos, skis, équipements)
+Sensibilisation environnementale
+	•	Programmes d'éducation environnementale proposés
+	•	Projets de réduction de l'empreinte carbone internes
+Données spécifiques à la région de l'Érable
+	•	Activités en nature (randonnée, camping, forêt) : évaluer l'empreinte vs les bénéfices pédagogiques
+	•	Partenariats avec des fermes ou organismes locaux
+
+
+	•	Secteur communautaire
+→ Utilise les modules Énergie, Mobilité, Eau. Ajout recommandé : déplacements des bénévoles comme champ explicite du module Mobilité.
+Organisations couvertes
+Centres communautaires, mutualités, coopératives de solidarité, associations citoyennes, syndicats, collectifs de quartier, cabinets-conseils communautaires.
+Données essentielles à collecter
+Base organisationnelle
+	•	Nombre de membres/participants
+	•	Nombre d'employés et de bénévoles
+	•	Surface des locaux (m²)
+	•	Années d'opération
+Énergie
+	•	Électricité, chauffage, eau
+	•	Type de chauffage
+Mobilité professionnelle
+	•	Déplacements des employés (domicile-travail)
+	•	Trajets pour servir les clients/membres ( Trajets pour la mission)
+	•	Territoires desservis (proximité)
+Services offerts
+	•	Types de services (formation, soutien, loisirs, advocacy, etc.)
+	•	Nombre de personnes rejointes annuellement
+	•	Impact social (capacité à réduire des besoins via prévention)
+Ressources utilisées
+	•	Fournitures et matériel
+	•	Équipements
+	•	Partenariats et réseaux
+Sensibilisation et actions
+	•	Initiatives environnementales internes
+	•	Programmes de sensibilisation offerts
+Donnée clé pour l'Érable
+Évaluer comment les services communautaires réduisent les besoins de transport ou de consommation (ex: partage d'outils, covoiturage organisé).
+
+
+	•	Secteur aide alimentaire
+→ Utilise les modules Énergie, Mobilité (incluant déjà les bénévoles). Ajouts recommandés : gaz frigorigènes (entreposage réfrigéré) et module Portée 3 avancée pour la fin de vie des emballages redistribués.
+Organisations couvertes
+Banques alimentaires, cuisines collectives, soupes populaires, programmes d'aide alimentaire, jardins communautaires, organismes de distribution alimentaire.
+Données essentielles à collecter
+Opérations de base
+	•	Nombre de personnes servies annuellement
+	•	Volume de nourriture distribuée (tonnes/an)
+	•	Nombre de distributions (mensuelle, hebdomadaire)
+	•	Employés et bénévoles
+Locaux
+	•	Surface et type
+	•	Équipements (entreposage réfrigéré, cuisine, etc.)
+	•	Électricité, chauffage, eau
+Approvisionnement alimentaire
+	•	Sources des aliments : dons locaux, épiceries, distributeurs, producteurs régionaux
+	•	Part d'aliments locaux vs importés
+	•	Qualité nutritionnelle (protéines, fruits/légumes, aliments transformés)
+	•	Périssables vs non-périssables
+Transport et logistique
+	•	Véhicules de collecte/distribution
+	•	Kilomètres parcourus annuellement
+	•	Carburant utilisé
+	•	Fréquence des tournées
+Gestion des déchets
+	•	Aliments gaspillés malgré les efforts
+	•	Emballages utilisés et gérés
+	•	Compostage possible des résidus
+Valeur environnementale du secteur
+	•	Aliments détournés de la décharge
+	•	Réduction du gaspillage alimentaire régional
+	•	Sensibilisation à la surproduction/consommation
+Donnée clé pour l'Érable
+	•	Circuits courts : privilégier les producteurs locaux de la région
+	•	Évaluer les aliments "seconds choix" de la région (fruits/légumes cosmétiques)
+	•	Calculer l'empreinte carbone évitée par la redistribution
+
+	•	Secteur restauration
+→ Utilise les modules Énergie, Mobilité, Déchets. Ajouts recommandés : gaz frigorigènes (réfrigération, cuisson) et module Portée 3 avancée pour la fin de vie des emballages remis aux clients.
+Établissements couverts
+Restaurants, cafés, bars, traiteurs, micro-brasseries, cuisines de collectivités (restaurants d'entreprises), food trucks.
+Données essentielles à collecter
+Infrastructure
+	•	Surface (m²)
+	•	Type de cuisine (complète, préparation limitée)
+	•	Nombre de clients/couverts par jour en moyenne
+	•	Nombre d'employés
+Énergie
+	•	Électricité (éclairage, réfrigération, cuisson, extraction) : kWh
+	•	Gaz naturel ou propane (cuisson, eau chaude) : m³ ou litres
+	•	Eau (consommation annuelle)
+Approvisionnement alimentaire
+	•	Fournisseurs : locaux, régionaux, nationaux, importés
+	•	Type de cuisine proposée (locale, fusion, ethnique, etc.)
+	•	Menus : part de végétal vs viande, poisson
+	•	Saisonnalité des menus (usage de produits locaux)
+	•	Quantité d'aliments achetée annuellement (tonnes)
+	•	Certifications (biologique, commerce équitable)
+Gestion des déchets alimentaires
+	•	Volume de restes annuel estimé (tonnes, % des achats)
+	•	Compostage sur place (si applicable)
+	•	Récupération pour animaux
+	•	Incinération/mise en décharge
+Transport et logistique
+	•	Fréquence des livraisons
+	•	Distance moyennes des fournisseurs
+	•	Emballages reçus (cartons, plastiques)
+	•	Gestion des emballages
+Équipements durables
+	•	Vaisselle réutilisable vs jetable (si applicable)
+	•	Contenants pour emporter
+	•	Système de gestion de l'eau
+Données spécifiques à la région de l'Érable
+	•	Valorisation des produits régionaux : érable, pommes, viande régionale, produits laitiers
+	•	Partenariats avec agriculteurs locaux
+	•	Agritourisme : intégration avec le patrimoine régional
+
+	•	Secteur art et culture
+→ Utilise les modules Énergie, Mobilité, Biens. Ajouts recommandés : déplacements des bénévoles et gaz frigorigènes (climatisation des salles).
+Organisations couvertes
+Musées, galeries, théâtres, cinémas, salles de spectacle, centres culturels, studios d'art, écoles d'art, festivals, associations artistiques.
+Données essentielles à collecter
+Infrastructure culturelle
+	•	Surface (m²)
+	•	Type d'espace (exhibitoire, performant, formation)
+	•	Nombre de visiteurs/spectateurs annuels
+	•	Nombre d'artistes engagés
+	•	Employés et bénévoles
+Énergie
+	•	Électricité (crucial pour éclairage/scène) : kWh
+	•	Chauffage, climatisation, eau
+	•	Éclairage spécialisé ou systèmes audiovisuels
+	•	Générateurs (si applicable)
+Mobilité des artistes et visiteurs
+	•	Accès en transport public vs privé
+	•	Stationnement disponible (influence mode de transport)
+	•	Trajets des artistes (locaux, régionaux, nationaux)
+	•	Déplacements des œuvres/expositions
+Événements et spectacles
+	•	Nombre d'événements annuels
+	•	Catering/restauration pour événements
+	•	Matériel scénique : construction, stockage, réutilisabilité
+	•	Décors et accessoires
+Consommation de biens
+	•	Matériaux artistiques et de production
+	•	Affiches, catalogues, impression
+	•	Équipement audiovisuel
+	•	Matériel d'exposition
+Gestion des déchets
+	•	Résidus de production
+	•	Matériaux réutilisables vs jetables
+Donnée clé pour l'Érable
+	•	Art régional et patrimoine culturel : valoriser les artistes locaux
+	•	Événements culturels régionaux : fêtes de l'Érable, festivals locaux
+	•	Évaluer comment la culture renforce l'identité régionale et les comportements durables
+
+
+	•	Secteur politique
+→ Utilise les modules Énergie, Mobilité, Eau, Déchets, Biens/actifs loués. Ajouts recommandés : distinguer les équipements municipaux loués des équipements possédés, et afficher le lien avec la vulnérabilité territoriale (Tableau des enjeux).
+Organisations couvertes
+Municipalités, MRC, représentations élues, services municipaux, conseils municipaux, élus municipaux et régionaux.
+Données essentielles à collecter
+Infrastructure administrative
+	•	Bâtiments municipaux : nombre, surface, type
+	•	Type de chauffage dominant
+	•	Électricité totale
+	•	Eau
+	•	Flotte de véhicules : nombre, type, utilisation
+Énergie
+	•	Électricité (bâtiments, éclairage public) : kWh
+	•	Chauffage : source et volume
+	•	Éclairage urbain : technologie (DEL, sodium, etc.), nombre de points
+	•	Eau traitée et distribuée
+Mobilité des élus et agents
+	•	Trajets pour réunions, visites de terrain
+	•	Véhicules municipaux : nombre, km annuels
+	•	Déplacements domicile-travail des employés
+Services publics
+	•	Gestion des routes (entretien, épandage hivernal)
+	•	Gestion des déchets : collecte, tri, incinération, enfouissement
+	•	Services de loisirs et parcs
+	•	Transports en commun (si applicable)
+
+Infrastructure verte
+	•	Parcs et espaces verts : surface, gestion
+	•	Cours d'eau : monitoring, restauration
+	•	Initiatives de réduction de GES déjà en place
+Sensibilisation et politiques
+	•	Plans d'action climatique ou durabilité
+	•	Programmes de sensibilisation citoyenne
+	•	Objectifs de réduction carbone
+Donnée clé pour l'Érable
+	•	Rôle exemplaire : municipes comme modèles pour réduction d'empreinte
+	•	Évaluation de l'impact des politiques régionales sur les émissions globales
+	•	Potentiel de partenariats avec d'autres secteurs
+
+	•	Secteur citoyen (Individus et ménages)
+→ Utilise les modules Énergie, Mobilité, Eau, Déchets, et inclut déjà les émissions financées. Ajout optionnel (Niveau 3) : émissions amont des combustibles (well-to-tank).
+Niveau simplifié (10-15 min)
+	•	Nombre de personnes au foyer
+	•	Facture énergétique annuelle
+	•	Mode de transport principal
+	•	Régime alimentaire estimé
+Niveau détaillé (30-45 min)
+	•	Tous les éléments détaillés
+Profils couverts
+Tous les résidents de la région : familles, personnes seules, retraités, avec ou sans activité professionnelle.
+Données essentielles à collecter
+Démographie du ménage
+	•	Nombre de personnes
+	•	Enfants (nombre et âge)
+	•	Type de logement (appartement, maison unifamiliale, mobile, autre)
+	•	Année de construction ou classe énergétique
+Énergie domestique
+	•	Électricité (kWh/an)
+	•	Chauffage : type (électrique, gaz, huile, bois), volume
+	•	Eau chaude sanitaire : source, consommation estimée
+	•	Climatisation (si applicable)
+	•	Énergie renouvelable produite (panneaux solaires, etc.)
+Transport personnel
+	•	Modes de transport utilisés : voiture, transports publics, vélo, marche, télétravail
+	•	Si voiture : carburant (essence, diesel, électrique, hybride), modèle, âge, consommation
+	•	Kilométrage annuel par mode
+	•	Trajets : domicile-travail, loisirs, vacances
+	•	Trajets en avion (nombre, destinations, classe)
+Alimentation et consommation
+	•	Régime alimentaire : omnivore, flexitarien, végétarien, végan
+	•	Fréquence de consommation : viande, poisson, produits laitiers, légumes
+	•	Part d'aliments biologiques, locaux, saisonniers
+	•	Gaspillage alimentaire estimé
+	•	Repas à domicile vs restaurants
+Consommation de biens et gestion des déchets
+	•	Achats de vêtements (nombre d'articles/an, neuf vs d'occasion)
+	•	Électroménagers et mobilier (fréquence renouvellement)
+	•	Équipements informatiques et électroniques
+	•	Livres, loisirs, équipements sportifs
+	•	Emballages de consommation
+	•	Gestion des déchets : recyclage, compostage, incinération, décharge
+Eau
+	•	Consommation (m³/an) ou estimation
+	•	Usages principaux
+Services financiers et immobilier
+	•	Propriétaire vs locataire
+	•	Investissements financiers (actions, épargne)
+	•	Type d'emploi ou secteur professionnel
+Données optionnelles pour niveau expert
+	•	Consommation mensuelle (variations saisonnières)
+	•	Hobbys et loisirs impact carbone (ski, golf, gaming, etc.)
+	•	Habits de consommation numérique
+	•	Utilisations secondaires (maison de campagne, yacht, etc.)
+
+
+	•	Avantages pour la région de l'Érable
+
+Données régionales préexistantes à intégrer :
+	•	Mix électrique québécois (95% hydroélectricité = très bas carbone)
+	•	Facteurs d'émission sectoriels régionaux
+	•	Cycles saisonniers (chauffage hivernal intense, agriculture saisonnière)
+	•	Ressources forestières et agricoles locales
+Indicateurs régionaux à suivre :
+	•	Empreinte carbone moyenne par habitant (benchmark)
+	•	Répartition par secteur
+	•	Évolution annuelle (suivi de progrès)
+	•	Contribution du secteur agricole et forestier à la séquestration carbone
+Opportunités de mobilisation :
+	•	Comparer avant/après les initiatives locales
+	•	Identifier les champions régionaux (citoyens, entreprises, organisations à faible empreinte)
+	•	Valoriser les pratiques durables régionales (agriculture biologique, alimentation locale, etc.)
+
+	•	
+Principes méthodologiques transversaux
+Avant de présenter les formules propres à chaque secteur, cinq principes s'appliquent de façon transversale à l'ensemble des calculs de cet outil. Ils répondent aux exigences d'un bilan GES reconnu (norme ISO 14064, Guide de quantification des émissions de gaz à effet de serre du MELCCFP, 2025) et conditionnent la crédibilité de l'outil auprès des bailleurs et partenaires.
+1. Bilan brut affiché séparément des actions positives
+Dans les formules qui suivent, chaque secteur calcule un E_net = E_sources − S_séquestration − R_réductions. Ce E_net demeure un indicateur pédagogique utile pour motiver les utilisateurs (« votre organisation est presque net-négative »). Cependant, conformément aux Directives du MELCCFP pour la quantification des réductions d'émissions de GES et à la norme ISO 14064-1, l'interface de l'outil doit toujours afficher E_sources (le bilan brut) comme indicateur officiel et le plus visible, avec S_séquestration et R_réductions présentés à côté, de façon distincte et jamais présentés comme ayant déjà été soustraits du bilan officiel. Cette distinction protège l'outil contre toute accusation d'écoblanchiment si un acteur venait à surestimer ses actions positives.
+2. Délimitation organisationnelle (éviter le double comptage régional)
+Lorsque les bilans individuels sont agrégés à l'échelle de la MRC de L'Érable, un même kilomètre parcouru, une même tonne de nourriture ou une même tonne de GES ne doit pas être comptée deux fois (par exemple par un employé et son employeur, ou par un producteur agricole et l'organisme d'aide alimentaire qui redistribue ses surplus). L'outil applique le critère de contrôle opérationnel de la norme ISO 14064-1 : chaque acteur comptabilise 100 % des émissions des installations et activités sur lesquelles il exerce un contrôle opérationnel plein; les émissions des tiers ne sont mentionnées qu'à titre indicatif, hors de l'agrégat régional officiel.
+3. Année de référence et suivi dans le temps
+Une année de référence est fixée dès la première collecte de données de chaque acteur. Les facteurs d'émission eux-mêmes étant mis à jour annuellement par le MELCCFP et Hydro-Québec, la version des facteurs utilisée est documentée pour chaque année de collecte, afin que l'évolution d'une organisation dans le temps reflète de vrais changements de pratiques plutôt que de simples changements de méthodologie.
+4. Qualité des données (Data Quality Index)
+Chaque poste de données est accompagné d'un Data Quality Index (0 à 1), déjà prévu dans les formules détaillées ci-dessous, distinguant les données mesurées, facturées, ou estimées. Ceci correspond à l'exigence du MELCCFP selon laquelle la quantification des réductions de GES doit être réalisée ou supervisée par une personne compétente (formation reconnue sur une des parties de la norme ISO 14064).
+5. Source des facteurs d'émission
+Sauf indication contraire, les facteurs d'émission (EF) utilisés dans l'outil proviennent, par ordre de priorité : (1) le Guide de quantification des émissions de gaz à effet de serre du MELCCFP (2025) et l'Inventaire québécois des émissions de GES pour les postes couverts; (2) les taux d'émission publiés par Hydro-Québec pour l'électricité (34,5 g éq. CO₂/kWh, base cycle de vie); (3) la Base Carbone de l'ADEME ou le GHG Protocol pour les catégories non couvertes par les sources québécoises (biens de consommation, certains aliments). La liste complète des sources utilisées dans ce document figure à la section Références bibliographiques, en fin de document.
+
+	•	Base de calcul 
+Base de calcul Outil GES 
+I-Secteur de l’éducation
+Formule générale (synthèse)
+
+
+Tous les sont en kg CO₂-équivalent/an.
+
+Décomposition et formules (postes principaux)
+1. Énergie électrique (éclairage, équipements, part chauffage électrique)
+
+	•	= consommation électrique annuelle (kWh).
+	•	= facteur d’émission (kg CO₂e/kWh) — utiliser EF régional si disponible.
+2. Chauffage (si gaz, mazout, biomasse, ou élec déjà pris)
+
+	•	Adapter aux unités collectées (m³, L, GJ). Pour chauffage électrique, compté dans .
+3. Eau chaude sanitaire
+
+4. Climatisation
+
+(inclure pertes de fluides frigorigènes si connues)
+5. Mobilité des occupants (transport scolaire + trajets domicile-travail)
+
+avec par exemple :
+
+6. Alimentation (cantine)
+
+	•	= part (%) d’un type d’aliment (local, importé, viande, végétal…).
+	•	= kgCO₂e/repas pour chaque catégorie.
+7. Biens & équipements (amortissement annuel)
+
+	•	Convertir achats (mobilier, ordinateurs, papier) en émissions incorporées puis annualiser.
+8. Déchets
+
+(papier recyclé vs incinéré vs composté, fraction compostée réduit émissions, incinération augmente)
+9. Infrastructures (amortissement carbone construction)
+
+	•	= émissions incorporées estimées du bâti (kgCO₂e) ; annualiser sur durée technique.
+
+
+2) Crédits / actions positives
+
+	•	Plantations sur site, espaces verts éducatifs.
+
+	•	Inclut panneaux solaires, récupération papier, compostage, aliments bio ou locaux.
+3) Impact net
+
+	•	: école net-négative.
+	•	Sinon, = émissions annuelles nettes.
+
+4) Normalisation / indicateurs
+	•	Par élève : 
+	•	Par m² de bâtiment : 
+	•	Par repas servi : 
+
+5) Gestion des données et incertitude
+	•	Documenter tous les facteurs d’émission (EF) et sources. Utiliser EF par défaut (bases nationales/internationales) si EF locaux absents.
+	•	Indiquer Data Quality Index (0–1) par poste (estimation, relevé, mesure).
+	•	Estimer fourchette d’incertitude (%) et propagation pour obtenir . Estimer incertitude ±% (ex. ±10–30%) et/ou faire analyse de sensibilité / Monte-Carlo si nécessaire.
+II- Secteur de l’environnement
+Définitions rapides (unités)
+	•	kg CO₂e = kilogrammes équivalent CO₂
+	•	kWh = kilowatt-heure, m³ = mètre cube, L = litre, ha = hectare, km = kilomètre, t = tonne
+
+Formule principale
+
+avec
+
+1) Émissions — postes détaillés
+	•	Bâtiments / locaux
+
+(ou par m² : diviser la conso par la surface si utile)
+	•	Véhicules & machines (4×4, tracteurs, bateaux)
+
+où en kgCO₂e/km (ou convertir L×EF_{fuel_L})
+	•	Équipements spécialisés (opérationnel + embodied amorti)
+
+	•	Trajets / déplacements pro & monitoring
+
+	•	Projets & interventions (matériaux + énergie)
+
+	•	Autres émissions incorporées / administratives
+
+
+2) Crédits / réductions (positifs)
+	•	Séquestration par plantation / reforestation
+
+	•	Séquestration / restauration de zones
+
+	•	Émissions évitées (prévention de déforestation, pratiques agroécologiques, substitution)
+
+Enfin :
+
+Si : l’organisation est net négative (crédit GES net). Sinon est la valeur positive des émissions annuelles.
+Normalisations utiles (comparaisons)
+	•	Par employé : 
+	•	Par hectare géré : 
+	•	Par projet : 
+
+Qualité des données & incertitudes
+	•	Toujours indiquer les facteurs d’émission (EF) utilisés (source + année).
+	•	Fournir un Data Quality Index (0–1) par poste et estimer une incertitude (%) ; propager via erreur linéaire ou Monte-Carlo.
+	•	Documenter l’hypothèse de séquestration (par espèce, par âge, taux annuels) — la séquestration varie fortement dans le temps.
+
+III- Secteur de l’agriculture 
+Formule principale
+
+où tous les termes sont en kg CO₂-eq / an.
+
+1) Émissions — somme des postes
+
+a) Enteric (ruminants)
+
+	•	= nombre d’animaux de catégorie (vaches laitières, bovins viande, ovins…)
+	•	= kg CO₂-eq / animal / an (ou kg CH₄/an converti en CO₂-eq)
+b) Fumier (stockage + gestion)
+
+	•	selon système (stockage couvert, fosse, compostage, lagune) ; inclut CH₄ et N₂O
+c) Engrais azotés — émissions directes/indirectes de N₂O
+
+	•	= masse d’azote appliquée (kg N/an)
+	•	= kg N₂O-N/kg N (ou autre format selon source)
+d) Carburant (tracteurs, machines)
+
+	•	= litres/an pour usage ; = kg CO₂e / L
+e) Électricité
+
+	•	inclure traite, réfrigération, irrigation, pompage
+f) Intrants incorporés (production d’engrais, semences, aliments achetés)
+
+	•	= quantité (kg ou €) ; = kgCO₂e/kg (ou par valeur monétaire si nécessaire)
+g) Sols / LUC (pertes de carbone)
+
+	•	pertes annuelles de stock de carbone du sol dues à pratiques, conversion de prairies, drainage, etc.
+h) Transport des produits
+
+i) Emissions incorporées équipements & infrastructure (annualisées)
+
+
+2) Séquestration et actions positives (crédits)
+
+	•	
+	•	
+	•	(couverture hivernale, agroforesterie, pâturage amélioré) : quantifier en tCO₂e/an.
+3) Réductions évitées
+
+
+4) Impact net et normalisations
+	•	(si négatif, organisation net-négative)
+	•	Normaliser : par hectare , par tonne produite , par UTH/employé .
+
+5) Qualité des données & incertitude
+	•	Indiquer source des , Data Quality Index (0–1) par poste.
+	•	Fournir fourchette d’incertitude (%) ; utiliser propagation d’erreur ou Monte-Carlo pour analyses robustes.
+
+IV- Secteur de la santé
+Formule générale
+
+Tous les termes en kg CO₂-eq / an.
+
+1) Émissions — somme des postes
+
+a) Électricité (kWh)
+
+Inclure éclairage, équipements médicaux, réfrigération, IT, pompes.
+b) Chauffage & climatisation
+
+Convertir unités (m³, L, GJ → kWh ou kgCO₂e) selon source.
+c) Générateur de secours
+
+Prendre en compte heures d’utilisation annuelles.
+d) Eau et eaux usées
+
+e) Stérilisation & blanchisserie
+
+f) Déchets (biomédicaux, spéciaux, généraux)
+
+Distinct : incinération (fort), autoclave+déchèterie (plus faible), compost, recyclage.
+g) Gaz anesthésiques et frigorigènes
+
+(inclure N₂O, desflurane, sevoflurane, fuites frigorigènes)
+h) Produits pharmaceutiques & matériel (approche embodied)
+
+ou convertir quantités en kg × EF (kgCO₂e/kg).
+i) Transport (ambulances, véhicules, livraison)
+
+j) Émissions incorporées (construction, gros équipements, annualisées)
+
+
+2) Crédits / actions positives
+
+(ex. surface végétalisée, arbres plantés : )
+
+(énergies PV injectées, économies avérées de consommation, réductions déchets)
+
+3) Impact net & normalisations
+
+Normaliser selon besoins :
+	•	par lit 
+	•	par patient-séjour 
+	•	par m² 
+
+4) Qualité des données & incertitude
+	•	Lister les EF utilisés (source, année).
+	•	Indiquer Data Quality Index (0–1) par poste.
+	•	Estimer intervalle d’incertitude (%) et propager (erreur linéaire ou Monte-Carlo) pour obtenir fourchette .
+
+V- Secteur Jeunesse
+Formule générale
+
+
+1) Émissions — postes principaux
+
+a) Énergie des locaux
+
+	•	Inclure cuisine, douches, équipements spécifiques.
+b) Installations & équipements
+
+	•	Inclure mobilier, structures, équipements durables.
+c) Mobilité / transport
+
+	•	Inclure sorties, camps résidentiels, trajets animateurs/personnel.
+d) Alimentation
+
+	•	= fraction par type d’aliment (local, importé, végétal, viande, etc.)
+e) Biens et loisirs
+
+f) Activités
+
+	•	Inclut ateliers, sports, arts, sorties éducatives.
+
+2) Crédits / actions positives
+
+	•	Exemple : plantations sur sites, zones végétalisées, potagers éducatifs, projets de compost.
+
+
+3) Impact net
+
+	•	Si , organisation net-négative en GES.
+	•	Sinon, représente les émissions annuelles nettes.
+
+4) Normalisation / indicateurs
+	•	Par jeune servi : 
+	•	Par m² : 
+	•	Par activité : 
+
+5) Qualité des données et incertitudes
+	•	Documenter les facteurs d’émission utilisés (EF) et sources.
+	•	Estimer une fourchette d’incertitude (%) pour chaque poste.
+	•	Fournir un Data Quality Index (0–1) pour la robustesse des données collectées.
+
+VI- Secteur Communautaire
+Formule générale
+
+
+1) Émissions — postes principaux
+
+a) Énergie des locaux
+
+	•	Inclure tous les bâtiments utilisés (bureau, salle communautaire, locaux annexes).
+b) Mobilité professionnelle
+
+	•	Inclut domicile-travail, trajets pour servir les membres/clients, missions ponctuelles.
+	•	Distinction par type de véhicule : voiture, minibus, transport public, vélo (réduction nulle ou négative pour vélo).
+c) Ressources utilisées
+
+	•	Comprend matériel, papeterie, équipements durables.
+d) Services offerts et activités
+
+	•	Formation, loisirs, advocacy, événements en présentiel.
+
+	•	Déplacements des participants pour les activités en présentiel (optionnel si données disponibles).
+
+2) Crédits / actions positives
+
+	•	Plantations sur site, potagers communautaires, zones végétalisées, compostage.
+
+
+3) Impact net
+
+	•	Si : organisation net-négative en GES.
+	•	Sinon = émissions annuelles nettes.
+
+4) Normalisation et indicateurs
+	•	Par membre/participant : 
+	•	Par m² de locaux : 
+	•	Par activité organisée : 
+
+5) Qualité des données & incertitude
+	•	Documenter les facteurs d’émission (EF) et sources.
+	•	Indiquer un Data Quality Index (0–1) par poste.
+	•	Estimer intervalle d’incertitude (%) et propagation pour obtenir fourchette .
+
+VII- Secteur aide alimentaire
+Formule générale
+
+
+1) Émissions — postes principaux
+
+a) Locaux et équipements
+
+	•	Inclut entreposage réfrigéré, cuisines, surfaces utilisées, chauffage et eau.
+b) Approvisionnement alimentaire
+
+	•	Différencier aliments locaux / importés / transformés / frais / périssables.
+	•	EF basé sur cycle de vie moyen par type d’aliment (kg CO₂e/tonne).
+c) Transport et logistique
+
+	•	Inclure collecte, distribution et déplacements du personnel/bénévoles.
+d) Déchets et gaspillage
+
+	•	Les actions de compostage ou recyclage réduisent l’impact.
+e) Émissions incorporées
+
+	•	Annualisation sur durée de vie des infrastructures et équipements.
+
+2) Crédits / actions positives
+
+	•	Compostage, potagers communautaires, zones végétalisées, actions de sensibilisation.
+
+	•	Réduction du gaspillage alimentaire, valorisation de dons locaux, optimisation logistique.
+
+3) Impact net
+
+	•	Si : organisation net-négative en GES.
+	•	Sinon = émissions annuelles nettes.
+
+4) Normalisation / indicateurs
+	•	Par personne servie : 
+	•	Par tonne de nourriture distribuée : 
+	•	Par distribution : 
+
+5) Qualité des données et incertitudes
+	•	Documenter les facteurs d’émission (EF) et leur source.
+	•	Fournir Data Quality Index (0–1) par poste pour la robustesse.
+	•	Estimer fourchette d’incertitude (%) et propager via erreurs linéaires ou Monte-Carlo.
+
+VIII- Secteur Restauration
+Formule générale
+
+
+1) Émissions — postes principaux
+
+a) Locaux et énergie
+
+	•	Inclut éclairage, réfrigération, cuisson, extraction, eau chaude.
+	•	Heat_unit = volume gaz/propane converti en kWh ou directement en kg CO₂e.
+b) Approvisionnement alimentaire
+
+	•	Différencier végétal / viande / poisson / importé / local / bio.
+	•	Les aliments locaux/bio peuvent bénéficier d’un EF réduit.
+c) Gestion des déchets alimentaires
+
+	•	Compostage ou récupération pour animaux réduit l’impact.
+d) Transport et logistique
+
+	•	Inclut livraison fournisseurs, emballages reçus et gestion.
+e) Équipements durables et matériels
+
+	•	Vaisselle réutilisable, contenants, équipements de cuisine durables.
+f) Émissions incorporées
+
+	•	Annualisation des infrastructures (bâtiments, cuisines).
+
+2) Crédits / actions positives
+
+	•	Compostage sur place, potagers urbains, plantations autour du restaurant.
+
+	•	Énergie solaire, récupération eau, réduction plastique.
+
+3) Impact net
+
+	•	Si : organisation net-négative.
+	•	Sinon = émissions annuelles nettes.
+
+4) Normalisation / indicateurs
+	•	Par couvert / client : 
+	•	Par tonne d’aliment acheté : 
+	•	Par m² de cuisine : 
+
+5) Qualité des données & incertitudes
+	•	Documenter tous les facteurs d’émission (EF) et sources.
+	•	Indiquer Data Quality Index (0–1) pour robustesse.
+	•	Estimer fourchette d’incertitude (%) et propagation d’erreur.
+
+IX- Secteur art et culture 
+Formule générale
+
+
+1) Émissions — postes principaux
+
+a) Locaux et énergie
+
+	•	Inclut éclairage spécialisé, audiovisuel, scène, générateurs ponctuels.
+b) Mobilité des artistes et visiteurs
+
+	•	Différencier transport privé vs public, déplacements locaux, régionaux, nationaux.
+c) Événements et spectacles
+
+	•	Inclut restauration, décoration, accessoires et construction/réutilisation du matériel scénique.
+d) Consommation de biens
+
+	•	Inclut affiches, catalogues, matériel audiovisuel et d’exposition.
+e) Gestion des déchets
+
+	•	Réutilisation et compostage réduisent l’impact.
+f) Émissions incorporées
+
+	•	Pour bâtiments culturels, équipements lourds, structures permanentes.
+
+2) Crédits / actions positives
+
+	•	Plantations sur site, zones végétalisées autour de la structure, initiatives pédagogiques éco-responsables.
+
+	•	Énergie solaire, récupérations, réemploi des décors.
+
+3) Impact net
+
+	•	: organisation net-négative.
+	•	Sinon, = émissions annuelles nettes.
+
+4) Normalisation / indicateurs
+	•	Par visiteur : 
+	•	Par événement : 
+	•	Par m² d’infrastructure : 
+
+5) Qualité des données et incertitude
+	•	Documenter facteurs d’émission (EF) et sources.
+	•	Fournir Data Quality Index (0–1) par poste.
+	•	Estimer fourchette d’incertitude (%) et propagation d’erreur.
+
+X-Secteur Politique
+Formule générale
+
+
+1) Émissions — postes principaux
+
+a) Bâtiments et énergie
+
+	•	Inclut bâtiments municipaux, éclairage public, espaces administratifs.
+	•	Heat_unit = volume de gaz/mazout/électricité converti en kg CO₂e.
+b) Mobilité des élus et agents
+
+	•	Inclut déplacements domicile-travail, réunions, visites de terrain, véhicules municipaux.
+c) Services publics
+
+	•	Entretien des routes, collecte/traitement des déchets, transports en commun si applicables.
+d) Eau et traitement
+
+	•	Eau potable, assainissement et traitement des eaux usées.
+e) Infrastructure verte
+
+	•	Gestion des parcs, restauration des cours d’eau, initiatives de verdissement.
+f) Émissions incorporées
+
+	•	Construction/maintenance bâtiments, équipements municipaux lourds.
+
+2) Crédits / actions positives
+
+	•	Plantations, restauration des zones humides, projets de séquestration sur le territoire.
+
+	•	Mesures déjà en place pour réduire l’empreinte énergétique et carbone.
+
+3) Impact net
+
+	•	: organisation net-négative.
+	•	Sinon, = émissions annuelles nettes.
+
+4) Normalisation / indicateurs
+	•	Par habitant desservi : 
+	•	Par km de routes entretenues : 
+	•	Par m² de bâtiments municipaux : 
+
+5) Qualité des données et incertitude
+	•	Documenter facteurs d’émission (EF) et sources.
+	•	Fournir Data Quality Index (0–1) pour robustesse par poste.
+	•	Estimer fourchette d’incertitude (%) et propagation pour obtenir .
+XI- Secteur Citoyen
+Formule générale
+
+
+1) Émissions — postes principaux
+
+a) Énergie domestique
+
+	•	Inclut chauffage, climatisation, eau chaude, électricité générale.
+	•	Heat_unit = volume gaz/mazout/bois/électricité converti en kg CO₂e.
+	•	Énergie renouvelable produite : soustraite via .
+b) Transport personnel
+
+	•	Inclut domicile-travail, loisirs, vacances, trajets locaux.
+	•	Différencier véhicules thermiques, hybrides, électriques.
+c) Alimentation et consommation alimentaire
+
+	•	Différencier omnivore, flexitarien, végétarien, bio, local, saisonnier.
+	•	Réductions via aliments locaux, bio et gaspillage évité.
+d) Consommation de biens et déchets
+
+	•	Inclut vêtements, meubles, électroménagers, électronique, emballages.
+e) Eau
+
+f) Investissements et services financiers
+
+	•	Peut inclure impact carbone lié aux investissements (fonds non durables vs durables).
+
+2) Crédits / actions positives
+
+	•	Inclut panneaux solaires, compostage, vélo, covoiturage, achats durables, réduction viande.
+
+3) Impact net
+
+	•	: ménage ou organisation net-négatif.
+	•	Sinon, = émissions annuelles nettes.
+
+4) Normalisation / indicateurs
+	•	Par personne du ménage : 
+	•	Par m² de logement : 
+	•	Par km transporté : 
+
+5) Qualité des données et incertitude
+	•	Documenter facteurs d’émission (EF) et sources pour chaque poste.
+	•	Indiquer Data Quality Index (0–1) par poste.
+	•	Fournir fourchette d’incertitude (%) et propagation sur .
+
+	•	Évaluation de l'empreinte carbone d’une activités précise
+Adapté à tout type d'organisation
+Contexte
+Les activités de rencontre regroupent : réunions, congrès, séminaires, conférences, ateliers, formations, événements, assemblées, salons, forums, rencontres conviviales, célébrations, lancements, consultations publiques, etc.
+Ces activités génèrent une empreinte carbone souvent sous-estimée, provenant de sources directes (transport, énergie) et indirectes (alimentation, matériels, hébergement).
+Cet outil permet à toute organisation, indépendamment de sa taille et de son secteur, de mesurer et réduire cet impact.
+PARTIE 1 : DONNÉES DE BASE OBLIGATOIRES
+1.1 Caractéristiques de l'événement
+Critère
+Description
+Unités
+Adaptabilité
+Type d'événement
+Réunion, conférence, atelier, formation, assemblée, festival, célébration, congrès
+Catégorie
+Tous secteurs
+Nombre de participants
+Total attendu ou réel
+Personnes
+Tous secteurs
+Nombre de jours
+Durée de l'événement
+Jours
+Tous secteurs
+Nombre de sessions/demi-journées
+Si pertinent pour durée partielle
+Sessions
+Tous secteurs
+Localisation
+Adresse ou région
+Adresse
+Tous secteurs
+Type de lieu
+Intérieur (bâtiment existant), extérieur, hybride, virtuel
+Catégorie
+Tous secteurs
+Distance moyenne estimée des participants
+Calculée après collecte des trajets
+km
+Tous secteurs
+
+
+
+1.2 Format et modalités
+Critère
+Description
+Unités
+Adaptabilité
+Format
+Présentiel, virtuel, hybride
+Catégorie
+Tous secteurs
+Présence d'hébergement
+Oui/Non — certains participants restent une nuit ou plus
+Oui/Non
+Grands événements
+Nombre de nuits
+Moyenne par participant
+Nuits
+Avec hébergement
+Récurrence annuelle
+Événement ponctuel, annuel, mensuel, hebdomadaire
+Fréquence
+Tous secteurs
+Public cible
+Employés, membres, clients, public général
+Catégorie
+Tous secteurs
+
+PARTIE 2 : TRANSPORT ET MOBILITÉ
+2.1 Transports des participants
+C'est souvent le poste majeur (40-70% de l'empreinte d'un événement).
+Critère
+Description
+Collecte
+Notes
+Mode de transport utilisé
+Voiture personnelle, transports publics (bus, train), avion, vélo, marche
+Nombre de personnes par mode
+Si possible : sonder les participants ou estimer
+Kilométrage total
+Distance moyenne × nombre de participants par mode
+km
+Différencier les modes
+Carburant pour voitures
+Essence, diesel, électrique, hybride, GPL
+Nombre de véhicules par type
+Ou consommation moyenne en l/100km
+Trajets domicile-venue
+Distance parcourue
+km
+Demander aux participants lors de l'inscription
+Trajets retour domicile
+Idem
+km
+Souvent oublié !
+Trajets pendant l'événement
+Excursions, visites, déplacements inter-sites
+km
+Transports supplémentaires organisés
+Trajets aériens
+Nombre de personnes, distance, classe de voyage
+Personnes × km
+Multiplicateur : éco vs business
+Moyens de transport des orateurs
+Souvent déplacement spécifique
+km
+À documenter séparément
+Covoiturage organisé
+Nombre de personnes ayant covoituré vs trajet seul
+Personnes
+Facteur de réduction
+Transports publics fournis
+Navettes gratuites, passes de transport incluses
+Nombre d'utilisations
+Facteur de réduction
+Stationnement
+Nombre de places, tarif, impact sur choix modal
+Places
+Influence : voiture vs transport public
+Facteurs d'émission de référence (Québec) :
+	•	Voiture essence moyenne : ~2,3 kg CO₂/L ≈ 230 g CO₂/km (4-5 L/100km)
+	•	Voiture diesel : ~2,7 kg CO₂/L ≈ 250 g CO₂/km
+	•	Voiture électrique : ~80 g CO₂/km (électricité québécoise)
+	•	Train régional : ~50 g CO₂/km/personne
+	•	Bus urbain : ~100 g CO₂/km/personne
+	•	Avion court-courrier (< 500 km) : ~250 g CO₂/km/personne
+	•	Avion moyen-courrier (500-1500 km) : ~180 g CO₂/km/personne
+	•	Avion long-courrier (> 1500 km) : ~150 g CO₂/km/personne
+2.2 Transport de marchandises et matériel
+Critère
+Description
+Collecte
+Notes
+Matériel expédié avant
+Documents, affiches, équipements, décor
+km ou poids
+Source → lieu
+Approvisionnement alimentation
+Distance parcourue par distributeurs/fournisseurs
+km
+Peut être significatif
+Transports urgents
+Express, courrier express
+% du matériel
+Multiplicateur carbone
+Élimination post-événement
+Déchets transportés, recyclage collecté
+km et tonnes
+Vers recyclerie, décharge
+
+PARTIE 3 : ALIMENTATION ET RESTAURATION
+3.1 Repas et collations
+Critère
+Description
+Collecte
+Notes
+Nombre de repas servis
+Petit-déj, déjeuner, dîner, souper, collations
+Nombre total
+Par type de repas
+Nombre de participants par repas
+Tous ne mangent pas nécessairement
+Personnes
+Estimer assistances réelles
+Menu proposé
+Plats, portions, sources de protéines
+Description
+Viande, poisson, végé, vegan
+Part de plats viande
+% repas avec viande / poisson
+%
+Principal levier
+Part de plats végétariens/végans
+% repas sans protéines animales
+%
+Réduction clé
+Part de poisson
+% repas avec poisson
+%
+Émission intermédiaire
+Source des aliments : local
+% produits de la région (< 200 km)
+%
+Plus bas carbone
+Source des aliments : régional
+% produits de la province / pays
+%
+Carbone moyen
+Source des aliments : importé
+% produits importés (> 1500 km)
+%
+Carbone plus haut
+Produits biologiques
+% du total alimentaire
+%
+Réduction estimée : 10-15%
+Emballages alimentaires
+Vaisselle jetable vs réutilisable, matériau
+Nombre / type
+Plastique, carton, porcelaine, etc.
+Gaspillage alimentaire
+Part estimée des restes non consommés
+% du total
+À minimiser
+Boissons
+Eau en bouteille, café, thé, jus, alcool
+Nombre de contenants
+Bouteille plastique = high carbone
+Conditionnement des boissons
+Bouteilles réutilisables vs jetables
+%
+Facteur majeur
+
+Facteurs d'émission alimentaires (moyennes) :
+	•	Viande bovine : ~25 kg CO₂/kg (production, transport)
+	•	Viande porcine : ~12 kg CO₂/kg
+	•	Poulet : ~6 kg CO₂/kg
+	•	Poisson d'élevage : ~15 kg CO₂/kg
+	•	Produits laitiers : ~3-4 kg CO₂/kg
+	•	Légumes/fruits locaux : ~0,5-1 kg CO₂/kg
+	•	Légumes/fruits importés : ~2-3 kg CO₂/kg
+	•	Eau en bouteille (1L plastique) : ~0,3 kg CO₂/L (transport inclus)
+	•	Café (1 tasse) : ~0,1-0,2 kg CO₂
+3.2 Partenaires alimentaires
+Critère
+Description
+Collecte
+Notes
+Catérer local
+Nombre de partenaires issus de la région
+Oui/Non, nombre
+Soutien local + réduction carbone
+Fournisseur certifié durable
+Bio, commerce équitable, certification
+Oui/Non
+À valoriser
+Distance moyenne des fournisseurs
+Adresse du catérer ou fournisseur
+km
+Moins de 100 km = idéal
+
+
+PARTIE 4 : INFRASTRUCTURE ET ÉNERGIE
+4.1 Lieu de l'événement
+Critère
+Description
+Collecte
+Notes
+Surface utilisée
+Salles, toilettes, cuisines, accueil
+m²
+Impact énergétique
+Type de bâtiment
+Neuf, ancien, rénové, temporaire, tente
+Catégorie
+Efficacité énergétique
+Chauffage/refroidissement
+Déjà en place vs temporaire
+kWh ou approx
+Chiffrer si possible
+Éclairage
+DEL, halogène, autre ; naturel vs artificiel
+Heures d'utilisation
+Durée et intensité
+Eau chaude
+Douches, toilettes, cuisine
+m³ ou litres
+Si applicable
+Consommation électrique globale
+Appareils, audiovisuel, cuisine, charges
+kWh
+Facturer si possible
+Facteurs régionaux :
+	•	Électricité québécoise : ~15-20 g CO₂/kWh (très bas carbone) [voir note méthodologique : utiliser 34,5 g éq. CO₂/kWh, base cycle de vie, pour tout bilan GES corporatif — Hydro-Québec; MELCCFP, 2025]
+	•	Chauffage gaz : ~200 g CO₂/kWh
+	•	Chauffage fioul : ~280 g CO₂/kWh
+4.2 Équipements audiovisuels et technologiques
+Critère
+Description
+Collecte
+Notes
+Projecteurs/écrans
+Nombre, durée d'utilisation
+Heures
+Consommation variable
+Sonorisation
+Amplificateurs, microphones
+Heures
+Énergie supplémentaire
+Vidéoconférence (pour hybride)
+Serveurs, encodage vidéo
+Heures × participants
+Empreinte numériques
+Éclairage scénique
+Projecteurs spécialisés
+Heures
+Si spectacle/grande conférence
+Enregistrement/diffusion en direct
+Stockage données, bande passante
+Heures de streaming
+Numérique = carbone distribué
+
+PARTIE 5 : MATÉRIELS ET CONSOMMABLES
+5.1 Supports de communication
+Critère
+Description
+Collecte
+Notes
+Documents imprimés
+Programmes, agendas, notes
+Nombre de feuilles
+A4, couleur, pages
+Affiches et signalisation
+Bandeaux, panneaux directionnels
+Nombre
+Matériau : papier vs vinyle
+Badges/accréditations
+Supports, cordons, épingles
+Nombre
+Plastique, carton
+Matériel promotionnel/cadeaux
+Articles publicitaires, souvenirs
+Articles
+T-shirt, mugs, stylos, etc.
+Mobilier temporaire
+Tables, chaises, tentes, structures
+Unités
+Loué ou acheté neuf
+Points d'attention :
+	•	Papier recyclé vs vierge : réduction ~20-30%
+	•	Impression couleur vs N&B : ~2x plus carbone
+	•	Matériel réutilisé des années précédentes : carbone amorti
+5.2 Consommables d'événement
+Critère
+Description
+Collecte
+Notes
+Serviettes, nappes
+Jetables vs réutilisables
+Nombre
+Textile vs papier
+Contenants de boisson
+Gobelets jetables vs réutilisables
+Nombre
+Plastique, carton, verre
+Articles de nettoyage
+Produits chimiques, papier absorbant
+Liters / unités
+Persistance environnementale
+Fournitures générales
+Scotch, agrafes, clips, cordes
+Nombre
+Impact faible mais cumulatif
+
+PARTIE 6 : HÉBERGEMENT
+6.1 Si l'événement inclut une ou plusieurs nuits
+Critère
+Description
+Collecte
+Notes
+Type d'hébergement
+Hôtel, auberge, camping, dortoir, chez l'habitant
+Catégorie
+Efficacité énergétique
+Distance lieu-hébergement
+Trajets additionnels entre lieu et chambre
+km
+Navette vs taxi/voiture
+Nombre de nuits
+Par participant moyen
+Nuits
+Accumulation énergétique
+Taille de l'hébergement
+Étoiles hôtel, capacité
+Classification
+Corrélation avec empreinte
+Émissions générées par nuit
+Si données disponibles auprès de l'établissement
+kg CO₂/nuit/personne
+Demander au partenaire
+Benchmark hébergement :
+	•	Hôtel 5 étoiles : ~15-25 kg CO₂/nuit/personne
+	•	Hôtel 3 étoiles : ~8-12 kg CO₂/nuit/personne
+	•	Auberge simple : ~5-8 kg CO₂/nuit/personne
+	•	Camping/gîte : ~2-4 kg CO₂/nuit/personne
+6.2 Services à l'hébergement
+Critère
+Description
+Collecte
+Notes
+Petit-déjeuner fourni
+Oui/Non, inclus dans nuitée
+Oui/Non
+Énergie/alimentation incluses
+Service de ménage
+Quotidien, sur demande
+Fréquence
+Impact énergétique et chimique
+Utilisation serviettes/linge
+Changement quotidien vs réutilisation
+Fréquence
+Lavage = consommation eau/énergie
+Climatisation/chauffage
+Utilisé durant séjour
+Heures
+Variation saisonnière
+
+
+PARTIE 7 : GESTION DES DÉCHETS
+7.1 Tri et traitement
+Critère
+Description
+Collecte
+Notes
+Réduction des déchets
+Objectif % réduction
+%
+Comparé à baseline attendue
+Tri en source
+Bacs recyclage, compostage, déchets
+Nombre de catégories
+Facilite collecte
+Récupération compost
+Résidus alimentaires compostés
+%
+Détournement de décharge
+Recyclage papier/carton
+% du total imprimé
+%
+Valorisation post-événement
+Recyclage verres/métaux
+Bouteilles, cannettes, contenants
+%
+Collecte sélective
+Plastiques
+Récupération, type (PETE, HDPE, etc.)
+%
+Valorisation croissante
+Déchets non recyclables
+% mis en décharge
+%
+À minimiser
+Incinération
+Déchets brûlés vs enfouis
+%
+Plus polluant que décharge
+Hypothèse carbone gestion déchets :
+	•	Recyclage : évite ~60-80% des émissions produites
+	•	Compostage : évite ~80% des émissions (vs décomposition anaérobie)
+	•	Décharge : baseline 100%
+
+
+
+
+7.2 Logistique post-événement
+Critère
+Description
+Collecte
+Notes
+Transport matériel résiduel
+Déchets vers centre de tri, incinérateur, décharge
+km
+Empreinte finale
+Récupération/réemploi
+Matériel réutilisable pour futurs événements
+%
+Allonge durée de vie
+
+PARTIE 8 : COMMUNICATION ET SENSIBILISATION
+8.1 Avant l'événement
+Critère
+Description
+Collecte
+Notes
+Promotion dématérialisée
+% digital vs papier
+%
+Affiche électronique, email
+Incitation covoiturage
+Plateforme, annonces, stationnement gratuit covoiturage
+Oui/Non
+Réduction de 30-50% possible
+Transports publics promus
+Informations, passes gratuites, partenariat
+Oui/Non
+Facilite accessibilité
+Option téléparticipation
+Streaming, participation virtuelle proposée
+Oui/Non
+Réduit empreinte certains participants
+Communication carbone
+Participants informés du bilan CO₂, défis
+Oui/Non
+Conscientisation
+8.2 Pendant l'événement
+Critère
+Description
+Collecte
+Notes
+Tri des déchets visible
+Signalisation, sensibilisation participants
+Oui/Non
+Encourage participation
+Animations durabilité
+Stands, ateliers, conférences sur carbone
+Oui/Non
+Renforce messages
+
+
+
+8.3 Après l'événement
+Critère
+Description
+Collecte
+Notes
+Rapport carbone publié
+Résultats communiqués à participants/public
+Oui/Non
+Transparence, accountability
+Objectifs de réduction 2025+
+Améliorations engagées
+Texte
+Accountability
+Suivi des améliorations
+Mesures implémentées l'année suivante
+Oui/Non
+Itération continue
+
+PARTIE 9 : DONNÉES OPTIONNELLES POUR ÉVÉNEMENTS COMPLEXES
+9.1 Événements avec spectacle/divertissement
+| Critère | Description | Notes | |---------|-------------|--------|---| | Équipements de scène | Lumières, sonorisation, projections | Haute consommation électrique | | Artistes et personnel scénique | Transport des équipes, hôtel | À ajouter aux trajets | | Décoration éphémère | Construction, stockage, récupération post-événement | Carbone de production |
+9.2 Événements avec excursions/activités
+| Critère | Description | Notes | |---------|-------------|--------|---| | Activités nature | Randonnée, kayak, visite (impact faible mais à documenter) | Trajets + équipement | | Visites touristiques | Bus, guide, hébergement temporaire | Transports collectifs = avantage | | Activités sportives | Golf, ski, équitation (carbone élevé) | À évaluer spécifiquement |
+9.3 Événements récurrents (congrès annuels, formations mensuelles)
+| Critère | Description | Notes | |---------|-------------|--------|---| | Localisation variable | Change de ville chaque année | Influence transport international | | Cumulatif annuel | Somme empreinte × récurrence | Peut être significatif si fréquent | | Améliorations progressives | Réduits chaque édition | Mesure fidélité à objectifs climat |
+
+
+
+
+PARTIE 10 : CALCUL SYNTHÉTIQUE ET RÉSULTATS
+10.1 Formule d'estimation simple
+Empreinte carbone totale (kg CO₂e) =   (Transport participants) +   (Transport matériel) +   (Alimentation) + 
+  (Énergie du lieu) +   (Consommables) +   (Hébergement) +   (Équipements) -   (Réductions : covoiturage, virtuel, recyclage)
+10.2 Résultats par participant
+Métrique
+Calcul
+Interprétation
+Empreinte totale
+kg CO₂e
+Valeur absolue
+Par participant
+kg CO₂e ÷ nombre participants
+Comparabilité
+Par jour de participation
+kg CO₂e ÷ (nombre participants × nombre jours)
+Intensité
+Comparé à référence
+% vs événement type régional
+Benchmark
+
+10.3 Exemple de comparaison
+	•	Événement classique 100 personnes, 2 jours : ~4-8 tonnes CO₂e (40-80 kg/personne)
+	•	Même événement avec optimisations : ~1.5-3 tonnes CO₂e (15-30 kg/personne) : réduction 50-60%
+PARTIE 11 : LEVIERS DE RÉDUCTION UNIVERSELS
+Applicables à tout type d'organisation, tous événements :
+Réduction rapide (faible coût, haut impact)
+	•	Promotion transports collectifs : réduction 30-50% émissions transport
+	•	Réduction papier : 80% moins carbone dématérialisé
+	•	Menu végétarisé : réduction 30-60% alimentation
+	•	Récupération déchets : réduit empreinte finale 40-80%
+	•	Éliminer boissons en bouteille : utiliser eau du robinet filtrée, carafes réutilisables
+Réduction moyen terme (moyen coût, moyen impact)
+	•	Événement hybride : 20-40% participants virtuels = 20-40% transport économisé
+	•	Alimentation 100% locale : réduction 40-60% comparé à importé
+	•	Hébergement plus proche : réduit trajets additionnels
+	•	Électricité renouvelable : si lieu offre option (quasi neutre en Québec déjà)
+Réduction long terme (investissement, transformation)
+	•	Virtuel complet : réduction 90%+ émissions (abandon hébergement, transports)
+	•	Cyclicité réduite : événements biennaux au lieu annuels
+	•	Carbone compensé : projet reforestation régionale (si autres leviers épuisés)
+
+
+	•	Facteurs d’émission
+
+Combustible
+Facteur d’émission typique
+Unité
+Source / Référence
+Essence (automobile)
+2,307 g CO₂ / L
+g CO₂ / litre
+Guide de quantification des émissions — Transition énergétique Québec (transitionenergetique.gouv.qc.ca)
+Essence (automobile) (émission GES équivalent, tous gaz)
+~2,317 g CO₂e / L
+g CO₂e / litre
+Même guide 
+Diesel routier (véhicule)
+2,6805 kg CO₂ / L
+kg CO₂ / litre
+Module parcs de véhicules — Infrastructure Canada (logement-infrastructure.canada.ca)
+Diesel routier (tous gaz équivalents)
+~2,747 kg CO₂e / L
+kg CO₂e / litre
+Même source. (logement-infrastructure.canada.ca)
+Propane (véhicule)
+1,515 g CO₂ / L
+g CO₂ / litre
+Guide Québec 
+Propane (équivalent GES)
+~1,539 g CO₂e / L
+g CO₂e / litre
+Même guide. 
+Essence d’aviation
+2,325 g CO₂ / L
+g CO₂ / litre
+Guide Québec 
+Kérosène (carburéacteur)
+2,560 g CO₂ / L
+g CO₂ / litre
+Guide Québec 
+Charbon (bitumineux, selon France)
+~4,0 t CO₂ / tep
+tonnes CO₂ par tonne équivalent pétrole (tep)
+Statistiques Clés Climat France (statistiques.developpement-durable.gouv.fr)
+Lignite
+~4,2 t CO₂ / tep
+tonne CO₂ / tep
+Statistiques Clés Climat France (statistiques.developpement-durable.gouv.fr)
+
+
+
+Facteurs d'émission de référence (Québec) :
+	•	Voiture essence moyenne : ~2,3 kg CO₂/L ≈ 230 g CO₂/km (4-5 L/100km)
+	•	Voiture diesel : ~2,7 kg CO₂/L ≈ 250 g CO₂/km
+	•	Voiture électrique : ~80 g CO₂/km (électricité québécoise)
+	•	Train régional : ~50 g CO₂/km/personne
+	•	Bus urbain : ~100 g CO₂/km/personne
+	•	Avion court-courrier (< 500 km) : ~250 g CO₂/km/personne
+	•	Avion moyen-courrier (500-1500 km) : ~180 g CO₂/km/personne
+	•	Avion long-courrier (> 1500 km) : ~150 g CO₂/km/personne
+Facteurs d'émission alimentaires (moyennes) :
+	•	Viande bovine : ~25 kg CO₂/kg (production, transport)
+	•	Viande porcine : ~12 kg CO₂/kg
+	•	Poulet : ~6 kg CO₂/kg
+	•	Poisson d'élevage : ~15 kg CO₂/kg
+	•	Produits laitiers : ~3-4 kg CO₂/kg
+	•	Légumes/fruits locaux : ~0,5-1 kg CO₂/kg
+	•	Légumes/fruits importés : ~2-3 kg CO₂/kg
+	•	Eau en bouteille (1L plastique) : ~0,3 kg CO₂/L (transport inclus)
+	•	Café (1 tasse) : ~0,1-0,2 kg CO₂
+Facteurs régionaux :
+	•	Électricité québécoise : ~15-20 g CO₂/kWh (très bas carbone) [voir note méthodologique : utiliser 34,5 g éq. CO₂/kWh, base cycle de vie, pour tout bilan GES corporatif — Hydro-Québec; MELCCFP, 2025]
+	•	Chauffage gaz : ~200 g CO₂/kWh
+	•	Chauffage fioul : ~280 g CO₂/kWh
+Benchmark hébergement :
+	•	Hôtel 5 étoiles : ~15-25 kg CO₂/nuit/personne
+	•	Hôtel 3 étoiles : ~8-12 kg CO₂/nuit/personne
+	•	Auberge simple : ~5-8 kg CO₂/nuit/personne
+	•	Camping/gîte : ~2-4 kg CO₂/nuit/personne
+
+
+
+Portée et limites du document
+Ce document constitue un cadre de conception méthodologique. Il décrit les principes, la structure, les formules de calcul et les sources retenues pour l'outil d'évaluation d'impact environnemental du territoire de la MRC de L'Érable. Il ne couvre pas la faisabilité technique de développement (choix de plateforme, hébergement, architecture logicielle), les contraintes budgétaires, ni les aspects de protection des renseignements personnels liés à la gestion des comptes utilisateurs — ces éléments devront faire l'objet d'une analyse complémentaire avant la mise en œuvre.
+Références bibliographiques
+Sources gouvernementales et normatives (Québec et international)
+• Ministère de l'Environnement, de la Lutte contre les changements climatiques, de la Faune et des Parcs (MELCCFP). Guide de quantification des émissions de gaz à effet de serre, février 2025, 126 p. — https://www.environnement.gouv.qc.ca/changements/ges/guide-quantification/guide-quantification-ges.pdf
+• MELCCFP. Guide méthodologique pour la réalisation d'un inventaire des émissions de GES pour un organisme municipal. — https://cdn-contenu.quebec.ca/cdn-contenu/adm/min/environnement/publications-adm/plan-economie-verte/programmes/accelerer-transition-locale/guide-methodologique-inventaire-ges-organisme-municipal.pdf
+• MELCCFP. Directives pour la quantification des réductions d'émissions de GES liées aux actions du Plan pour une économie verte 2030. — https://cdn-contenu.quebec.ca/cdn-contenu/adm/min/environnement/publications-adm/plan-economie-verte/outils/directives-quantification.pdf
+• MELCCFP. Inventaire québécois des émissions de gaz à effet de serre (mise à jour annuelle). — https://www.environnement.gouv.qc.ca/changements/ges/index.htm
+• Hydro-Québec. Taux d'émission de GES associés à l'électricité. — https://www.hydroquebec.com/developpement-durable/documentation-specialisee/taux-emission-ges.html
+• Hydro-Québec. Estimation des émissions directes de GES associées à l'électricité (données ouvertes). — https://www.hydroquebec.com/documents-donnees/donnees-ouvertes/estimation-emissions-directes-ges/
+• Organisation internationale de normalisation. ISO 14064-1:2018 — Gaz à effet de serre — Partie 1 : Spécifications et lignes directrices, au niveau des organismes, pour la quantification et la déclaration des émissions et suppressions de gaz à effet de serre.
+• ISO 14064-2:2019 — Partie 2 : quantification, surveillance et déclaration des réductions d'émissions ou des augmentations de suppressions de GES au niveau des projets.
+• ISO 14064-3:2019 — Partie 3 : spécifications et lignes directrices pour la validation et la vérification des déclarations de GES.
+• Greenhouse Gas Protocol. Corporate Accounting and Reporting Standard; Corporate Value Chain (Scope 3) Accounting and Reporting Standard. — https://ghgprotocol.org/
+• Transition énergétique Québec / ministère de l'Économie, de l'Innovation et de l'Énergie. Facteurs d'émission de référence. — https://transitionenergetique.gouv.qc.ca/fileadmin/medias/pdf/FacteursEmission.pdf
+• Infrastructure Canada. Module GHG parcs de véhicules. — https://logement-infrastructure.canada.ca/pub/cl-oc/mobile-fleets-ghg-module-ges-parcs-vehicules-fra.html
+• ADEME. Base Carbone — facteurs d'émission (utilisée en complément pour les catégories non couvertes par les sources québécoises, notamment certains biens de consommation et aliments). — https://base-empreinte.ademe.fr/
+Sources régionales (portrait du territoire)
+• MRC de L'Érable. Portrait du territoire, 2022-2023.
+• Institut de la statistique du Québec (ISQ). Bulletin statistique régional — Centre-du-Québec, 2024.
+• Ministère de l'Agriculture, des Pêcheries et de l'Alimentation du Québec (MAPAQ). Profil bioalimentaire régional — Centre-du-Québec, 2022.
+• Ouranos. Vers l'adaptation — Synthèse des connaissances sur les changements climatiques au Québec, édition 2023.
+Documents internes du projet
+• Chaire de recherche sur la transition écologique (ESG UQAM) / Campus de la transition écologique. La Boussole de la transition — Guide pour la création d'ateliers participatifs, v.2, juillet 2024.
+• CDC de L'Érable. Boussole collective de la transition — Synthèse des résultats, 2025.
+• CDC de L'Érable. Tableau des enjeux et impacts des changements climatiques — Atelier 4, 2025.
+• CDC de L'Érable. Tableau des actions prioritaires — Atelier 4, 2025.
+• CDC de L'Érable. Plan d'action climatique du territoire — MRC de L'Érable et Centre-du-Québec, 2025.
+• Framework Proposal — cadre stratégique du projet en huit facteurs critiques de succès, 2025.
