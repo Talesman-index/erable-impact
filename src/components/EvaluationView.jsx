@@ -544,7 +544,7 @@ export default function EvaluationView({ onBackHome }) {
 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '12px' }}>
                   {[
-                    { id: 'education', name: 'Éducation & Scolaire', icon: GraduationCap, badge: '5-10 min' },
+                    { id: 'education', name: 'Éducation & Scolaire', icon: GraduationCap, badge: 'Établissements' },
                     { id: 'environnement', name: 'Environnement & Foresterie', icon: Trees, badge: 'Conservation' },
                     { id: 'agriculture', name: 'Agriculture & Érablières', icon: Wheat, badge: '43% Emplois' },
                     { id: 'sante', name: 'Santé & Services Sociaux', icon: HeartPulse, badge: 'CIUSSS & Cliniques' },
