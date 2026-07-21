@@ -3,9 +3,8 @@ import React from 'react';
 export default function Logo({ size = 'normal', lightText = false, onClick }) {
   // Proportional scaling for a compact, tight-knit layout
   const scale = size === 'large' ? 1.4 : size === 'small' ? 0.75 : 1;
+  const height = 44 * scale;
 
-  // Colors matching user screenshot: White text on dark header, Dark Slate on light header
-  const symbolStroke = lightText ? '#ffffff' : '#0f172a';
   const textColor = lightText ? '#ffffff' : '#0f172a';
   const badgeBg = '#dbfc49'; // Neon Lime Yellow pill badge
   const badgeTextColor = '#0f172a'; // Dark Navy text inside GES pill
@@ -23,34 +22,20 @@ export default function Logo({ size = 'normal', lightText = false, onClick }) {
       }}
       className="erable-ges-official-logo"
     >
-      {/* Exact 1:1 Vector SVG of the Starburst / Compass Star Emblem from screenshot */}
-      <svg 
-        width={42 * scale} 
-        height={42 * scale} 
-        viewBox="0 0 100 100" 
-        fill="none" 
-        xmlns="http://www.w3.org/2000/svg"
-        style={{ flexShrink: 0, display: 'block' }}
-      >
-        <path 
-          d="
-            M 50,4 
-            L 55,28 L 68,14 L 64,33 
-            L 83,23 L 72,40 L 96,50 
-            L 72,60 L 83,77 L 64,67 
-            L 68,86 L 55,72 L 50,96 
-            L 45,72 L 32,86 L 36,67 
-            L 17,77 L 28,60 L 4,50 
-            L 28,40 L 17,23 L 36,33 
-            L 32,14 L 45,28 Z
-          " 
-          stroke={symbolStroke} 
-          strokeWidth="5.5" 
-          strokeLinejoin="miter"
-          strokeLinecap="square"
-          fill="none" 
-        />
-      </svg>
+      {/* Official Symbol from icon.png / icon-transparent.png with 0 Background */}
+      <img 
+        src="/icon-transparent.png" 
+        alt="Symbol" 
+        onError={(e) => { e.target.src = '/icon.png'; }}
+        style={{ 
+          height: `${height}px`, 
+          width: 'auto', 
+          maxHeight: `${height}px`,
+          objectFit: 'contain',
+          display: 'block',
+          filter: lightText ? 'brightness(1.1) drop-shadow(0 2px 6px rgba(255,255,255,0.4))' : 'none'
+        }} 
+      />
 
       {/* Typography: ERABLE + Neon Lime GES Pill */}
       <div style={{ display: 'flex', alignItems: 'center', gap: `${6 * scale}px`, lineHeight: 1 }}>
