@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import WhySection from './components/WhySection';
+import HowItWorksSection from './components/HowItWorksSection';
 import CategoriesSection from './components/CategoriesSection';
 import AboutSection from './components/AboutSection';
 import ImpactSection from './components/ImpactSection';
@@ -65,7 +66,7 @@ export default function App() {
   }
 
   if (view === 'charte') {
-    return <CharteEngagementPage onBackHome={() => setView('landing')} />;
+    return <CharteEngagementPage onBackHome={() => setView('landing')} onStartEval={() => setView('evaluation')} />;
   }
 
   return (
@@ -81,6 +82,7 @@ export default function App() {
       <main>
         <HeroSection onStartEval={() => setView('evaluation')} />
         <WhySection onStartEval={() => setView('evaluation')} />
+        <HowItWorksSection onStartEval={() => setView('evaluation')} />
         <CategoriesSection onStartEval={() => setView('evaluation')} />
         <AboutSection onStartEval={() => setView('evaluation')} />
         <GuideFAQSection onStartEval={() => setView('evaluation')} />

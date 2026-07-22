@@ -35,9 +35,10 @@ export default function Navbar({ onOpenLogin, onOpenRegister, onStartEval, onOpe
 
         {/* Desktop Nav */}
         <nav className="main-nav desktop-only-nav">
-          <a href="#why">Bénéfices</a>
-          <a href="#measure">Indicateurs</a>
-          <a href="#regional">Vision Régionale</a>
+          <a href="#why">Mission</a>
+          <a href="#how-it-works">Mode d'emploi</a>
+          <a href="#measure">Secteurs</a>
+          <a href="#regional">Partenaires</a>
           <a href="#guide-faq" onClick={onOpenGuide}>
             Guide &amp; FAQ
           </a>
