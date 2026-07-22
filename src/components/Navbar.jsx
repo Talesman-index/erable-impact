@@ -114,7 +114,7 @@ export default function Navbar({ onOpenLogin, onOpenRegister, onStartEval, onOpe
             <ArrowUpRight size={18} />
           </button>
           
-          <button onClick={() => { closeMobile(); onOpenRegister(); }} className="btn-mobile-drawer-login" style={{ background: '#f0fdf4', color: '#059669', border: '1px solid #bbf7d0' }}>
+          <button onClick={() => { closeMobile(); onOpenRegister(); }} className="btn-mobile-drawer-login" style={{ background: '#dcfc49', color: '#052e1e', border: '1px solid #dcfc49', fontWeight: 800 }}>
             <UserPlus size={18} />
             <span>Créer un compte</span>
           </button>

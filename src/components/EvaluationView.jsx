@@ -14,7 +14,7 @@ export default function EvaluationView({ onBackHome }) {
   // Profile & Location State (Table acteurs)
   const [profile, setProfile] = useState('institution'); 
   const [actorStatus, setActorStatus] = useState('public'); // 'public' | 'private' | 'obnl'
-  const [location, setLocation] = useState('Région de L\'Érable');
+  const [location, setLocation] = useState('Votre Territoire / Collectivité');
   const [postalCode, setPostalCode] = useState('G6L 1A1');
   const [sector, setSector] = useState('education'); 
   const [orgSize, setOrgSize] = useState('medium'); // 'small' | 'medium' | 'large'
@@ -281,7 +281,7 @@ export default function EvaluationView({ onBackHome }) {
           </div>
 
           <div className="eval-header-actions">
-            <span className="eval-user-badge" style={{ background: '#f0fdf4', color: '#059669', border: '1px solid #bbf7d0', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+            <span className="eval-user-badge" style={{ background: '#052e1e', color: '#dcfc49', border: '1px solid #dcfc49', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
               <ShieldCheck size={14} /> DQI: {globalDqiPct}%
             </span>
             <button onClick={onBackHome} className="btn-eval-back">
@@ -299,7 +299,7 @@ export default function EvaluationView({ onBackHome }) {
           {step === 0 && (
             <div className="eval-step active onboarding-step-view">
               <div className="onboarding-header">
-                <h2>Évaluation de l'empreinte carbone (L'Érable)</h2>
+                <h2>Évaluation de l'empreinte carbone territoriale</h2>
                 <p>Choisissez le périmètre d'analyse selon les spécifications du Cahier de collecte</p>
               </div>
 
@@ -310,10 +310,10 @@ export default function EvaluationView({ onBackHome }) {
                   style={{ padding: '20px', borderRadius: '18px' }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
-                    <Building size={22} style={{ color: evalTarget === 'organisation' ? '#059669' : '#64748b' }} />
+                    <Building size={22} style={{ color: evalTarget === 'organisation' ? '#dcfc49' : '#64748b' }} />
                     <span className="tile-option-title" style={{ fontSize: '1.05rem' }}>Évaluation Organisationnelle</span>
                   </div>
-                  <span className="tile-option-subtitle">Bilan annuel approfondi structuré pour les 12 secteurs de L'Érable.</span>
+                  <span className="tile-option-subtitle">Bilan annuel approfondi structuré pour l'ensemble des secteurs de votre collectivité.</span>
                 </div>
 
                 <div 
@@ -322,10 +322,10 @@ export default function EvaluationView({ onBackHome }) {
                   style={{ padding: '20px', borderRadius: '18px' }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
-                    <Ticket size={22} style={{ color: evalTarget === 'event' ? '#059669' : '#64748b' }} />
+                    <Ticket size={22} style={{ color: evalTarget === 'event' ? '#dcfc49' : '#64748b' }} />
                     <span className="tile-option-title" style={{ fontSize: '1.05rem' }}>Événement &amp; Activité Ponctuelle</span>
                   </div>
-                  <span className="tile-option-subtitle">Réunions, conférences, festivals, ateliers et spectacles dans L'Érable.</span>
+                  <span className="tile-option-subtitle">Réunions, conférences, festivals, ateliers et rassemblements locaux.</span>
                 </div>
               </div>
 
@@ -344,7 +344,7 @@ export default function EvaluationView({ onBackHome }) {
                 /* === ÉVÉNEMENT & ACTIVITÉ PONCTUELLE : ÉTAPE 1 === */
                 <div>
                   <div className="onboarding-header" style={{ textAlign: 'center', marginBottom: '28px' }}>
-                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#f0fdf4', border: '1px solid #bbf7d0', color: '#059669', padding: '6px 16px', borderRadius: '9999px', fontWeight: 700, fontSize: '0.88rem', marginBottom: '12px' }}>
+                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#052e1e', border: '1px solid #052e1e', color: '#dcfc49', padding: '6px 16px', borderRadius: '9999px', fontWeight: 800, fontSize: '0.88rem', marginBottom: '12px' }}>
                       <Ticket size={18} />
                       Évaluation d'Événement &amp; Activité Ponctuelle
                     </div>
@@ -427,7 +427,7 @@ export default function EvaluationView({ onBackHome }) {
                     <button className="btn-eval-back-step" onClick={() => setStep(0)}>
                       <ArrowLeft size={16} /> Retour au périmètre
                     </button>
-                    <button className="btn-eval-next" onClick={() => setStep(2)} style={{ background: '#059669', color: '#ffffff' }}>
+                    <button className="btn-eval-next" onClick={() => setStep(2)} style={{ background: '#1b4332', color: '#ffffff', border: 'none', borderRadius: '9999px', padding: '12px 28px', fontWeight: 700 }}>
                       Continuer vers le Site &amp; la Scène <ArrowRight size={18} />
                     </button>
                   </div>
@@ -447,7 +447,7 @@ export default function EvaluationView({ onBackHome }) {
               {/* SECTION 1: TYPE D'ACTEUR (4 CARTES VISUELLES) */}
               <div style={{ marginBottom: '32px' }}>
                 <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--color-secondary)', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span style={{ width: '28px', height: '28px', borderRadius: '50%', background: '#f0fdf4', color: 'var(--color-primary)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.9rem', fontWeight: 800 }}>1</span>
+                  <span style={{ width: '28px', height: '28px', borderRadius: '50%', background: '#1b4332', color: '#ffffff', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.9rem', fontWeight: 700 }}>1</span>
                   1. Quel est votre type d'acteur ?
                 </h3>
 
@@ -468,26 +468,27 @@ export default function EvaluationView({ onBackHome }) {
                           setActorStatus(act.defaultStatus);
                         }}
                         style={{
-                          background: isSelected ? '#f0fdf4' : '#ffffff',
-                          border: isSelected ? '2px solid var(--color-primary)' : '1px solid #e2e8f0',
+                          background: isSelected ? '#f2f7f4' : '#ffffff',
+                          color: isSelected ? '#1b4332' : 'var(--color-secondary)',
+                          border: isSelected ? '2px solid #1b4332' : '1px solid #e2e8f0',
                           borderRadius: '16px',
                           padding: '18px',
                           cursor: 'pointer',
                           transition: 'all 0.2s ease',
-                          boxShadow: isSelected ? '0 6px 16px rgba(5, 150, 105, 0.15)' : '0 2px 6px rgba(0,0,0,0.02)',
+                          boxShadow: isSelected ? '0 4px 14px rgba(27, 67, 50, 0.12)' : '0 2px 6px rgba(0,0,0,0.02)',
                           display: 'flex',
                           flexDirection: 'column',
                           gap: '8px'
                         }}
                       >
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                          <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: isSelected ? 'var(--color-primary)' : '#f1f5f9', color: isSelected ? '#ffffff' : '#475569', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: isSelected ? '#1b4332' : '#f1f5f9', color: isSelected ? '#ffffff' : '#475569', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <IconComp size={20} />
                           </div>
-                          {isSelected && <CheckCircle2 size={18} style={{ color: 'var(--color-primary)' }} />}
+                          {isSelected && <CheckCircle2 size={18} style={{ color: '#1b4332' }} />}
                         </div>
-                        <h4 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--color-secondary)', margin: 0 }}>{act.title}</h4>
-                        <p style={{ fontSize: '0.82rem', color: '#64748b', margin: 0, lineHeight: 1.4 }}>{act.desc}</p>
+                        <h4 style={{ fontSize: '1rem', fontWeight: 700, color: isSelected ? '#1b4332' : 'var(--color-secondary)', margin: 0 }}>{act.title}</h4>
+                        <p style={{ fontSize: '0.82rem', color: isSelected ? '#475569' : '#64748b', margin: 0, lineHeight: 1.4 }}>{act.desc}</p>
                       </div>
                     );
                   })}
@@ -497,7 +498,7 @@ export default function EvaluationView({ onBackHome }) {
               {/* SECTION 2: STATUT JURIDIQUE & CATEGORIE (3 CARTES) */}
               <div style={{ marginBottom: '32px' }}>
                 <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--color-secondary)', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span style={{ width: '28px', height: '28px', borderRadius: '50%', background: '#f0fdf4', color: 'var(--color-primary)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.9rem', fontWeight: 800 }}>2</span>
+                  <span style={{ width: '28px', height: '28px', borderRadius: '50%', background: '#1b4332', color: '#ffffff', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.9rem', fontWeight: 700 }}>2</span>
                   2. Statut &amp; Catégorie de recommandation
                 </h3>
 
@@ -513,8 +514,9 @@ export default function EvaluationView({ onBackHome }) {
                         key={st.id}
                         onClick={() => setActorStatus(st.id)}
                         style={{
-                          background: isSelected ? '#ecfdf5' : '#ffffff',
-                          border: isSelected ? '2px solid var(--color-primary)' : '1px solid #e2e8f0',
+                          background: isSelected ? '#f2f7f4' : '#ffffff',
+                          color: isSelected ? '#1b4332' : 'var(--color-secondary)',
+                          border: isSelected ? '2px solid #1b4332' : '1px solid #e2e8f0',
                           borderRadius: '14px',
                           padding: '16px',
                           cursor: 'pointer',
@@ -522,13 +524,13 @@ export default function EvaluationView({ onBackHome }) {
                         }}
                       >
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
-                          <span style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-secondary)' }}>{st.title}</span>
-                          {isSelected && <CheckCircle2 size={16} style={{ color: 'var(--color-primary)' }} />}
+                          <span style={{ fontSize: '0.95rem', fontWeight: 700, color: isSelected ? '#1b4332' : 'var(--color-secondary)' }}>{st.title}</span>
+                          {isSelected && <CheckCircle2 size={16} style={{ color: '#1b4332' }} />}
                         </div>
-                        <span style={{ display: 'inline-block', fontSize: '0.75rem', fontWeight: 700, color: '#065f46', background: '#dcfce7', padding: '2px 8px', borderRadius: '6px', marginBottom: '6px' }}>
+                        <span style={{ display: 'inline-block', fontSize: '0.75rem', fontWeight: 700, color: '#1b4332', background: '#e2ece9', padding: '2px 8px', borderRadius: '6px', marginBottom: '6px' }}>
                           {st.badge}
                         </span>
-                        <p style={{ fontSize: '0.8rem', color: '#64748b', margin: 0 }}>{st.desc}</p>
+                        <p style={{ fontSize: '0.8rem', color: isSelected ? '#475569' : '#64748b', margin: 0 }}>{st.desc}</p>
                       </div>
                     );
                   })}
@@ -538,7 +540,7 @@ export default function EvaluationView({ onBackHome }) {
               {/* SECTION 3: SECTEUR D'ACTIVITE (GRILLE DE CARTES SECTORIELLES) */}
               <div style={{ marginBottom: '32px' }}>
                 <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--color-secondary)', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span style={{ width: '28px', height: '28px', borderRadius: '50%', background: '#f0fdf4', color: 'var(--color-primary)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.9rem', fontWeight: 800 }}>3</span>
+                  <span style={{ width: '28px', height: '28px', borderRadius: '50%', background: '#1b4332', color: '#ffffff', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.9rem', fontWeight: 700 }}>3</span>
                   3. Votre secteur d'activité dans L'Érable
                 </h3>
 
@@ -563,9 +565,9 @@ export default function EvaluationView({ onBackHome }) {
                         key={sec.id}
                         onClick={() => setSector(sec.id)}
                         style={{
-                          background: isSelected ? 'var(--color-primary)' : '#ffffff',
+                          background: isSelected ? '#1b4332' : '#ffffff',
                           color: isSelected ? '#ffffff' : 'var(--color-secondary)',
-                          border: isSelected ? '2px solid var(--color-primary-hover)' : '1px solid #e2e8f0',
+                          border: isSelected ? '2px solid #1b4332' : '1px solid #e2e8f0',
                           borderRadius: '14px',
                           padding: '14px',
                           cursor: 'pointer',
@@ -573,14 +575,14 @@ export default function EvaluationView({ onBackHome }) {
                           display: 'flex',
                           alignItems: 'center',
                           gap: '12px',
-                          boxShadow: isSelected ? '0 4px 12px rgba(5, 150, 105, 0.25)' : 'none'
+                          boxShadow: isSelected ? '0 4px 12px rgba(27, 67, 50, 0.2)' : 'none'
                         }}
                       >
-                        <div style={{ width: '34px', height: '34px', borderRadius: '8px', background: isSelected ? 'rgba(255,255,255,0.2)' : '#f1f5f9', color: isSelected ? '#ffffff' : 'var(--color-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                        <div style={{ width: '34px', height: '34px', borderRadius: '8px', background: isSelected ? 'rgba(255,255,255,0.2)' : '#f1f5f9', color: isSelected ? '#ffffff' : '#1b4332', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                           <SecIcon size={18} />
                         </div>
                         <div style={{ flex: 1, overflow: 'hidden' }}>
-                          <div style={{ fontSize: '0.88rem', fontWeight: 700, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{sec.name}</div>
+                          <div style={{ fontSize: '0.88rem', fontWeight: 700, color: isSelected ? '#ffffff' : 'inherit', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{sec.name}</div>
                           <div style={{ fontSize: '0.72rem', opacity: isSelected ? 0.9 : 0.6 }}>{sec.badge}</div>
                         </div>
                         {isSelected && <CheckCircle2 size={16} style={{ color: '#ffffff', flexShrink: 0 }} />}
@@ -593,7 +595,7 @@ export default function EvaluationView({ onBackHome }) {
               {/* SECTION 4: LOCALISATION DANS LA MRC DE L'ÉRABLE */}
               <div style={{ background: '#f8fafc', padding: '24px', borderRadius: '18px', border: '1px solid #e2e8f0', marginBottom: '32px' }}>
                 <h3 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#0f172a', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <MapPin size={18} style={{ color: '#059669' }} />
+                  <MapPin size={18} style={{ color: '#1b4332' }} />
                   4. Localisation &amp; Ancrage territorial (MRC de L'Érable)
                 </h3>
 
@@ -625,7 +627,7 @@ export default function EvaluationView({ onBackHome }) {
                 <button className="btn-eval-back-step" onClick={() => setStep(0)}>
                   <ArrowLeft size={16} /> Retour à l'accueil
                 </button>
-                <button className="btn-eval-next" onClick={() => setStep(2)} style={{ background: '#059669', color: '#ffffff' }}>
+                <button className="btn-eval-next" onClick={() => setStep(2)} style={{ background: '#1b4332', color: '#ffffff', border: 'none', borderRadius: '9999px', padding: '12px 28px', fontWeight: 700 }}>
                   Continuer vers la Boussole UQAM <ArrowRight size={18} />
                 </button>
               </div>
@@ -640,7 +642,7 @@ export default function EvaluationView({ onBackHome }) {
               {evalTarget === 'event' ? (
                 <div>
                   <div className="onboarding-header" style={{ textAlign: 'center', marginBottom: '24px' }}>
-                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#f0fdf4', border: '1px solid #bbf7d0', color: '#059669', padding: '6px 16px', borderRadius: '9999px', fontWeight: 700, fontSize: '0.88rem', marginBottom: '12px' }}>
+                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#052e1e', border: '1px solid #052e1e', color: '#dcfc49', padding: '6px 16px', borderRadius: '9999px', fontWeight: 800, fontSize: '0.88rem', marginBottom: '12px' }}>
                       <Building size={18} />
                       Infrastructures &amp; Lieu d'Accueil
                     </div>
@@ -694,7 +696,7 @@ export default function EvaluationView({ onBackHome }) {
               ) : (
                 <div>
                   <div className="onboarding-header" style={{ textAlign: 'center', marginBottom: '24px' }}>
-                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#f0fdf4', border: '1px solid #bbf7d0', color: '#059669', padding: '6px 16px', borderRadius: '9999px', fontWeight: 700, fontSize: '0.88rem', marginBottom: '12px' }}>
+                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#052e1e', border: '1px solid #052e1e', color: '#dcfc49', padding: '6px 16px', borderRadius: '9999px', fontWeight: 800, fontSize: '0.88rem', marginBottom: '12px' }}>
                       <Compass size={18} />
                       Partenariat Chaire de Recherche UQAM
                     </div>
@@ -1118,10 +1120,10 @@ export default function EvaluationView({ onBackHome }) {
 
                   {/* Header Stats */}
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px', marginBottom: '24px' }}>
-                    <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '20px', borderRadius: '18px', textAlign: 'center' }}>
-                      <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', color: '#059669', fontWeight: 800 }}>ÉMISS. BRUTES TOTALE</div>
-                      <div style={{ fontSize: '2.2rem', fontWeight: 900, color: '#065f46' }}>
-                        {((eventParticipants * eventAvgDistanceKm * 0.15 + eventGeneratorFuelLiters * 2.68 + eventMealsCount * 2.2 + eventHotelNightsCount * 25) / 1000).toFixed(2)} <span style={{ fontSize: '1rem' }}>tCO₂e</span>
+                    <div style={{ background: '#052e1e', border: '1px solid #052e1e', color: '#ffffff', padding: '20px', borderRadius: '18px', textAlign: 'center' }}>
+                      <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', color: '#dcfc49', fontWeight: 800 }}>ÉMISS. BRUTES TOTALE</div>
+                      <div style={{ fontSize: '2.2rem', fontWeight: 900, color: '#ffffff' }}>
+                        {((eventParticipants * eventAvgDistanceKm * 0.15 + eventGeneratorFuelLiters * 2.68 + eventMealsCount * 2.2 + eventHotelNightsCount * 25) / 1000).toFixed(2)} <span style={{ fontSize: '1rem', color: '#dcfc49' }}>tCO₂e</span>
                       </div>
                     </div>
 
@@ -1137,12 +1139,12 @@ export default function EvaluationView({ onBackHome }) {
                   </div>
 
                   {/* Main Event Key Indicator Box: Per Participant Per Day */}
-                  <div className="results-summary-card" style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)', color: '#ffffff', padding: '32px', borderRadius: '24px', marginBottom: '24px', boxShadow: '0 10px 25px rgba(15,23,42,0.2)' }}>
+                  <div className="results-summary-card" style={{ background: 'linear-gradient(135deg, #052e1e 0%, #08442c 100%)', color: '#ffffff', padding: '32px', borderRadius: '24px', marginBottom: '24px', boxShadow: '0 10px 25px rgba(5,46,30,0.25)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
-                      <div style={{ fontSize: '0.88rem', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#dbfc49', fontWeight: 800 }}>
+                      <div style={{ fontSize: '0.88rem', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#dcfc49', fontWeight: 800 }}>
                         INDICATEUR CLÉ ÉVÉNEMENTIEL (BNQ 9700-253)
                       </div>
-                      <span style={{ background: '#dbfc49', color: '#0f172a', fontWeight: 800, fontSize: '0.78rem', padding: '4px 10px', borderRadius: '6px' }}>
+                      <span style={{ background: '#dcfc49', color: '#052e1e', fontWeight: 800, fontSize: '0.78rem', padding: '4px 10px', borderRadius: '6px' }}>
                         Périmètre Événement
                       </span>
                     </div>
@@ -1152,7 +1154,7 @@ export default function EvaluationView({ onBackHome }) {
                         ((eventParticipants * eventAvgDistanceKm * 0.15 + eventGeneratorFuelLiters * 2.68 + eventMealsCount * 2.2 + eventHotelNightsCount * 25)) /
                         Math.max(1, eventParticipants * eventDays)
                       ).toFixed(2)} 
-                      <span style={{ fontSize: '1.3rem', fontWeight: 700, color: '#dbfc49' }}>kg CO₂e / participant / jour</span>
+                      <span style={{ fontSize: '1.3rem', fontWeight: 700, color: '#dcfc49' }}>kg CO₂e / participant / jour</span>
                     </div>
 
                     <div style={{ display: 'flex', gap: '16px', fontSize: '0.9rem', color: '#cbd5e1', marginTop: '16px', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '16px', flexWrap: 'wrap' }}>
@@ -1171,8 +1173,8 @@ export default function EvaluationView({ onBackHome }) {
                     <button className="btn-eval-back-step" onClick={exportCSV} style={{ background: '#0f172a', color: '#ffffff' }}>
                       <Download size={16} /> Exporter Rapport Événement (CSV)
                     </button>
-                    <button className="btn-results-home" onClick={onBackHome} style={{ background: '#059669', color: '#ffffff', border: 'none', borderRadius: '12px', padding: '12px 24px', fontWeight: 700, cursor: 'pointer' }}>
-                      Enregistrer dans le Registre Événementiel de L'Érable
+                    <button className="btn-results-home" onClick={onBackHome} style={{ background: '#052e1e', color: '#dcfc49', border: 'none', borderRadius: '9999px', padding: '12px 28px', fontWeight: 800, cursor: 'pointer' }}>
+                      Enregistrer dans le Registre Événementiel
                     </button>
                   </div>
                 </div>
@@ -1181,14 +1183,14 @@ export default function EvaluationView({ onBackHome }) {
                 <div>
                   <div className="results-header-text" style={{ textAlign: 'center', marginBottom: '24px' }}>
                     <h2 className="step-question">Bilan Certifié &amp; Plan d'Action — {sector.toUpperCase()}</h2>
-                    <p className="step-hint">Structure conforme ISO 14064 &amp; Cahier de collecte CDC L'Érable</p>
+                    <p className="step-hint">Structure conforme ISO 14064 &amp; Cahier de collecte des territoires</p>
                   </div>
 
                   {/* DQI & Coverage Header Stats */}
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px', marginBottom: '24px' }}>
-                    <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '20px', borderRadius: '18px', textAlign: 'center' }}>
-                      <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', color: '#059669', fontWeight: 800 }}>ÉMISS. BRUTES (E_SOURCES)</div>
-                      <div style={{ fontSize: '2.2rem', fontWeight: 900, color: '#065f46' }}>{grossTotal} <span style={{ fontSize: '1rem' }}>tCO₂e</span></div>
+                    <div style={{ background: '#052e1e', border: '1px solid #052e1e', color: '#ffffff', padding: '20px', borderRadius: '18px', textAlign: 'center' }}>
+                      <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', color: '#dcfc49', fontWeight: 800 }}>ÉMISS. BRUTES (E_SOURCES)</div>
+                      <div style={{ fontSize: '2.2rem', fontWeight: 900, color: '#ffffff' }}>{grossTotal} <span style={{ fontSize: '1rem', color: '#dcfc49' }}>tCO₂e</span></div>
                     </div>
 
                     <div style={{ background: '#eff6ff', border: '1px solid #bfdbfe', padding: '20px', borderRadius: '18px', textAlign: 'center' }}>
@@ -1202,17 +1204,17 @@ export default function EvaluationView({ onBackHome }) {
                     </div>
                   </div>
 
-                  <div className="results-summary-card" style={{ background: '#0f172a', color: '#ffffff', padding: '28px', borderRadius: '24px', marginBottom: '24px' }}>
-                    <div style={{ fontSize: '0.82rem', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#34d399', fontWeight: 800 }}>
+                  <div className="results-summary-card" style={{ background: '#052e1e', color: '#ffffff', padding: '28px', borderRadius: '24px', marginBottom: '24px' }}>
+                    <div style={{ fontSize: '0.82rem', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#dcfc49', fontWeight: 800 }}>
                       EMPREINTE NETTE ESTIMÉE (E_NET)
                     </div>
                     <div style={{ fontSize: '3.2rem', fontWeight: 800, margin: '8px 0', fontFamily: 'var(--font-heading)', color: '#ffffff', display: 'flex', alignItems: 'baseline', gap: '8px' }}>
-                      {netTotal} <span style={{ fontSize: '1.2rem', fontWeight: 600, color: '#94a3b8' }}>tCO₂e / an</span>
+                      {netTotal} <span style={{ fontSize: '1.2rem', fontWeight: 600, color: '#dcfc49' }}>tCO₂e / an</span>
                     </div>
                     <div style={{ display: 'flex', gap: '16px', fontSize: '0.88rem', color: '#cbd5e1', marginTop: '12px' }}>
                       <span>Brut (E_sources) : <strong>{grossTotal} tCO₂e</strong></span>
                       <span>•</span>
-                      <span style={{ color: '#a7f3d0' }}>Séquestration/Actions (S) : <strong>-{sequestrationVal} tCO₂e</strong></span>
+                      <span style={{ color: '#dcfc49' }}>Séquestration/Actions (S) : <strong>-{sequestrationVal} tCO₂e</strong></span>
                       <span>•</span>
                       <span>Ratio : <strong>{perPersonVal} tCO₂e / pers</strong></span>
                     </div>
@@ -1222,7 +1224,7 @@ export default function EvaluationView({ onBackHome }) {
                     <button className="btn-eval-back-step" onClick={exportCSV} style={{ background: '#0f172a', color: '#ffffff' }}>
                       <Download size={16} /> Exporter Rapport (CSV)
                     </button>
-                    <button className="btn-results-home" onClick={onBackHome} style={{ background: '#059669', color: '#ffffff', border: 'none', borderRadius: '12px', padding: '12px 24px', fontWeight: 700, cursor: 'pointer' }}>
+                    <button className="btn-results-home" onClick={onBackHome} style={{ background: '#052e1e', color: '#dcfc49', border: 'none', borderRadius: '9999px', padding: '12px 28px', fontWeight: 800, cursor: 'pointer' }}>
                       Sauvegarder dans le Portrait Régional
                     </button>
                   </div>

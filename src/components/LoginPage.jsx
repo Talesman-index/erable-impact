@@ -40,15 +40,15 @@ export default function LoginPage({ onBackHome, onGoRegister }) {
                 <CheckCircle2 size={14} style={{ marginRight: 6 }} />
                 Plateforme Territoriale
               </span>
-              <h2>Pilotez l'impact environnemental de la MRC de L'Érable.</h2>
+              <h2>Pilotez l'impact environnemental de votre collectivité et territoire.</h2>
               <p>Accédez aux bilans GES, indicateurs et plans d'action personnalisés de votre organisation.</p>
 
               <div className="auth-hero-footer-notes">
                 <div className="auth-stat-chip">
-                  <strong>10</strong> Municipalités
+                  <strong>Multi</strong>-Territoires
                 </div>
                 <div className="auth-stat-chip">
-                  <strong>24 457</strong> Habitants
+                  <strong>24 457+</strong> Acteurs
                 </div>
               </div>
             </div>
@@ -128,7 +128,7 @@ export default function LoginPage({ onBackHome, onGoRegister }) {
               
               <div className="auth-security-note">
                 <ShieldCheck size={16} />
-                <span>Espace sécurisé réservé aux membres de la MRC de L'Érable</span>
+                <span>Espace sécurisé conforme à la Loi 25 et ouvert à tous les territoires</span>
               </div>
             </div>
           </div>

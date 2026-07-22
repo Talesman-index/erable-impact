@@ -15,7 +15,7 @@ export default function RegisterPage({ onBackHome, onGoLogin }) {
       alert('Les mots de passe ne correspondent pas.');
       return;
     }
-    alert(`Félicitations ${name} ! Votre compte pour la MRC de L'Érable a été créé avec succès.`);
+    alert(`Félicitations ${name} ! Votre compte a été créé avec succès.`);
     onGoLogin();
   };
 
@@ -47,8 +47,8 @@ export default function RegisterPage({ onBackHome, onGoLogin }) {
                 <CheckCircle2 size={14} style={{ marginRight: 6 }} />
                 Rejoignez la Transition
               </span>
-              <h2>Inscrivez votre organisation ou foyer dans la démarche régionale.</h2>
-              <p>Évaluez vos émissions, accédez aux subventions locales et mesurez votre impact dans la MRC de L'Érable.</p>
+              <h2>Inscrivez votre organisation ou foyer dans la démarche territoriale.</h2>
+              <p>Évaluez vos émissions, accédez aux subventions locales et mesurez votre impact dans votre collectivité.</p>
 
               <div className="auth-hero-footer-notes">
                 <div className="auth-stat-chip">
@@ -159,7 +159,7 @@ export default function RegisterPage({ onBackHome, onGoLogin }) {
                     onChange={(e) => setTerms(e.target.checked)} 
                     required
                   />
-                  <span>J'accepte la charte d'engagement de la MRC de L'Érable</span>
+                  <span>J'accepte la charte d'engagement de transition socioclimatique</span>
                 </label>
               </div>
 
@@ -179,7 +179,7 @@ export default function RegisterPage({ onBackHome, onGoLogin }) {
               
               <div className="auth-security-note">
                 <ShieldCheck size={16} />
-                <span>Espace sécurisé réservé aux membres de la MRC de L'Érable</span>
+                <span>Espace sécurisé conforme à la Loi 25 et ouvert à tous les territoires</span>
               </div>
             </div>
           </div>

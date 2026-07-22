@@ -1,99 +1,82 @@
 import React from 'react';
-import { Zap, Shield, Compass, ArrowUpRight, CheckCircle2, Activity } from 'lucide-react';
+import { Leaf, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 export default function WhySection({ onStartEval }) {
   return (
-    <section id="why" className="why-premium-section">
-      <div className="container why-premium-container">
-        {/* Editorial Header */}
-        <div className="why-premium-header reveal-on-scroll">
-          <h2 className="why-premium-title">
-            Un outil participatif au service de la transition de la <span className="highlight-text-gradient">MRC de L'Érable</span>.
+    <section id="why" className="section-padded" style={{ backgroundColor: '#ffffff' }}>
+      <div className="container">
+        
+        {/* Section Header with Centered Eco Pill Badge */}
+        <div className="eco-section-header reveal-on-scroll">
+          <div className="eco-pill-badge">
+            <span className="eco-badge-icon">
+              <Leaf size={14} />
+            </span>
+            <span>Mobilisation &amp; Transition Écologique</span>
+          </div>
+
+          <h2 className="eco-section-title">
+            Une démarche collective au service de la transition des collectivités et territoires
           </h2>
-          <p className="why-premium-desc">
-            Initiée par la CDC de L'Érable, cette plateforme accompagne citoyens, entreprises et institutions pour évaluer, suivre et coordonner les actions socioclimatiques à l'échelle du territoire.
+
+          <p className="eco-section-subtitle">
+            Initiée par la CDC de L'Érable comme projet pilote d'envergure, cette plateforme universelle accompagne citoyens, PME, institutions et municipalités pour évaluer, mesurer et piloter leur transition socioclimatique.
           </p>
+
+          <button onClick={onStartEval} className="eco-btn-action">
+            <span>Lancer mon évaluation</span>
+            <ArrowRight size={18} />
+          </button>
         </div>
 
-        {/* Harmonized Soft Premium Bento Grid (3 Columns) */}
-        <div className="why-premium-grid">
-          {/* Card 1: Évaluation sectorielle */}
-          <div className="why-premium-card has-bg-image reveal-on-scroll reveal-delay-1">
-            <div 
-              className="why-card-bg" 
-              style={{ backgroundImage: `url('/images/earth-globe-on-green-grass-with-autumn-leaves-2026-03-09-07-13-32-utc.jpg')` }} 
-            />
-            <div className="why-card-overlay" />
-
-            <div className="why-card-top">
-              <div className="why-card-icon-box glass">
-                <Zap size={22} />
-              </div>
-              <span className="why-glass-badge">
-                <CheckCircle2 size={13} style={{ marginRight: 4 }} />
-                5 Secteurs Évalués
-              </span>
-            </div>
-
-            <div className="why-card-bottom">
-              <h3>Évaluation sectorielle</h3>
-              <p>Agriculture, foresterie, transport, industrie et milieu communautaire : une cartographie complète des dynamiques du territoire.</p>
-              <div className="why-action-link" onClick={onStartEval}>
-                <span>Découvrir les 5 secteurs</span>
-                <ArrowUpRight size={16} />
-              </div>
-            </div>
-          </div>
-
-          {/* Card 2: Évaluation d'activités (Clean Soft Premium White) */}
-          <div className="why-premium-card clean-soft-white reveal-on-scroll reveal-delay-2">
-            <div className="why-card-top">
-              <div className="why-card-icon-box soft-emerald">
-                <Shield size={22} />
-              </div>
-              <span className="why-soft-badge">
-                <Activity size={13} style={{ marginRight: 4 }} />
-                Mesure 360°
-              </span>
-            </div>
-
-            <div className="why-card-bottom">
-              <h3>Évaluation d'activités</h3>
-              <p>Formations, projets, concertations et initiatives locales : mesurez précisément les retombées environnementales et sociales.</p>
-              <div className="why-soft-footer">
-                <span className="why-soft-metric">Indicateurs Sociaux &amp; Environnementaux</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Card 3: Action Territoriale */}
-          <div className="why-premium-card has-bg-image reveal-on-scroll reveal-delay-3">
-            <div 
-              className="why-card-bg" 
-              style={{ backgroundImage: `url('/images/green-globe-with-clouds-and-blue-sky-2026-01-11-08-03-55-utc.jpg')` }} 
-            />
-            <div className="why-card-overlay" />
-
-            <div className="why-card-top">
-              <div className="why-card-icon-box glass">
-                <Compass size={22} />
-              </div>
-              <span className="why-glass-badge">
-                24 457 Habitants
-              </span>
-            </div>
-
-            <div className="why-card-bottom">
-              <h3>Action Territoriale</h3>
-              <p>Une démarche collective pour suivre la réduction des émissions et préserver les écosystèmes forestiers et agricoles.</p>
-              <button onClick={onStartEval} className="bento-white-btn" style={{ marginTop: '12px' }}>
-                <span>Lancer mon évaluation</span>
-                <ArrowUpRight size={16} />
-              </button>
+        {/* Central Showcase Image Card with Floating Badge */}
+        <div className="hero-showcase-card reveal-on-scroll reveal-delay-1">
+          <img 
+            src="/images/hero-moss.jpg" 
+            alt="Transition écologique des collectivités et territoires" 
+            className="hero-showcase-img" 
+          />
+          <div className="hero-showcase-overlay">
+            <div className="hero-showcase-badge">
+              <CheckCircle2 size={18} />
+              <span>Outil de calcul certifié ISO 14064 — Adaptable à tout territoire</span>
             </div>
           </div>
         </div>
+
+        {/* 3 High Contrast Stats Cards Row */}
+        <div className="stats-mint-grid reveal-on-scroll reveal-delay-2">
+          {/* Card 1: Dark Hero Card (#052e1e + #dcfc49) */}
+          <div className="stat-mint-card dark-hero">
+            <div className="stat-mint-value">24 457</div>
+            <div className="stat-mint-title">Acteurs &amp; Citoyens Engagés</div>
+            <div className="stat-mint-desc">
+              Mobilisés sur le territoire pilote et prêts à s'étendre à toutes les municipalités.
+            </div>
+          </div>
+
+          {/* Card 2: Crisp White Card */}
+          <div className="stat-mint-card">
+            <div className="stat-mint-value">43 %</div>
+            <div className="stat-mint-title">Emplois Économiques</div>
+            <div className="stat-mint-desc">
+              Issus du secteur agricole et forestier, piliers de l'économie territoriale.
+            </div>
+          </div>
+
+          {/* Card 3: Crisp White Card */}
+          <div className="stat-mint-card">
+            <div className="stat-mint-value">37</div>
+            <div className="stat-mint-title">Indicateurs d'Impact</div>
+            <div className="stat-mint-desc">
+              Permettant de suivre précisément la trajectoire de décarbonation de votre région.
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
   );
 }
+
+

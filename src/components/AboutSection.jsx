@@ -1,94 +1,118 @@
 import React from 'react';
-import { Layers, Home, MapPin, ArrowUpRight, Building2 } from 'lucide-react';
+import { Leaf, Linkedin, Mail, ExternalLink, Award, Users, Layers, ShieldCheck, Building2 } from 'lucide-react';
 
 export default function AboutSection({ onStartEval }) {
+  const teamMembers = [
+    {
+      name: "Jean-Marc Beaudoin",
+      role: "Coordonnateur Transition — CDC L'Érable",
+      image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&auto=format&fit=crop&q=80",
+      linkedin: "#"
+    },
+    {
+      name: "Sophie Tremblay",
+      role: "Spécialiste Bilan GES & Analyse ISO",
+      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80",
+      linkedin: "#"
+    },
+    {
+      name: "Marc-Antoine Roy",
+      role: "Responsable Concertation Territoriale",
+      image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&auto=format&fit=crop&q=80",
+      linkedin: "#"
+    }
+  ];
+
+  const partners = [
+    { name: "CDC de L'Érable", logo: "/images/CDCE-horizontal.png", note: "Initiateur du projet" },
+    { name: "MRC de L'Érable", logo: null, note: "Partenaire territorial" },
+    { name: "Ville de Plessisville", logo: null, note: "Collectivité engagée" },
+    { name: "Chaire UQAM", logo: null, note: "Boussole climatique" },
+    { name: "Recyc-Québec", logo: null, note: "Soutien transition" }
+  ];
+
   return (
-    <section className="about-framer-section">
-      <div className="container about-framer-container">
-        {/* Section Title */}
-        <div className="about-framer-header reveal-on-scroll">
-          <h2 className="about-framer-title">
-            Une démarche collective ancrée dans les réalités de la <span className="highlight-text-gradient">MRC de L'Érable</span>.
+    <section id="regional" className="section-padded" style={{ backgroundColor: '#ffffff' }}>
+      <div className="container">
+
+        {/* Part 1: Partners & Alliances */}
+        <div className="eco-section-header reveal-on-scroll">
+          <div className="eco-pill-badge">
+            <span className="eco-badge-icon">
+              <Leaf size={14} />
+            </span>
+            <span>Nos Partenaires &amp; Soutiens</span>
+          </div>
+
+          <h2 className="eco-section-title">
+            Une alliance solide au service de la transition des collectivités et territoires
           </h2>
+
+          <p className="eco-section-subtitle">
+            L'outil d'évaluation GES est né de la collaboration initiée dans la MRC de L'Érable avec les acteurs institutionnels, communautaires et économiques, et est déployable au bénéfice de l'ensemble des territoires et municipalités.
+          </p>
         </div>
 
-        {/* Bento Grid Layout using authentic project image */}
-        <div className="about-framer-bento-grid">
-          {/* Left Authentic Project Image Card */}
-          <div className="about-hero-bento-card reveal-on-scroll reveal-delay-1">
-            <div 
-              className="about-bento-bg" 
-              style={{ backgroundImage: `url('/images/esg-strategy-discussion-around-the-wooden-table-2026-03-20-04-19-54-utc.jpg')` }} 
-            />
-            <div className="about-bento-overlay" />
-
-            <div className="about-bento-bottom">
-              <p className="about-bento-desc">
-                Portée par un tissu communautaire dynamique, la transition socioclimatique réunit citoyens, organismes, entreprises et institutions autour d'un objectif : mesurer pour mieux agir.
-              </p>
-              <button onClick={onStartEval} className="bento-white-btn">
-                <span>Découvrir la démarche</span>
-                <ArrowUpRight size={16} />
-              </button>
+        {/* Partner Cards Row */}
+        <div className="partners-mint-grid reveal-on-scroll reveal-delay-1" style={{ marginBottom: '80px' }}>
+          {partners.map((p, idx) => (
+            <div key={idx} className="partner-mint-card">
+              {p.logo ? (
+                <img src={p.logo} alt={p.name} className="partner-mint-logo" />
+              ) : (
+                <div style={{ background: '#052e1e', color: '#dcfc49', padding: '14px', borderRadius: '50%' }}>
+                  <Building2 size={24} />
+                </div>
+              )}
+              <span className="partner-mint-name">{p.name}</span>
             </div>
-          </div>
-
-          {/* Right Column: Partners & Ecosystem Bento Cards */}
-          <div className="about-right-bento-col reveal-on-scroll reveal-delay-2">
-            {/* Partners Card */}
-            <div className="about-partners-bento-card">
-              <div className="partners-card-header">
-                <h4>Gouvernance partagée du territoire</h4>
-              </div>
-
-              <div className="framer-partners-grid">
-                <div className="framer-partner-featured">
-                  <img src="/images/CDCE-horizontal.png" alt="CDC de L'Érable" className="cdce-logo-img-framer" />
-                  <span className="partner-badge-tag">Initiateur du projet</span>
-                </div>
-
-                <div className="framer-partner-item">
-                  <Layers size={18} className="partner-icon" />
-                  <span>MRC de L'Érable</span>
-                </div>
-
-                <div className="framer-partner-item">
-                  <Home size={18} className="partner-icon" />
-                  <span>Ville de Plessisville</span>
-                </div>
-
-                <div className="framer-partner-item">
-                  <MapPin size={18} className="partner-icon" />
-                  <span>Régie des matières résiduelles</span>
-                </div>
-              </div>
-            </div>
-
-            {/* 2 Mini Feature Bento Cards */}
-            <div className="about-mini-bento-row">
-              <div className="about-mini-bento-card">
-                <div className="mini-bento-icon green">
-                  <MapPin size={22} />
-                </div>
-                <div className="mini-bento-content">
-                  <h5>10 Municipalités</h5>
-                  <p>Centre-du-Québec</p>
-                </div>
-              </div>
-
-              <div className="about-mini-bento-card dark">
-                <div className="mini-bento-icon neon">
-                  <Building2 size={22} />
-                </div>
-                <div className="mini-bento-content">
-                  <h5>24 457 Habitants</h5>
-                  <p>Citoyens &amp; PME</p>
-                </div>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
+
+        {/* Part 2: Team & Governance Section */}
+        <div className="eco-section-header reveal-on-scroll">
+          <div className="eco-pill-badge">
+            <span className="eco-badge-icon">
+              <Users size={14} />
+            </span>
+            <span>Équipe &amp; Gouvernance</span>
+          </div>
+
+          <h2 className="eco-section-title">
+            Une équipe engagée pour un impact socioclimatique durable
+          </h2>
+
+          <p className="eco-section-subtitle">
+            Experts en développement territorial, modélisation GES et accompagnement communautaire réunis pour piloter l'initiative socioclimatique.
+          </p>
+        </div>
+
+        {/* 3 Team Cards */}
+        <div className="team-grid reveal-on-scroll reveal-delay-2">
+          {teamMembers.map((member, idx) => (
+            <div key={idx} className="team-card">
+              <div className="team-avatar-wrapper">
+                <img src={member.image} alt={member.name} className="team-avatar-img" />
+              </div>
+              <div className="team-name">{member.name}</div>
+              <div className="team-role">{member.role}</div>
+
+              <a href={member.linkedin} className="team-social-btn" aria-label={`LinkedIn ${member.name}`}>
+                <Linkedin size={18} />
+              </a>
+            </div>
+          ))}
+        </div>
+
+        {/* Carousel pagination indicators from Samsun design */}
+        <div className="carousel-dots">
+          <span className="dot active"></span>
+          <span className="dot"></span>
+          <span className="dot"></span>
+        </div>
+
       </div>
     </section>
   );
 }
+

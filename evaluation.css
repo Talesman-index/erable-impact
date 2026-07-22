@@ -7,10 +7,11 @@
 
 /* ── Design Tokens ─────────────────────────────────────────── */
 :root {
-    --color-primary: #059669;
-    --color-primary-dark: #047857;
-    --color-primary-light: #d1fae5;
-    --color-secondary: #0f172a;
+    --color-primary: #1b4332;
+    --color-primary-dark: #143326;
+    --color-primary-light: #f2f7f4;
+    --color-primary-border: #b7e4c7;
+    --color-secondary: #1b4332;
     --color-text: #1e293b;
     --color-muted: #64748b;
     --color-border: #e2e8f0;
@@ -100,15 +101,17 @@ body {
 }
 
 .step-pill.active {
-    background: var(--color-primary);
-    border-color: var(--color-primary);
-    color: #fff;
+    background: #1b4332;
+    border-color: #1b4332;
+    color: #ffffff;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(27, 67, 50, 0.18);
 }
 
 .step-pill.done {
-    background: var(--color-primary-light);
-    border-color: var(--color-primary);
-    color: var(--color-primary-dark);
+    background: #f2f7f4;
+    border-color: #b7e4c7;
+    color: #1b4332;
 }
 
 .step-pill-sep {
@@ -126,12 +129,12 @@ body {
 
 .eval-user-badge {
     font-size: 0.8rem;
-    font-weight: 600;
-    padding: 4px 12px;
-    background: var(--color-primary-light);
-    color: var(--color-primary-dark);
+    font-weight: 700;
+    padding: 6px 14px;
+    background: #f2f7f4;
+    color: #1b4332;
     border-radius: var(--radius-full);
-    border: 1px solid var(--color-primary);
+    border: 1px solid #b7e4c7;
 }
 
 .btn-eval-back {
@@ -1967,22 +1970,23 @@ body {
 
 .btn-onboarding-start {
     height: 48px;
-    padding: 0 40px;
-    background: #059669;
+    padding: 0 36px;
+    background: #1b4332;
     color: #ffffff;
     border: none;
-    border-radius: 12px;
-    font-size: 1rem;
-    font-weight: 800;
+    border-radius: 9999px;
+    font-size: 0.95rem;
+    font-weight: 700;
     cursor: pointer;
-    transition: all 0.25s ease;
-    box-shadow: 0 4px 14px rgba(5, 150, 105, 0.3);
+    transition: all 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+    box-shadow: 0 4px 14px rgba(27, 67, 50, 0.2);
 }
 
 .btn-onboarding-start:hover {
-    background: #047857;
+    background: #2d6a4f;
+    color: #ffffff;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(5, 150, 105, 0.4);
+    box-shadow: 0 6px 18px rgba(27, 67, 50, 0.3);
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -2447,14 +2451,14 @@ body {
 }
 
 .tile-option-card:hover {
-    border-color: #059669;
-    background: #f0fdf4;
+    border-color: #2d6a4f;
+    background: #f8fafc;
 }
 
 .tile-option-card.active {
-    border-color: #059669;
-    background: #f0fdf4;
-    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.12);
+    border-color: #1b4332;
+    background: #f2f7f4;
+    box-shadow: 0 4px 14px rgba(27, 67, 50, 0.12);
 }
 
 .tile-option-title {
@@ -2465,7 +2469,15 @@ body {
 }
 
 .tile-option-card.active .tile-option-title {
-    color: #047857;
+    color: #1b4332;
+}
+
+.tile-option-card.active .tile-option-subtitle {
+    color: #475569;
+}
+
+.tile-option-card.active svg {
+    color: #1b4332 !important;
 }
 
 .tile-option-subtitle {

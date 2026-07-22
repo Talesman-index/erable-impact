@@ -1,8 +1,29 @@
 import React, { useState } from 'react';
-import { BookOpen, HelpCircle, ChevronDown, ChevronUp, Layers, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Leaf, BookOpen, HelpCircle, ChevronDown, ChevronUp, ArrowLeft, ArrowRight } from 'lucide-react';
 
 export default function GuideFAQSection({ onStartEval }) {
   const [activeFaq, setActiveFaq] = useState(null);
+
+  const newsArticles = [
+    {
+      date: "22 Juillet 2026",
+      title: "Lancement du bilan d'émissions brutes de la MRC de L'Érable",
+      desc: "Découvrez les données agrégées et anonymisées du territoire conformément à la Loi 25 et à la norme ISO 14064.",
+      image: "/images/earth-globe-on-green-grass-with-autumn-leaves-2026-03-09-07-13-32-utc.jpg"
+    },
+    {
+      date: "14 Juin 2026",
+      title: "Guide pratique : 41 actions pour les PME et institutions",
+      desc: "Un plan stratégique territorial décliné en fiches d'actions concrètes pour optimiser vos bâtiments et transports.",
+      image: "/images/businesswoman-analyzing-esg-report-with-green-sphe-2026-01-20-01-09-53-utc.jpg"
+    },
+    {
+      date: "02 Mai 2026",
+      title: "Ateliers de concertation socioclimatique en milieu rural",
+      desc: "Retour sur la mobilisation des 10 municipalités du Centre-du-Québec pour une gouvernance environnementale inclusive.",
+      image: "/images/esg-strategy-discussion-around-the-wooden-table-2026-03-20-04-19-54-utc.jpg"
+    }
+  ];
 
   const faqs = [
     {
@@ -28,65 +49,80 @@ export default function GuideFAQSection({ onStartEval }) {
   ];
 
   return (
-    <section id="guide-faq" className="section-padded" style={{ backgroundColor: '#f8fafc', borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0' }}>
-      <div className="container" style={{ maxWidth: '1100px', margin: '0 auto' }}>
-        
-        {/* Section Header */}
-        <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#f0fdf4', border: '1px solid #bbf7d0', color: '#059669', padding: '6px 16px', borderRadius: '9999px', fontWeight: 700, fontSize: '0.88rem', marginBottom: '16px' }}>
-            <BookOpen size={18} />
-            Guide Utilisateur &amp; Documentation
+    <section id="guide-faq" className="section-padded" style={{ backgroundColor: '#f8fafc' }}>
+      <div className="container">
+
+        {/* News & Articles Section */}
+        <div className="eco-section-header reveal-on-scroll">
+          <div className="eco-pill-badge">
+            <span className="eco-badge-icon">
+              <BookOpen size={14} />
+            </span>
+            <span>Actualités &amp; Guides du Territoire</span>
           </div>
-          <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#0f172a', marginBottom: '12px', fontFamily: 'var(--font-heading)' }}>
-            Comment fonctionne la plateforme ?
+
+          <h2 className="eco-section-title">
+            Découvrez les avancées et guides de la transition
           </h2>
-          <p style={{ color: '#64748b', fontSize: '1.05rem', maxWidth: '650px', margin: '0 auto' }}>
-            Tout ce qu'il faut savoir pour mesurer l'empreinte environnementale de votre organisation ou ménage dans la MRC de L'Érable.
+
+          <p className="eco-section-subtitle">
+            Consultez nos derniers articles, fiches méthodologiques et bilans régionaux pour enrichir vos démarches socioclimatiques.
           </p>
         </div>
 
-        {/* 6-Step Visual Cards Grid */}
-        <div style={{ marginBottom: '56px' }}>
-          <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0f172a', marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <Layers size={22} style={{ color: '#059669' }} /> Les 6 étapes de votre bilan
-          </h3>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
-            {[
-              { num: "01", title: "Profil & Secteur", desc: "Identifiez votre statut (institution, entreprise, OBNL, citoyen) et l'un des 12 secteurs d'activité." },
-              { num: "02", title: "Boussole UQAM", desc: "Consultez la Boussole de la transition de la Chaire UQAM pour guider vos réflexions écologiques." },
-              { num: "03", title: "Questionnaire Progressif", desc: "Répondez selon le niveau de votre choix (Rapide 5 min, Détaillé 15 min, Expert 30 min)." },
-              { num: "04", title: "Résultats & Transparence", desc: "Découvrez vos Émissions Brutes et Actions Positives présentées séparément (ISO 14064)." },
-              { num: "05", title: "Plan Climatique Collectif", desc: "Accédez à vos recommandations personnalisées parmi les 41 actions du territoire." },
-              { num: "06", title: "Export & Portrait Régional", desc: "Téléchargez votre bilan en PDF/CSV et contribuez de façon anonymisée (Loi 25)." }
-            ].map(item => (
-              <div key={item.num} style={{ background: '#ffffff', borderRadius: '18px', padding: '24px', border: '1px solid #e2e8f0', boxShadow: '0 4px 12px rgba(0,0,0,0.03)', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                <div style={{ fontSize: '1.4rem', fontWeight: 900, color: '#059669', opacity: 0.9 }}>{item.num}</div>
-                <h4 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#0f172a', margin: 0 }}>{item.title}</h4>
-                <p style={{ fontSize: '0.92rem', color: '#475569', margin: 0, lineHeight: 1.6 }}>{item.desc}</p>
+        {/* 3 News Cards Grid */}
+        <div className="news-grid reveal-on-scroll reveal-delay-1">
+          {newsArticles.map((article, idx) => (
+            <div key={idx} className="news-card">
+              <div className="news-img-wrap">
+                <img src={article.image} alt={article.title} className="news-img" />
+                <span className="news-date-badge">{article.date}</span>
               </div>
-            ))}
-          </div>
+              <div className="news-body">
+                <h3 className="news-title">{article.title}</h3>
+                <p className="news-desc">{article.desc}</p>
+                <div style={{ color: '#052e1e', fontWeight: 800, fontSize: '0.92rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <span>Lire l'article</span>
+                  <ArrowRight size={16} style={{ color: '#052e1e' }} />
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
 
-        {/* FAQ Accordion Section */}
-        <div style={{ background: '#ffffff', borderRadius: '24px', padding: '40px', border: '1px solid #e2e8f0', boxShadow: '0 10px 30px rgba(0,0,0,0.04)' }}>
-          <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0f172a', marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <HelpCircle size={22} style={{ color: '#059669' }} /> Foire Aux Questions (FAQ)
-          </h3>
+        {/* Navigation Buttons for News */}
+        <div className="news-nav-bar reveal-on-scroll">
+          <button className="news-nav-btn" aria-label="Article précédent">
+            <ArrowLeft size={18} />
+          </button>
+          <button className="news-nav-btn" aria-label="Article suivant">
+            <ArrowRight size={18} />
+          </button>
+        </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+        {/* FAQ Accordion Block */}
+        <div style={{ marginTop: '80px', background: '#ffffff', borderRadius: '32px', padding: '48px 40px', border: '1px solid #e2e8f0', boxShadow: '0 12px 35px rgba(0,0,0,0.03)' }} className="reveal-on-scroll">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '32px' }}>
+            <div style={{ background: '#052e1e', color: '#dcfc49', padding: '12px', borderRadius: '50%' }}>
+              <HelpCircle size={24} />
+            </div>
+            <h3 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#052e1e', margin: 0, fontFamily: 'var(--font-heading)' }}>
+              Foire Aux Questions (FAQ)
+            </h3>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {faqs.map((faq, idx) => (
-              <div key={idx} style={{ border: '1px solid #e2e8f0', borderRadius: '14px', overflow: 'hidden' }}>
+              <div key={idx} style={{ border: '1px solid #e2e8f0', borderRadius: '18px', overflow: 'hidden' }}>
                 <button 
                   onClick={() => setActiveFaq(activeFaq === idx ? null : idx)}
-                  style={{ width: '100%', padding: '18px 24px', background: activeFaq === idx ? '#f0fdf4' : '#ffffff', border: 'none', textAlign: 'left', fontWeight: 700, fontSize: '1.02rem', color: activeFaq === idx ? '#065f46' : '#0f172a', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', transition: 'background 0.2s ease' }}
+                  style={{ width: '100%', padding: '20px 28px', background: activeFaq === idx ? '#052e1e' : '#ffffff', border: 'none', textAlign: 'left', fontWeight: 800, fontSize: '1.05rem', color: activeFaq === idx ? '#dcfc49' : '#0f172a', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', transition: 'all 0.25s ease' }}
                 >
                   <span>{faq.q}</span>
-                  {activeFaq === idx ? <ChevronUp size={20} style={{ color: '#059669' }} /> : <ChevronDown size={20} style={{ color: '#64748b' }} />}
+                  {activeFaq === idx ? <ChevronUp size={22} style={{ color: '#dcfc49' }} /> : <ChevronDown size={22} style={{ color: '#64748b' }} />}
                 </button>
                 {activeFaq === idx && (
-                  <div style={{ padding: '18px 24px', background: '#ffffff', fontSize: '0.95rem', color: '#334155', borderTop: '1px solid #e2e8f0', lineHeight: 1.6 }}>
+                  <div style={{ padding: '22px 28px', background: '#ffffff', fontSize: '1rem', color: '#334155', borderTop: '1px solid #e2e8f0', lineHeight: 1.65 }}>
                     {faq.a}
                   </div>
                 )}
@@ -94,9 +130,10 @@ export default function GuideFAQSection({ onStartEval }) {
             ))}
           </div>
 
-          <div style={{ textAlign: 'center', marginTop: '36px', paddingTop: '24px', borderTop: '1px solid #f1f5f9' }}>
-            <button onClick={onStartEval} className="btn-onboarding-start" style={{ background: '#059669', color: '#ffffff', margin: '0 auto', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
-              Commencer votre bilan GES <ArrowRight size={18} />
+          <div style={{ textAlign: 'center', marginTop: '40px', paddingTop: '28px', borderTop: '1px solid #f1f5f9' }}>
+            <button onClick={onStartEval} className="eco-btn-action">
+              <span>Commencer votre bilan GES</span>
+              <ArrowRight size={18} />
             </button>
           </div>
         </div>
@@ -105,3 +142,5 @@ export default function GuideFAQSection({ onStartEval }) {
     </section>
   );
 }
+
+

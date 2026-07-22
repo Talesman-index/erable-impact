@@ -4,6 +4,7 @@ export default function HeroSection({ onStartEval }) {
   return (
     <section className="hero-section">
       <video autoPlay muted loop playsInline className="hero-video-bg">
+        <source src="/hero_new.mp4" type="video/mp4" />
         <source src="/hero.mov" type="video/mp4" />
         <source src="/hero.mov" type="video/quicktime" />
       </video>
@@ -25,7 +26,7 @@ export default function HeroSection({ onStartEval }) {
               Lancer l'évaluation <span className="arrow-top-right">↗</span>
             </button>
             <p className="hero-desc-solarion">
-              Un outil commun initié par la CDC de L'Érable pour identifier, mesurer et suivre les impacts environnementaux des citoyens, organisations, entreprises et institutions du territoire.
+              Un outil commun d'évaluation environnementale initié par la CDC de L'Érable, accessible à l'ensemble des territoires pour mesurer et suivre les impacts des citoyens, PME, organisations et collectivités.
             </p>
           </div>
         </div>

@@ -1,106 +1,129 @@
-import React from 'react';
-import { Zap, Truck, ArrowUpRight, Sprout, Car } from 'lucide-react';
+import React, { useState } from 'react';
+import { Leaf, ArrowRight, CheckCircle2, Zap, Sprout, Truck, Users } from 'lucide-react';
 
 export default function CategoriesSection({ onStartEval }) {
+  const [activeTab, setActiveTab] = useState(0);
+
+  const tabsData = [
+    {
+      id: 'energie',
+      label: 'Énergie & Bâtiments',
+      title: 'Performance & Énergie du Bâtiment',
+      desc: "Analyse et optimisation des consommations énergétiques des infrastructures publiques, industrielles et privées de vos collectivités et territoires.",
+      image: '/images/energie-batiment.jpg',
+      points: [
+        'Évaluation de l\'efficacité thermique & isolation',
+        'Optimisation de l\'électricité et chauffage hydroélectrique',
+        'Identification des subventions et plans de rénovation'
+      ]
+    },
+    {
+      id: 'agri',
+      label: 'Agriculture & Foresterie',
+      title: 'Pratiques Agricoles & Conservation Forestière',
+      desc: "Valorisation du sol, gestion des rejets et préservation des 60% de couverture forestière du territoire.",
+      image: '/images/agricoles-foresterie.jpg',
+      points: [
+        'Calcul des émissions d\'azote et gestion des engrais',
+        'Stockage du carbone dans le sol et les forêts',
+        'Protection de la biodiversité locale du Centre-du-Québec'
+      ]
+    },
+    {
+      id: 'mobilite',
+      label: 'Transports & Mobilité',
+      title: 'Flottes & Déplacements Ruraux',
+      desc: "Optimisation de la mobilité rurale, carburants alternatifs et réduction des déplacements individuels.",
+      image: '/images/flottes-deplacements.jpg',
+      points: [
+        'Analyse des trajets quotidiens et déplacements de travail',
+        'Électrification des véhicules et bornes de recharge',
+        'Encouragement du covoiturage et transports collectifs'
+      ]
+    },
+    {
+      id: 'communautaire',
+      label: 'Milieu Communautaire',
+      title: 'Action Citoyenne & Organismes',
+      desc: "Engagement des foyers, des écoles et des OBNL pour ancrer des habitudes éco-responsables à grande échelle.",
+      image: '/images/action-citoyenne.jpg',
+      points: [
+        'Sensibilisation et bilans familiaux accessibles en 5 min',
+        'Gestion zéro déchet et économie circulaire localisée',
+        'Valorisation des initiatives citoyennes du territoire'
+      ]
+    }
+  ];
+
+  const currentTab = tabsData[activeTab];
+
   return (
-    <section id="measure" className="categories-section-new">
-      <div className="container measure-new-container">
-        {/* Header Row */}
-        <div className="measure-header-row reveal-on-scroll">
-          <div>
-            <h2 className="measure-title">Secteurs d'évaluation environnementale</h2>
+    <section id="measure" className="section-padded" style={{ backgroundColor: '#f8fafc' }}>
+      <div className="container">
+        
+        {/* Section Header */}
+        <div className="eco-section-header reveal-on-scroll">
+          <div className="eco-pill-badge">
+            <span className="eco-badge-icon">
+              <Leaf size={14} />
+            </span>
+            <span>Fonctionnalités &amp; Secteurs</span>
           </div>
 
-          <button onClick={onStartEval} className="btn-neon-yellow-capsule">
-            <span>Faire le test</span>
-            <ArrowUpRight size={18} className="btn-arrow-motion" />
-          </button>
+          <h2 className="eco-section-title">
+            Des outils d'évaluation adaptés à chaque secteur du territoire
+          </h2>
+
+          <p className="eco-section-subtitle">
+            Sélectionnez un secteur ci-dessous pour découvrir la méthodologie spécifique et mesurer vos impacts avec précision.
+          </p>
         </div>
 
-        {/* Bento Grid with Project Photography */}
-        <div className="categories-grid-bento">
-          {/* Card 1: Énergie */}
-          <div className="bento-sector-card energy-bento has-hover-image reveal-on-scroll reveal-delay-1">
-            <div 
-              className="bento-hover-bg" 
-              style={{ backgroundImage: `url('/images/businesswoman-analyzing-esg-report-with-green-sphe-2026-01-20-01-09-53-utc.jpg')` }} 
-            />
-            <div className="bento-hover-overlay" />
+        {/* Dark Green Horizontal Tab Bar */}
+        <div className="dark-tab-container reveal-on-scroll">
+          {tabsData.map((tab, idx) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(idx)}
+              className={`dark-tab-item ${activeTab === idx ? 'active' : ''}`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
 
-            <div className="bento-sector-top">
-              <div className="bento-sector-icon">
-                <Zap size={24} />
-              </div>
-              <span className="bento-pill-badge">
-                <Zap size={13} style={{ marginRight: 4, display: 'inline-block', verticalAlign: 'middle' }} />
-                Bilan Énergétique
-              </span>
-            </div>
-            
-            <div className="bento-sector-bottom">
-              <h3>Énergie &amp; Bâtiments</h3>
-              <p>Évaluez l'efficacité énergétique de vos bâtiments et infrastructures. Identifiez les leviers de réduction de consommation et d'émissions.</p>
-              <div className="bento-action-link" onClick={onStartEval}>
-                <span>Analyser mes bâtiments</span>
-                <ArrowUpRight size={16} />
-              </div>
-            </div>
+        {/* Tab Content Showcase Card */}
+        <div className="tab-showcase-card reveal-on-scroll reveal-delay-1">
+          <div className="tab-showcase-content">
+            <h3>{currentTab.title}</h3>
+            <p>{currentTab.desc}</p>
+
+            <ul className="tab-showcase-list">
+              {currentTab.points.map((pt, i) => (
+                <li key={i}>
+                  <CheckCircle2 size={20} />
+                  <span>{pt}</span>
+                </li>
+              ))}
+            </ul>
+
+            <button onClick={onStartEval} className="eco-btn-action">
+              <span>Évaluer ce secteur</span>
+              <ArrowRight size={18} />
+            </button>
           </div>
 
-          {/* Card 2: Agriculture (Hero Image Card with authentic field photo) */}
-          <div className="bento-sector-card agri-bento reveal-on-scroll reveal-delay-2">
-            <div 
-              className="bento-agri-bg" 
-              style={{ backgroundImage: `url('/images/beatiful-morning-green-field-with-blue-heaven-2026-03-26-04-36-32-utc.jpg')` }} 
+          <div className="tab-showcase-img-wrap">
+            <img 
+              src={currentTab.image} 
+              alt={currentTab.title} 
+              className="tab-showcase-img" 
             />
-            <div className="bento-agri-overlay" />
-            
-            <div className="bento-agri-top">
-              <span className="bento-glass-pill">
-                <Sprout size={13} style={{ marginRight: 4, display: 'inline-block', verticalAlign: 'middle' }} />
-                43 % des emplois de la MRC
-              </span>
-            </div>
-
-            <div className="bento-agri-content">
-              <h3>Agriculture &amp; Foresterie</h3>
-              <p>Mesurez l'empreinte de vos pratiques agricoles et forestières pour préserver la qualité des sols et les milieux naturels du territoire.</p>
-              <button onClick={onStartEval} className="bento-white-btn">
-                <span>Évaluer les pratiques</span>
-                <ArrowUpRight size={16} />
-              </button>
-            </div>
-          </div>
-
-          {/* Card 3: Mobilité */}
-          <div className="bento-sector-card mobility-bento has-hover-image reveal-on-scroll reveal-delay-3">
-            <div 
-              className="bento-hover-bg" 
-              style={{ backgroundImage: `url('/images/green-globe-with-trees-and-windmills-against-sky-2026-03-26-03-35-56-utc.jpg')` }} 
-            />
-            <div className="bento-hover-overlay" />
-
-            <div className="bento-sector-top">
-              <div className="bento-sector-icon">
-                <Truck size={24} />
-              </div>
-              <span className="bento-pill-badge">
-                <Car size={13} style={{ marginRight: 4, display: 'inline-block', verticalAlign: 'middle' }} />
-                Mobilité Rurale
-              </span>
-            </div>
-            
-            <div className="bento-sector-bottom">
-              <h3>Transports &amp; Mobilité</h3>
-              <p>Analyse des déplacements professionnels et personnels en milieu rural pour identifier des solutions d'optimisation adaptées.</p>
-              <div className="bento-action-link" onClick={onStartEval}>
-                <span>Calculer les déplacements</span>
-                <ArrowUpRight size={16} />
-              </div>
-            </div>
           </div>
         </div>
+
       </div>
     </section>
   );
 }
+
